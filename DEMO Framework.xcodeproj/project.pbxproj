@@ -20,12 +20,12 @@
 		B042EC7C1A939B6200C2E6D9 /* MasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B042EC7A1A939B6200C2E6D9 /* MasterViewController.m */; };
 		B042EC7F1A939D0A00C2E6D9 /* CoreDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B042EC7E1A939D0A00C2E6D9 /* CoreDataManager.m */; };
 		B042EC821A939D2100C2E6D9 /* APIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B042EC811A939D2100C2E6D9 /* APIManager.m */; };
-		B042EC861A93A4D400C2E6D9 /* NSDate+PrettyDate.m in Sources */ = {isa = PBXBuildFile; fileRef = B042EC851A93A4D400C2E6D9 /* NSDate+PrettyDate.m */; };
 		B042EC8A1A93ABD500C2E6D9 /* SensorType.m in Sources */ = {isa = PBXBuildFile; fileRef = B042EC891A93ABD500C2E6D9 /* SensorType.m */; };
 		B042EC8D1A93ABD500C2E6D9 /* SensorTypeCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = B042EC8C1A93ABD500C2E6D9 /* SensorTypeCategory.m */; };
 		B042EC901A93ABD500C2E6D9 /* Controller.m in Sources */ = {isa = PBXBuildFile; fileRef = B042EC8F1A93ABD500C2E6D9 /* Controller.m */; };
 		B042EC931A93ABD600C2E6D9 /* Sensor.m in Sources */ = {isa = PBXBuildFile; fileRef = B042EC921A93ABD600C2E6D9 /* Sensor.m */; };
 		B042EC961A93ABD600C2E6D9 /* SensorReading.m in Sources */ = {isa = PBXBuildFile; fileRef = B042EC951A93ABD600C2E6D9 /* SensorReading.m */; };
+		B0CDE4171A94EB7700C8F60E /* NSDate+PrettyDate.m in Sources */ = {isa = PBXBuildFile; fileRef = B0CDE4161A94EB7700C8F60E /* NSDate+PrettyDate.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -62,8 +62,6 @@
 		B042EC7E1A939D0A00C2E6D9 /* CoreDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreDataManager.m; sourceTree = "<group>"; };
 		B042EC801A939D2100C2E6D9 /* APIManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APIManager.h; sourceTree = "<group>"; };
 		B042EC811A939D2100C2E6D9 /* APIManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = APIManager.m; sourceTree = "<group>"; };
-		B042EC841A93A4D400C2E6D9 /* NSDate+PrettyDate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSDate+PrettyDate.h"; path = "../../../../Downloads/Archive/NSDate+PrettyDate.h"; sourceTree = "<group>"; };
-		B042EC851A93A4D400C2E6D9 /* NSDate+PrettyDate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSDate+PrettyDate.m"; path = "../../../../Downloads/Archive/NSDate+PrettyDate.m"; sourceTree = "<group>"; };
 		B042EC881A93ABD500C2E6D9 /* SensorType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SensorType.h; sourceTree = "<group>"; };
 		B042EC891A93ABD500C2E6D9 /* SensorType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SensorType.m; sourceTree = "<group>"; };
 		B042EC8B1A93ABD500C2E6D9 /* SensorTypeCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SensorTypeCategory.h; sourceTree = "<group>"; };
@@ -74,6 +72,8 @@
 		B042EC921A93ABD600C2E6D9 /* Sensor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Sensor.m; sourceTree = "<group>"; };
 		B042EC941A93ABD600C2E6D9 /* SensorReading.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SensorReading.h; sourceTree = "<group>"; };
 		B042EC951A93ABD600C2E6D9 /* SensorReading.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SensorReading.m; sourceTree = "<group>"; };
+		B0CDE4151A94EB7700C8F60E /* NSDate+PrettyDate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+PrettyDate.h"; sourceTree = "<group>"; };
+		B0CDE4161A94EB7700C8F60E /* NSDate+PrettyDate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+PrettyDate.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -192,8 +192,8 @@
 		B042EC831A93A4CA00C2E6D9 /* Categories */ = {
 			isa = PBXGroup;
 			children = (
-				B042EC841A93A4D400C2E6D9 /* NSDate+PrettyDate.h */,
-				B042EC851A93A4D400C2E6D9 /* NSDate+PrettyDate.m */,
+				B0CDE4151A94EB7700C8F60E /* NSDate+PrettyDate.h */,
+				B0CDE4161A94EB7700C8F60E /* NSDate+PrettyDate.m */,
 			);
 			path = Categories;
 			sourceTree = "<group>";
@@ -316,7 +316,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B042EC861A93A4D400C2E6D9 /* NSDate+PrettyDate.m in Sources */,
+				B0CDE4171A94EB7700C8F60E /* NSDate+PrettyDate.m in Sources */,
 				B042EC171A93891D00C2E6D9 /* DEMO_Framework.xcdatamodeld in Sources */,
 				B042EC3E1A938BC300C2E6D9 /* SensorTableViewCell.m in Sources */,
 				B042EC7B1A939B6200C2E6D9 /* DetailViewController.m in Sources */,
@@ -522,6 +522,7 @@
 				B042EC361A93891E00C2E6D9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		B042EC371A93891E00C2E6D9 /* Build configuration list for PBXNativeTarget "DEMO FrameworkTests" */ = {
 			isa = XCConfigurationList;
@@ -530,6 +531,7 @@
 				B042EC391A93891E00C2E6D9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
