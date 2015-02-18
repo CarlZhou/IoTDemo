@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="6254" systemVersion="14B25" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="Controller" representedClassName="Controller" syncable="YES">
+        <attribute name="c_id" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="c_last_updated" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="c_name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="c_x_coordinate" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="c_y_coordinate" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
+    </entity>
+    <entity name="Event">
+        <attribute name="timeStamp" optional="YES" attributeType="Date">
+            <userInfo/>
+        </attribute>
+        <userInfo/>
+    </entity>
+    <entity name="Sensor" representedClassName="Sensor" syncable="YES">
+        <attribute name="s_channel" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="s_id" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="s_last_updated" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="s_name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="s_serial_num" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="s_status" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <relationship name="s_controller" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Controller" syncable="YES"/>
+        <relationship name="s_last_reading" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="SensorReading" syncable="YES"/>
+        <relationship name="s_sensor_type" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="SensorType" syncable="YES"/>
+    </entity>
+    <entity name="SensorReading" representedClassName="SensorReading" syncable="YES">
+        <attribute name="sr_read_time" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="sr_reading" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+    </entity>
+    <entity name="SensorType" representedClassName="SensorType" syncable="YES">
+        <attribute name="st_id" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="st_last_updated" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="st_model_num" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="st_name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="st_reading_max" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="st_reading_min" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="st_type_description" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="st_sensor_type_category" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="SensorTypeCategory" syncable="YES"/>
+    </entity>
+    <entity name="SensorTypeCategory" representedClassName="SensorTypeCategory" syncable="YES">
+        <attribute name="stc_id" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="stc_last_updated" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="stc_name" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="Controller" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="Event" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="Sensor" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="SensorReading" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="SensorType" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="SensorTypeCategory" positionX="0" positionY="0" width="0" height="0"/>
+    </elements>
+</model>
