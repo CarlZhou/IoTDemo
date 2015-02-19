@@ -10,6 +10,8 @@
 #import "CircularBarView.h"
 #import "Sensor.h"
 
+#define DISPLAYED_PROPERTIES_NUM 10
+
 @interface DetailsViewController ()<UITableViewDataSource, UITableViewDelegate>
 
 @property (strong, nonatomic) IBOutlet UILabel *sensorTitleLabel;
@@ -30,25 +32,41 @@
     currentBarView.displayColor = [UIColor orangeColor];    // fdaa29
     currentBarView.backgroundColor = [UIColor whiteColor];
     [self.currentViewContainer addSubview:currentBarView];
+    
+    self.sensorTitleLabel.text = self.selectedSensor.s_name;
 }
 
 #pragma mark - Table View
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    
+    return 1;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SensorCell" forIndexPath:indexPath];
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    static NSString *CellIdentifier = @"DetailsCell";
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    if (cell == nil)
+    {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier];
+    }
     [self configureCell:cell atIndexPath:indexPath];
     return cell;
 }
 
-- (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
-    Sensor *object = [self.sensors objectAtIndex:indexPath.row];
-    SensorTableViewCell *stvc_cell = (SensorTableViewCell *)cell;
-    [stvc_cell setCellWithSensor:object];
+- (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
+{
+    switch (indexPath.row)
+    {
+        case 0:
+            cell.textLabel.text = @"id";
+            cell.detailTextLabel.text = [NSString stringWithFormat:@"%@", self.selectedSensor.s_id];
+            break;
+            
+        default:
+            break;
+    }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
