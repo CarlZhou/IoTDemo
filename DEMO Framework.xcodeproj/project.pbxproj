@@ -18,7 +18,7 @@
 		B042EC311A93891E00C2E6D9 /* DEMO_FrameworkTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B042EC301A93891E00C2E6D9 /* DEMO_FrameworkTests.m */; };
 		B042EC3E1A938BC300C2E6D9 /* SensorTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B042EC3C1A938BC300C2E6D9 /* SensorTableViewCell.m */; };
 		B042EC3F1A938BC300C2E6D9 /* SensorTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B042EC3D1A938BC300C2E6D9 /* SensorTableViewCell.xib */; };
-		B042EC7B1A939B6200C2E6D9 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B042EC781A939B6200C2E6D9 /* DetailViewController.m */; };
+		B042EC7B1A939B6200C2E6D9 /* RightViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B042EC781A939B6200C2E6D9 /* RightViewController.m */; };
 		B042EC7C1A939B6200C2E6D9 /* MasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B042EC7A1A939B6200C2E6D9 /* MasterViewController.m */; };
 		B042EC7F1A939D0A00C2E6D9 /* CoreDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B042EC7E1A939D0A00C2E6D9 /* CoreDataManager.m */; };
 		B042EC821A939D2100C2E6D9 /* APIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B042EC811A939D2100C2E6D9 /* APIManager.m */; };
@@ -64,8 +64,8 @@
 		B042EC3B1A938BC300C2E6D9 /* SensorTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SensorTableViewCell.h; sourceTree = "<group>"; };
 		B042EC3C1A938BC300C2E6D9 /* SensorTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SensorTableViewCell.m; sourceTree = "<group>"; };
 		B042EC3D1A938BC300C2E6D9 /* SensorTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SensorTableViewCell.xib; sourceTree = "<group>"; };
-		B042EC771A939B6200C2E6D9 /* DetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
-		B042EC781A939B6200C2E6D9 /* DetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
+		B042EC771A939B6200C2E6D9 /* RightViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RightViewController.h; sourceTree = "<group>"; };
+		B042EC781A939B6200C2E6D9 /* RightViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RightViewController.m; sourceTree = "<group>"; };
 		B042EC791A939B6200C2E6D9 /* MasterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MasterViewController.h; sourceTree = "<group>"; };
 		B042EC7A1A939B6200C2E6D9 /* MasterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MasterViewController.m; sourceTree = "<group>"; };
 		B042EC7D1A939D0A00C2E6D9 /* CoreDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreDataManager.h; sourceTree = "<group>"; };
@@ -202,8 +202,8 @@
 		B042EC761A939B1100C2E6D9 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				B042EC771A939B6200C2E6D9 /* DetailViewController.h */,
-				B042EC781A939B6200C2E6D9 /* DetailViewController.m */,
+				B042EC771A939B6200C2E6D9 /* RightViewController.h */,
+				B042EC781A939B6200C2E6D9 /* RightViewController.m */,
 				B042EC791A939B6200C2E6D9 /* MasterViewController.h */,
 				B042EC7A1A939B6200C2E6D9 /* MasterViewController.m */,
 				3C4FBCB61A94F96C0060440B /* GraphViewController.h */,
@@ -368,7 +368,7 @@
 				B042EC171A93891D00C2E6D9 /* DEMO_Framework.xcdatamodeld in Sources */,
 				B042EC3E1A938BC300C2E6D9 /* SensorTableViewCell.m in Sources */,
 				C38091B31A963F3E00BFB7C1 /* BEMPermanentPopupView.m in Sources */,
-				B042EC7B1A939B6200C2E6D9 /* DetailViewController.m in Sources */,
+				B042EC7B1A939B6200C2E6D9 /* RightViewController.m in Sources */,
 				B042EC7F1A939D0A00C2E6D9 /* CoreDataManager.m in Sources */,
 				B042EC8D1A93ABD500C2E6D9 /* SensorTypeCategory.m in Sources */,
 				B042EC961A93ABD600C2E6D9 /* SensorReading.m in Sources */,

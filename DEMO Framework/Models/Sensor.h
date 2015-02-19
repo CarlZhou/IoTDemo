@@ -15,6 +15,7 @@
 
 @property (nonatomic, retain) NSNumber * s_id;
 @property (nonatomic, retain) NSString * s_name;
+@property (nonatomic, retain) NSString * s_unit;
 @property (nonatomic, retain) NSNumber * s_status;
 @property (nonatomic, retain) NSNumber * s_channel;
 @property (nonatomic, retain) NSString * s_serial_num;

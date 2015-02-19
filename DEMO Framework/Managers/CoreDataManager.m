@@ -150,6 +150,7 @@
     NSDictionary *mockSensor = @{
                                  @"id" : @1,
                                  @"name" : @"sensor1",
+                                 @"unit" : @"lumi",
                                  @"status" : @1,
                                  @"channel" : @10,
                                  @"serial_num" : @"A12345",
