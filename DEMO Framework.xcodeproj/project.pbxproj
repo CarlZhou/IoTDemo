@@ -95,6 +95,7 @@
 		C38091B01A963F3E00BFB7C1 /* BEMSimpleLineGraphView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BEMSimpleLineGraphView.m; sourceTree = "<group>"; };
 		C38091B51A968C3F00BFB7C1 /* DetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailsViewController.h; sourceTree = "<group>"; };
 		C38091B61A968C3F00BFB7C1 /* DetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailsViewController.m; sourceTree = "<group>"; };
+		C38091B81A96913400BFB7C1 /* Constants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -158,6 +159,7 @@
 			children = (
 				B042EC0F1A93891D00C2E6D9 /* Info.plist */,
 				B042EC101A93891D00C2E6D9 /* main.m */,
+				C38091B81A96913400BFB7C1 /* Constants.h */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";

@@ -109,7 +109,6 @@
 {
     return 100.0f;
 }
-
 #pragma mark - Fetched results controller
 
 @end
