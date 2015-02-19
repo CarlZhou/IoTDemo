@@ -35,28 +35,28 @@
     CircularBarView *currentBarView = [[CircularBarView alloc] initWithFrame:CGRectMake(0, 0, 175, 200)];
     currentBarView.title = @"Current";
     currentBarView.percentage = 65;
-    currentBarView.displayColor = [UIColor orangeColor];
+    currentBarView.displayColor = [UIColor orangeColor];    // fdaa29
     currentBarView.backgroundColor = [UIColor whiteColor];
     [self.currentViewContainer addSubview:currentBarView];
     
     CircularBarView *avgBarView = [[CircularBarView alloc] initWithFrame:CGRectMake(0, 0, 175, 200)];
     avgBarView.title = @"Average";
     avgBarView.percentage = 19;
-    avgBarView.displayColor = [UIColor blueColor];
+    avgBarView.displayColor = [UIColor blueColor];          // 56a8e7
     avgBarView.backgroundColor = [UIColor whiteColor];
     [self.avgViewContainer addSubview:avgBarView];
 
     CircularBarView *minBarView = [[CircularBarView alloc] initWithFrame:CGRectMake(0, 0, 175, 200)];
     minBarView.title = @"Min";
     minBarView.percentage = 31;
-    minBarView.displayColor = [UIColor redColor];
+    minBarView.displayColor = [UIColor redColor];           // 8fc842
     minBarView.backgroundColor = [UIColor whiteColor];
     [self.minViewContainer addSubview:minBarView];
     
     CircularBarView *maxBarView = [[CircularBarView alloc] initWithFrame:CGRectMake(0, 0, 175, 200)];
     maxBarView.title = @"Max";
     maxBarView.percentage = 69;
-    maxBarView.displayColor = [UIColor greenColor];
+    maxBarView.displayColor = [UIColor greenColor];         // f1705c
     maxBarView.backgroundColor = [UIColor whiteColor];
     [self.maxViewContainer addSubview:maxBarView];
 
