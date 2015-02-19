@@ -28,6 +28,10 @@
 		B042EC931A93ABD600C2E6D9 /* Sensor.m in Sources */ = {isa = PBXBuildFile; fileRef = B042EC921A93ABD600C2E6D9 /* Sensor.m */; };
 		B042EC961A93ABD600C2E6D9 /* SensorReading.m in Sources */ = {isa = PBXBuildFile; fileRef = B042EC951A93ABD600C2E6D9 /* SensorReading.m */; };
 		B0CDE4171A94EB7700C8F60E /* NSDate+PrettyDate.m in Sources */ = {isa = PBXBuildFile; fileRef = B0CDE4161A94EB7700C8F60E /* NSDate+PrettyDate.m */; };
+		C38091B11A963F3E00BFB7C1 /* BEMCircle.m in Sources */ = {isa = PBXBuildFile; fileRef = C38091AA1A963F3E00BFB7C1 /* BEMCircle.m */; };
+		C38091B21A963F3E00BFB7C1 /* BEMLine.m in Sources */ = {isa = PBXBuildFile; fileRef = C38091AC1A963F3E00BFB7C1 /* BEMLine.m */; };
+		C38091B31A963F3E00BFB7C1 /* BEMPermanentPopupView.m in Sources */ = {isa = PBXBuildFile; fileRef = C38091AE1A963F3E00BFB7C1 /* BEMPermanentPopupView.m */; };
+		C38091B41A963F3E00BFB7C1 /* BEMSimpleLineGraphView.m in Sources */ = {isa = PBXBuildFile; fileRef = C38091B01A963F3E00BFB7C1 /* BEMSimpleLineGraphView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -80,6 +84,14 @@
 		B042EC951A93ABD600C2E6D9 /* SensorReading.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SensorReading.m; sourceTree = "<group>"; };
 		B0CDE4151A94EB7700C8F60E /* NSDate+PrettyDate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+PrettyDate.h"; sourceTree = "<group>"; };
 		B0CDE4161A94EB7700C8F60E /* NSDate+PrettyDate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+PrettyDate.m"; sourceTree = "<group>"; };
+		C38091A91A963F3E00BFB7C1 /* BEMCircle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BEMCircle.h; sourceTree = "<group>"; };
+		C38091AA1A963F3E00BFB7C1 /* BEMCircle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BEMCircle.m; sourceTree = "<group>"; };
+		C38091AB1A963F3E00BFB7C1 /* BEMLine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BEMLine.h; sourceTree = "<group>"; };
+		C38091AC1A963F3E00BFB7C1 /* BEMLine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BEMLine.m; sourceTree = "<group>"; };
+		C38091AD1A963F3E00BFB7C1 /* BEMPermanentPopupView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BEMPermanentPopupView.h; sourceTree = "<group>"; };
+		C38091AE1A963F3E00BFB7C1 /* BEMPermanentPopupView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BEMPermanentPopupView.m; sourceTree = "<group>"; };
+		C38091AF1A963F3E00BFB7C1 /* BEMSimpleLineGraphView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BEMSimpleLineGraphView.h; sourceTree = "<group>"; };
+		C38091B01A963F3E00BFB7C1 /* BEMSimpleLineGraphView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BEMSimpleLineGraphView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -121,6 +133,7 @@
 		B042EC0D1A93891D00C2E6D9 /* DEMO Framework */ = {
 			isa = PBXGroup;
 			children = (
+				C38091A71A963F3E00BFB7C1 /* ThirdParty */,
 				B042EC871A93ABC300C2E6D9 /* Models */,
 				B042EC831A93A4CA00C2E6D9 /* Categories */,
 				B042EC761A939B1100C2E6D9 /* Controllers */,
@@ -223,6 +236,29 @@
 				B042EC891A93ABD500C2E6D9 /* SensorType.m */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		C38091A71A963F3E00BFB7C1 /* ThirdParty */ = {
+			isa = PBXGroup;
+			children = (
+				C38091A81A963F3E00BFB7C1 /* BEMSimpleLineGraph */,
+			);
+			path = ThirdParty;
+			sourceTree = "<group>";
+		};
+		C38091A81A963F3E00BFB7C1 /* BEMSimpleLineGraph */ = {
+			isa = PBXGroup;
+			children = (
+				C38091A91A963F3E00BFB7C1 /* BEMCircle.h */,
+				C38091AA1A963F3E00BFB7C1 /* BEMCircle.m */,
+				C38091AB1A963F3E00BFB7C1 /* BEMLine.h */,
+				C38091AC1A963F3E00BFB7C1 /* BEMLine.m */,
+				C38091AD1A963F3E00BFB7C1 /* BEMPermanentPopupView.h */,
+				C38091AE1A963F3E00BFB7C1 /* BEMPermanentPopupView.m */,
+				C38091AF1A963F3E00BFB7C1 /* BEMSimpleLineGraphView.h */,
+				C38091B01A963F3E00BFB7C1 /* BEMSimpleLineGraphView.m */,
+			);
+			path = BEMSimpleLineGraph;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -328,8 +364,10 @@
 			files = (
 				B0CDE4171A94EB7700C8F60E /* NSDate+PrettyDate.m in Sources */,
 				3C4FBCBD1A94FD450060440B /* CircularBarView.m in Sources */,
+				C38091B41A963F3E00BFB7C1 /* BEMSimpleLineGraphView.m in Sources */,
 				B042EC171A93891D00C2E6D9 /* DEMO_Framework.xcdatamodeld in Sources */,
 				B042EC3E1A938BC300C2E6D9 /* SensorTableViewCell.m in Sources */,
+				C38091B31A963F3E00BFB7C1 /* BEMPermanentPopupView.m in Sources */,
 				B042EC7B1A939B6200C2E6D9 /* DetailViewController.m in Sources */,
 				B042EC7F1A939D0A00C2E6D9 /* CoreDataManager.m in Sources */,
 				B042EC8D1A93ABD500C2E6D9 /* SensorTypeCategory.m in Sources */,
@@ -338,7 +376,9 @@
 				3C4FBCB91A94F96C0060440B /* GraphViewController.m in Sources */,
 				B042EC141A93891D00C2E6D9 /* AppDelegate.m in Sources */,
 				B042EC821A939D2100C2E6D9 /* APIManager.m in Sources */,
+				C38091B11A963F3E00BFB7C1 /* BEMCircle.m in Sources */,
 				B042EC111A93891D00C2E6D9 /* main.m in Sources */,
+				C38091B21A963F3E00BFB7C1 /* BEMLine.m in Sources */,
 				B042EC8A1A93ABD500C2E6D9 /* SensorType.m in Sources */,
 				B042EC931A93ABD600C2E6D9 /* Sensor.m in Sources */,
 				B042EC901A93ABD500C2E6D9 /* Controller.m in Sources */,

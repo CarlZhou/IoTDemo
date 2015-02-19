@@ -10,6 +10,9 @@
 
 @interface DetailViewController ()
 
+@property (strong, nonatomic) IBOutlet UIView *detailsContainer;
+@property (strong, nonatomic) IBOutlet UIView *graphContainer;
+
 @end
 
 @implementation DetailViewController
@@ -45,7 +48,16 @@
 
 - (IBAction)segControllValueChanged:(UISegmentedControl *)sender
 {
-    
+    switch (sender.selectedSegmentIndex) {
+        case 0:
+            [self.view bringSubviewToFront:self.detailsContainer];
+            break;
+        case 1:
+            [self.view bringSubviewToFront:self.graphContainer];
+            break;
+        default:
+            break;
+    }
 }
 
 

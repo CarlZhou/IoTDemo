@@ -31,6 +31,8 @@
     [CoreDataManager sharedManager].managedObjectContext = self.managedObjectContext;
 //    [[CoreDataManager sharedManager] addMockupData];
     
+    
+    
     return YES;
 }
 
