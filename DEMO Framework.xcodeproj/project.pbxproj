@@ -32,6 +32,7 @@
 		C38091B21A963F3E00BFB7C1 /* BEMLine.m in Sources */ = {isa = PBXBuildFile; fileRef = C38091AC1A963F3E00BFB7C1 /* BEMLine.m */; };
 		C38091B31A963F3E00BFB7C1 /* BEMPermanentPopupView.m in Sources */ = {isa = PBXBuildFile; fileRef = C38091AE1A963F3E00BFB7C1 /* BEMPermanentPopupView.m */; };
 		C38091B41A963F3E00BFB7C1 /* BEMSimpleLineGraphView.m in Sources */ = {isa = PBXBuildFile; fileRef = C38091B01A963F3E00BFB7C1 /* BEMSimpleLineGraphView.m */; };
+		C38091B71A968C3F00BFB7C1 /* DetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C38091B61A968C3F00BFB7C1 /* DetailsViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -92,6 +93,8 @@
 		C38091AE1A963F3E00BFB7C1 /* BEMPermanentPopupView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BEMPermanentPopupView.m; sourceTree = "<group>"; };
 		C38091AF1A963F3E00BFB7C1 /* BEMSimpleLineGraphView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BEMSimpleLineGraphView.h; sourceTree = "<group>"; };
 		C38091B01A963F3E00BFB7C1 /* BEMSimpleLineGraphView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BEMSimpleLineGraphView.m; sourceTree = "<group>"; };
+		C38091B51A968C3F00BFB7C1 /* DetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailsViewController.h; sourceTree = "<group>"; };
+		C38091B61A968C3F00BFB7C1 /* DetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailsViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -208,6 +211,8 @@
 				B042EC7A1A939B6200C2E6D9 /* MasterViewController.m */,
 				3C4FBCB61A94F96C0060440B /* GraphViewController.h */,
 				3C4FBCB71A94F96C0060440B /* GraphViewController.m */,
+				C38091B51A968C3F00BFB7C1 /* DetailsViewController.h */,
+				C38091B61A968C3F00BFB7C1 /* DetailsViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -380,6 +385,7 @@
 				B042EC111A93891D00C2E6D9 /* main.m in Sources */,
 				C38091B21A963F3E00BFB7C1 /* BEMLine.m in Sources */,
 				B042EC8A1A93ABD500C2E6D9 /* SensorType.m in Sources */,
+				C38091B71A968C3F00BFB7C1 /* DetailsViewController.m in Sources */,
 				B042EC931A93ABD600C2E6D9 /* Sensor.m in Sources */,
 				B042EC901A93ABD500C2E6D9 /* Controller.m in Sources */,
 			);
