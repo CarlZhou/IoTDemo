@@ -10,8 +10,9 @@
 
 @interface CircularBarView : UIView
 
-@property (nonatomic, strong) NSString *title;
 @property (nonatomic) float percentage;
 @property UIColor *displayColor;
+
+- (id)initWithFrame:(CGRect)frame Title:(NSString*)title DisplayColor:(UIColor*)displayColor Percentage:(CGFloat)percent;
 
 @end

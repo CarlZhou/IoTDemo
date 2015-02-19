@@ -9,6 +9,7 @@
 #import "GraphViewController.h"
 #import "CircularBarView.h"
 #import "BEMSimpleLineGraphView.h"
+#import "constants.h"
 
 @interface GraphViewController ()<BEMSimpleLineGraphDataSource, BEMSimpleLineGraphDelegate>
 @property (strong,nonatomic) CircularBarView *currentBarView;
@@ -32,33 +33,17 @@
     [self initLineGraph];
     
     // Do any additional setup after loading the view from its nib.
-    CircularBarView *currentBarView = [[CircularBarView alloc] initWithFrame:CGRectMake(0, 0, 175, 200)];
-    currentBarView.title = @"Current";
-    currentBarView.percentage = 65;
-    currentBarView.displayColor = [UIColor orangeColor];    // fdaa29
-    currentBarView.backgroundColor = [UIColor whiteColor];
+    CircularBarView *currentBarView = [[CircularBarView alloc] initWithFrame:CGRectMake(0, 0, 175, 200) Title:@"Current" DisplayColor:customOrange Percentage:65];// fdaa29
     [self.currentViewContainer addSubview:currentBarView];
     
-    CircularBarView *avgBarView = [[CircularBarView alloc] initWithFrame:CGRectMake(0, 0, 175, 200)];
-    avgBarView.title = @"Average";
-    avgBarView.percentage = 19;
-    avgBarView.displayColor = [UIColor blueColor];          // 56a8e7
-    avgBarView.backgroundColor = [UIColor whiteColor];
-    [self.avgViewContainer addSubview:avgBarView];
+    CircularBarView *avgBarView = [[CircularBarView alloc] initWithFrame:CGRectMake(0, 0, 175, 200) Title:@"Average" DisplayColor:customBlue Percentage:45];
+    [self.avgViewContainer addSubview:avgBarView];// 56a8e7
 
-    CircularBarView *minBarView = [[CircularBarView alloc] initWithFrame:CGRectMake(0, 0, 175, 200)];
-    minBarView.title = @"Min";
-    minBarView.percentage = 31;
-    minBarView.displayColor = [UIColor redColor];           // 8fc842
-    minBarView.backgroundColor = [UIColor whiteColor];
-    [self.minViewContainer addSubview:minBarView];
+    CircularBarView *minBarView = [[CircularBarView alloc] initWithFrame:CGRectMake(0, 0, 175, 200) Title:@"Min" DisplayColor:customRed Percentage:31];
+    [self.minViewContainer addSubview:minBarView];// f1705c
     
-    CircularBarView *maxBarView = [[CircularBarView alloc] initWithFrame:CGRectMake(0, 0, 175, 200)];
-    maxBarView.title = @"Max";
-    maxBarView.percentage = 69;
-    maxBarView.displayColor = [UIColor greenColor];         // f1705c
-    maxBarView.backgroundColor = [UIColor whiteColor];
-    [self.maxViewContainer addSubview:maxBarView];
+    CircularBarView *maxBarView = [[CircularBarView alloc] initWithFrame:CGRectMake(0, 0, 175, 200) Title:@"Max" DisplayColor:customGreen Percentage:69];
+    [self.maxViewContainer addSubview:maxBarView]; // 8fc842
 
 }
 

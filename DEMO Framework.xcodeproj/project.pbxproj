@@ -49,6 +49,7 @@
 		3C4FBCB71A94F96C0060440B /* GraphViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GraphViewController.m; sourceTree = "<group>"; };
 		3C4FBCBB1A94FD450060440B /* CircularBarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircularBarView.h; sourceTree = "<group>"; };
 		3C4FBCBC1A94FD450060440B /* CircularBarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CircularBarView.m; sourceTree = "<group>"; };
+		3C4FBCC01A9689E20060440B /* constants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = constants.h; sourceTree = "<group>"; };
 		B042EC0B1A93891D00C2E6D9 /* DEMO Framework.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "DEMO Framework.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B042EC0F1A93891D00C2E6D9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B042EC101A93891D00C2E6D9 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -155,6 +156,7 @@
 			children = (
 				B042EC0F1A93891D00C2E6D9 /* Info.plist */,
 				B042EC101A93891D00C2E6D9 /* main.m */,
+				3C4FBCC01A9689E20060440B /* constants.h */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
