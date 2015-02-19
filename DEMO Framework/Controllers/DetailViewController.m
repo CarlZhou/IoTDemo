@@ -43,4 +43,10 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (IBAction)segControllValueChanged:(UISegmentedControl *)sender
+{
+    
+}
+
+
 @end

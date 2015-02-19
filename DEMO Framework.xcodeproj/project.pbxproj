@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3C4FBCB91A94F96C0060440B /* GraphViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C4FBCB71A94F96C0060440B /* GraphViewController.m */; };
+		3C4FBCBD1A94FD450060440B /* CircularBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C4FBCBC1A94FD450060440B /* CircularBarView.m */; };
 		B042EC111A93891D00C2E6D9 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B042EC101A93891D00C2E6D9 /* main.m */; };
 		B042EC141A93891D00C2E6D9 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B042EC131A93891D00C2E6D9 /* AppDelegate.m */; };
 		B042EC171A93891D00C2E6D9 /* DEMO_Framework.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B042EC151A93891D00C2E6D9 /* DEMO_Framework.xcdatamodeld */; };
@@ -39,6 +41,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3C4FBCB61A94F96C0060440B /* GraphViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GraphViewController.h; sourceTree = "<group>"; };
+		3C4FBCB71A94F96C0060440B /* GraphViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GraphViewController.m; sourceTree = "<group>"; };
+		3C4FBCBB1A94FD450060440B /* CircularBarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircularBarView.h; sourceTree = "<group>"; };
+		3C4FBCBC1A94FD450060440B /* CircularBarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CircularBarView.m; sourceTree = "<group>"; };
 		B042EC0B1A93891D00C2E6D9 /* DEMO Framework.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "DEMO Framework.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B042EC0F1A93891D00C2E6D9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B042EC101A93891D00C2E6D9 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -163,6 +169,8 @@
 				B042EC3B1A938BC300C2E6D9 /* SensorTableViewCell.h */,
 				B042EC3C1A938BC300C2E6D9 /* SensorTableViewCell.m */,
 				B042EC3D1A938BC300C2E6D9 /* SensorTableViewCell.xib */,
+				3C4FBCBB1A94FD450060440B /* CircularBarView.h */,
+				3C4FBCBC1A94FD450060440B /* CircularBarView.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -185,6 +193,8 @@
 				B042EC781A939B6200C2E6D9 /* DetailViewController.m */,
 				B042EC791A939B6200C2E6D9 /* MasterViewController.h */,
 				B042EC7A1A939B6200C2E6D9 /* MasterViewController.m */,
+				3C4FBCB61A94F96C0060440B /* GraphViewController.h */,
+				3C4FBCB71A94F96C0060440B /* GraphViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -317,6 +327,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B0CDE4171A94EB7700C8F60E /* NSDate+PrettyDate.m in Sources */,
+				3C4FBCBD1A94FD450060440B /* CircularBarView.m in Sources */,
 				B042EC171A93891D00C2E6D9 /* DEMO_Framework.xcdatamodeld in Sources */,
 				B042EC3E1A938BC300C2E6D9 /* SensorTableViewCell.m in Sources */,
 				B042EC7B1A939B6200C2E6D9 /* DetailViewController.m in Sources */,
@@ -324,6 +335,7 @@
 				B042EC8D1A93ABD500C2E6D9 /* SensorTypeCategory.m in Sources */,
 				B042EC961A93ABD600C2E6D9 /* SensorReading.m in Sources */,
 				B042EC7C1A939B6200C2E6D9 /* MasterViewController.m in Sources */,
+				3C4FBCB91A94F96C0060440B /* GraphViewController.m in Sources */,
 				B042EC141A93891D00C2E6D9 /* AppDelegate.m in Sources */,
 				B042EC821A939D2100C2E6D9 /* APIManager.m in Sources */,
 				B042EC111A93891D00C2E6D9 /* main.m in Sources */,
