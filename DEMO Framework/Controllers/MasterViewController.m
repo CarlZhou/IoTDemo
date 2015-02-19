@@ -7,7 +7,7 @@
 //
 
 #import "MasterViewController.h"
-#import "DetailViewController.h"
+#import "RightViewController.h"
 #import "SensorTableViewCell.h"
 #import "CoreDataManager.h"
 #import "Sensor.h"
@@ -30,7 +30,7 @@
     
     self.sensors = [NSMutableArray array];
     
-    self.detailViewController = (DetailViewController *)[[self.splitViewController.viewControllers lastObject] topViewController];
+    self.detailViewController = (RightViewController *)[[self.splitViewController.viewControllers lastObject] topViewController];
     
     [self.tableView registerNib:[UINib nibWithNibName:@"SensorTableViewCell" bundle:nil] forCellReuseIdentifier:@"SensorCell"];
     
@@ -80,7 +80,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSManagedObject *object = [[self sensors] objectAtIndex:indexPath.row];
-    DetailViewController *controller = self.detailViewController;
+    RightViewController *controller = self.detailViewController;
     [controller setDetailItem:object];
     controller.navigationItem.leftBarButtonItem = self.splitViewController.displayModeButtonItem;
     controller.navigationItem.leftItemsSupplementBackButton = YES;

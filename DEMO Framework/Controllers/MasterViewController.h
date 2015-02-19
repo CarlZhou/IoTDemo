@@ -9,11 +9,11 @@
 #import <UIKit/UIKit.h>
 #import <CoreData/CoreData.h>
 
-@class DetailViewController;
+@class RightViewController;
 
 @interface MasterViewController : UITableViewController <NSFetchedResultsControllerDelegate>
 
-@property (strong, nonatomic) DetailViewController *detailViewController;
+@property (strong, nonatomic) RightViewController *detailViewController;
 
 @property (strong, nonatomic) NSMutableArray *sensors;
 //@property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;

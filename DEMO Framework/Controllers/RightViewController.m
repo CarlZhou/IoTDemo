@@ -6,16 +6,16 @@
 //  Copyright (c) 2015 SAP Canada. All rights reserved.
 //
 
-#import "DetailViewController.h"
+#import "RightViewController.h"
 
-@interface DetailViewController ()
+@interface RightViewController ()
 
 @property (strong, nonatomic) IBOutlet UIView *detailsContainer;
 @property (strong, nonatomic) IBOutlet UIView *graphContainer;
 
 @end
 
-@implementation DetailViewController
+@implementation RightViewController
 
 #pragma mark - Managing the detail item
 

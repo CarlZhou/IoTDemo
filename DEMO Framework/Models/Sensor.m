@@ -16,6 +16,7 @@
 
 @dynamic s_id;
 @dynamic s_name;
+@dynamic s_unit;
 @dynamic s_status;
 @dynamic s_channel;
 @dynamic s_serial_num;
