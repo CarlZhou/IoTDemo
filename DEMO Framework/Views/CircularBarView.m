@@ -14,7 +14,6 @@
     float currPercent;
 }
 
-@property (nonatomic, strong) UILabel *titleLabel;
 @property (nonatomic, strong) UILabel *percentLabel;
 @property (nonatomic, weak) CAShapeLayer *barLayer;
 
@@ -126,5 +125,11 @@
 
 }
 
+- (void)updateData:(CGFloat)percent
+{
+    currPercent = self.percentage;
+    self.percentage = percent;
+    [self setNeedsDisplay];
+}
 
 @end
