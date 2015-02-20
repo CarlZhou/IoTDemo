@@ -22,17 +22,17 @@
 		B042EC7C1A939B6200C2E6D9 /* MasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B042EC7A1A939B6200C2E6D9 /* MasterViewController.m */; };
 		B042EC7F1A939D0A00C2E6D9 /* CoreDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B042EC7E1A939D0A00C2E6D9 /* CoreDataManager.m */; };
 		B042EC821A939D2100C2E6D9 /* APIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B042EC811A939D2100C2E6D9 /* APIManager.m */; };
-		B042EC8A1A93ABD500C2E6D9 /* SensorType.m in Sources */ = {isa = PBXBuildFile; fileRef = B042EC891A93ABD500C2E6D9 /* SensorType.m */; };
-		B042EC8D1A93ABD500C2E6D9 /* SensorTypeCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = B042EC8C1A93ABD500C2E6D9 /* SensorTypeCategory.m */; };
-		B042EC901A93ABD500C2E6D9 /* Controller.m in Sources */ = {isa = PBXBuildFile; fileRef = B042EC8F1A93ABD500C2E6D9 /* Controller.m */; };
-		B042EC931A93ABD600C2E6D9 /* Sensor.m in Sources */ = {isa = PBXBuildFile; fileRef = B042EC921A93ABD600C2E6D9 /* Sensor.m */; };
-		B042EC961A93ABD600C2E6D9 /* SensorReading.m in Sources */ = {isa = PBXBuildFile; fileRef = B042EC951A93ABD600C2E6D9 /* SensorReading.m */; };
 		B0CDE4171A94EB7700C8F60E /* NSDate+PrettyDate.m in Sources */ = {isa = PBXBuildFile; fileRef = B0CDE4161A94EB7700C8F60E /* NSDate+PrettyDate.m */; };
 		C38091B11A963F3E00BFB7C1 /* BEMCircle.m in Sources */ = {isa = PBXBuildFile; fileRef = C38091AA1A963F3E00BFB7C1 /* BEMCircle.m */; };
 		C38091B21A963F3E00BFB7C1 /* BEMLine.m in Sources */ = {isa = PBXBuildFile; fileRef = C38091AC1A963F3E00BFB7C1 /* BEMLine.m */; };
 		C38091B31A963F3E00BFB7C1 /* BEMPermanentPopupView.m in Sources */ = {isa = PBXBuildFile; fileRef = C38091AE1A963F3E00BFB7C1 /* BEMPermanentPopupView.m */; };
 		C38091B41A963F3E00BFB7C1 /* BEMSimpleLineGraphView.m in Sources */ = {isa = PBXBuildFile; fileRef = C38091B01A963F3E00BFB7C1 /* BEMSimpleLineGraphView.m */; };
 		C38091B71A968C3F00BFB7C1 /* DetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C38091B61A968C3F00BFB7C1 /* DetailsViewController.m */; };
+		C3EA392E1A977E18007849B4 /* Controller.m in Sources */ = {isa = PBXBuildFile; fileRef = C3EA392D1A977E18007849B4 /* Controller.m */; };
+		C3EA39311A977E18007849B4 /* SensorType.m in Sources */ = {isa = PBXBuildFile; fileRef = C3EA39301A977E18007849B4 /* SensorType.m */; };
+		C3EA39341A977E18007849B4 /* Sensor.m in Sources */ = {isa = PBXBuildFile; fileRef = C3EA39331A977E18007849B4 /* Sensor.m */; };
+		C3EA39371A977E19007849B4 /* SensorTypeCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = C3EA39361A977E19007849B4 /* SensorTypeCategory.m */; };
+		C3EA393A1A977E19007849B4 /* SensorReading.m in Sources */ = {isa = PBXBuildFile; fileRef = C3EA39391A977E19007849B4 /* SensorReading.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,7 +50,6 @@
 		3C4FBCB71A94F96C0060440B /* GraphViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GraphViewController.m; sourceTree = "<group>"; };
 		3C4FBCBB1A94FD450060440B /* CircularBarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircularBarView.h; sourceTree = "<group>"; };
 		3C4FBCBC1A94FD450060440B /* CircularBarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CircularBarView.m; sourceTree = "<group>"; };
-		3C4FBCC01A9689E20060440B /* constants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = constants.h; sourceTree = "<group>"; };
 		B042EC0B1A93891D00C2E6D9 /* DEMO Framework.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "DEMO Framework.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B042EC0F1A93891D00C2E6D9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B042EC101A93891D00C2E6D9 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -74,16 +73,6 @@
 		B042EC7E1A939D0A00C2E6D9 /* CoreDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreDataManager.m; sourceTree = "<group>"; };
 		B042EC801A939D2100C2E6D9 /* APIManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APIManager.h; sourceTree = "<group>"; };
 		B042EC811A939D2100C2E6D9 /* APIManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = APIManager.m; sourceTree = "<group>"; };
-		B042EC881A93ABD500C2E6D9 /* SensorType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SensorType.h; sourceTree = "<group>"; };
-		B042EC891A93ABD500C2E6D9 /* SensorType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SensorType.m; sourceTree = "<group>"; };
-		B042EC8B1A93ABD500C2E6D9 /* SensorTypeCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SensorTypeCategory.h; sourceTree = "<group>"; };
-		B042EC8C1A93ABD500C2E6D9 /* SensorTypeCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SensorTypeCategory.m; sourceTree = "<group>"; };
-		B042EC8E1A93ABD500C2E6D9 /* Controller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Controller.h; sourceTree = "<group>"; };
-		B042EC8F1A93ABD500C2E6D9 /* Controller.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Controller.m; sourceTree = "<group>"; };
-		B042EC911A93ABD600C2E6D9 /* Sensor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Sensor.h; sourceTree = "<group>"; };
-		B042EC921A93ABD600C2E6D9 /* Sensor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Sensor.m; sourceTree = "<group>"; };
-		B042EC941A93ABD600C2E6D9 /* SensorReading.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SensorReading.h; sourceTree = "<group>"; };
-		B042EC951A93ABD600C2E6D9 /* SensorReading.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SensorReading.m; sourceTree = "<group>"; };
 		B0CDE4151A94EB7700C8F60E /* NSDate+PrettyDate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+PrettyDate.h"; sourceTree = "<group>"; };
 		B0CDE4161A94EB7700C8F60E /* NSDate+PrettyDate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+PrettyDate.m"; sourceTree = "<group>"; };
 		C38091A91A963F3E00BFB7C1 /* BEMCircle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BEMCircle.h; sourceTree = "<group>"; };
@@ -97,6 +86,16 @@
 		C38091B51A968C3F00BFB7C1 /* DetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailsViewController.h; sourceTree = "<group>"; };
 		C38091B61A968C3F00BFB7C1 /* DetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailsViewController.m; sourceTree = "<group>"; };
 		C38091B81A96913400BFB7C1 /* Constants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
+		C3EA392C1A977E18007849B4 /* Controller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Controller.h; sourceTree = "<group>"; };
+		C3EA392D1A977E18007849B4 /* Controller.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Controller.m; sourceTree = "<group>"; };
+		C3EA392F1A977E18007849B4 /* SensorType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SensorType.h; sourceTree = "<group>"; };
+		C3EA39301A977E18007849B4 /* SensorType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SensorType.m; sourceTree = "<group>"; };
+		C3EA39321A977E18007849B4 /* Sensor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Sensor.h; sourceTree = "<group>"; };
+		C3EA39331A977E18007849B4 /* Sensor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Sensor.m; sourceTree = "<group>"; };
+		C3EA39351A977E19007849B4 /* SensorTypeCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SensorTypeCategory.h; sourceTree = "<group>"; };
+		C3EA39361A977E19007849B4 /* SensorTypeCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SensorTypeCategory.m; sourceTree = "<group>"; };
+		C3EA39381A977E19007849B4 /* SensorReading.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SensorReading.h; sourceTree = "<group>"; };
+		C3EA39391A977E19007849B4 /* SensorReading.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SensorReading.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -232,16 +231,16 @@
 		B042EC871A93ABC300C2E6D9 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				B042EC941A93ABD600C2E6D9 /* SensorReading.h */,
-				B042EC951A93ABD600C2E6D9 /* SensorReading.m */,
-				B042EC911A93ABD600C2E6D9 /* Sensor.h */,
-				B042EC921A93ABD600C2E6D9 /* Sensor.m */,
-				B042EC8E1A93ABD500C2E6D9 /* Controller.h */,
-				B042EC8F1A93ABD500C2E6D9 /* Controller.m */,
-				B042EC8B1A93ABD500C2E6D9 /* SensorTypeCategory.h */,
-				B042EC8C1A93ABD500C2E6D9 /* SensorTypeCategory.m */,
-				B042EC881A93ABD500C2E6D9 /* SensorType.h */,
-				B042EC891A93ABD500C2E6D9 /* SensorType.m */,
+				C3EA39381A977E19007849B4 /* SensorReading.h */,
+				C3EA39391A977E19007849B4 /* SensorReading.m */,
+				C3EA39351A977E19007849B4 /* SensorTypeCategory.h */,
+				C3EA39361A977E19007849B4 /* SensorTypeCategory.m */,
+				C3EA39321A977E18007849B4 /* Sensor.h */,
+				C3EA39331A977E18007849B4 /* Sensor.m */,
+				C3EA392F1A977E18007849B4 /* SensorType.h */,
+				C3EA39301A977E18007849B4 /* SensorType.m */,
+				C3EA392C1A977E18007849B4 /* Controller.h */,
+				C3EA392D1A977E18007849B4 /* Controller.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -374,23 +373,23 @@
 				3C4FBCBD1A94FD450060440B /* CircularBarView.m in Sources */,
 				C38091B41A963F3E00BFB7C1 /* BEMSimpleLineGraphView.m in Sources */,
 				B042EC171A93891D00C2E6D9 /* DEMO_Framework.xcdatamodeld in Sources */,
+				C3EA392E1A977E18007849B4 /* Controller.m in Sources */,
 				B042EC3E1A938BC300C2E6D9 /* SensorTableViewCell.m in Sources */,
 				C38091B31A963F3E00BFB7C1 /* BEMPermanentPopupView.m in Sources */,
 				B042EC7B1A939B6200C2E6D9 /* RightViewController.m in Sources */,
 				B042EC7F1A939D0A00C2E6D9 /* CoreDataManager.m in Sources */,
-				B042EC8D1A93ABD500C2E6D9 /* SensorTypeCategory.m in Sources */,
-				B042EC961A93ABD600C2E6D9 /* SensorReading.m in Sources */,
+				C3EA39371A977E19007849B4 /* SensorTypeCategory.m in Sources */,
+				C3EA39311A977E18007849B4 /* SensorType.m in Sources */,
 				B042EC7C1A939B6200C2E6D9 /* MasterViewController.m in Sources */,
 				3C4FBCB91A94F96C0060440B /* GraphViewController.m in Sources */,
+				C3EA393A1A977E19007849B4 /* SensorReading.m in Sources */,
+				C3EA39341A977E18007849B4 /* Sensor.m in Sources */,
 				B042EC141A93891D00C2E6D9 /* AppDelegate.m in Sources */,
 				B042EC821A939D2100C2E6D9 /* APIManager.m in Sources */,
 				C38091B11A963F3E00BFB7C1 /* BEMCircle.m in Sources */,
 				B042EC111A93891D00C2E6D9 /* main.m in Sources */,
 				C38091B21A963F3E00BFB7C1 /* BEMLine.m in Sources */,
-				B042EC8A1A93ABD500C2E6D9 /* SensorType.m in Sources */,
 				C38091B71A968C3F00BFB7C1 /* DetailsViewController.m in Sources */,
-				B042EC931A93ABD600C2E6D9 /* Sensor.m in Sources */,
-				B042EC901A93ABD500C2E6D9 /* Controller.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

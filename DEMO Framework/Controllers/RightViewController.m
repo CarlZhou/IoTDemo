@@ -7,11 +7,16 @@
 //
 
 #import "RightViewController.h"
+#import "GraphViewController.h"
+#import "DetailsViewController.h"
 
 @interface RightViewController ()
 
 @property (strong, nonatomic) IBOutlet UIView *detailsContainer;
 @property (strong, nonatomic) IBOutlet UIView *graphContainer;
+
+@property (strong, nonatomic) GraphViewController *graphViewController;
+@property (strong, nonatomic) DetailsViewController *detailsViewController;
 
 @end
 
@@ -33,7 +38,8 @@
     // Update the user interface for the detail item.
     if (self.detailItem)
     {
-        
+        self.detailsViewController.selectedSensor = self.detailItem;
+        [self.detailsViewController reloadViews];
     }
 }
 
@@ -65,7 +71,14 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     NSString * segueName = segue.identifier;
-    NSLog(@"Segue: %@", segueName);
+    if ([segueName isEqualToString: @"GraphViewController"])
+    {
+        self.graphViewController = (GraphViewController *) [segue destinationViewController];
+    }
+    else if ([segueName isEqualToString: @"DetailsViewController"])
+    {
+        self.detailsViewController = (DetailsViewController *) [segue destinationViewController];
+    }
 }
 
 

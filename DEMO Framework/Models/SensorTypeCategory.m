@@ -1,8 +1,8 @@
 //
-//  SensorCategoryType.m
+//  SensorTypeCategory.m
 //  DEMO Framework
 //
-//  Created by Zhou, Zian on 2015-02-17.
+//  Created by carlzhou on 2/20/15.
 //  Copyright (c) 2015 SAP Canada. All rights reserved.
 //
 
@@ -12,7 +12,7 @@
 @implementation SensorTypeCategory
 
 @dynamic stc_id;
-@dynamic stc_name;
 @dynamic stc_last_updated;
+@dynamic stc_name;
 
 @end

@@ -46,7 +46,7 @@
                                 <rect key="frame" x="0.0" y="64" width="703" height="704"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                 <connections>
-                                    <segue destination="dfx-b7-yZo" kind="embed" id="Z3F-a5-enI"/>
+                                    <segue destination="dfx-b7-yZo" kind="embed" identifier="DetailsViewController" id="Z3F-a5-enI"/>
                                 </connections>
                             </containerView>
                         </subviews>
@@ -238,6 +238,7 @@
                     <connections>
                         <outlet property="currentViewContainer" destination="n8a-xI-6fl" id="7cY-31-1HI"/>
                         <outlet property="sensorTitleLabel" destination="Wgv-qw-Pzc" id="Q87-B2-iyZ"/>
+                        <outlet property="tableview" destination="ogv-9q-gDT" id="M4P-zA-Ji6"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sNz-yx-6v4" userLabel="First Responder" sceneMemberID="firstResponder"/>

@@ -1,8 +1,8 @@
 //
-//  SensorCategoryType.h
+//  SensorTypeCategory.h
 //  DEMO Framework
 //
-//  Created by Zhou, Zian on 2015-02-17.
+//  Created by carlzhou on 2/20/15.
 //  Copyright (c) 2015 SAP Canada. All rights reserved.
 //
 
@@ -13,7 +13,7 @@
 @interface SensorTypeCategory : NSManagedObject
 
 @property (nonatomic, retain) NSNumber * stc_id;
-@property (nonatomic, retain) NSString * stc_name;
 @property (nonatomic, retain) NSDate * stc_last_updated;
+@property (nonatomic, retain) NSString * stc_name;
 
 @end

@@ -62,6 +62,7 @@
     Sensor *entity = [[Sensor alloc] initWithEntity:[self getEntityForName:@"Sensor"] insertIntoManagedObjectContext:self.managedObjectContext];
     entity.s_id = [data objectForKey:@"id"];
     entity.s_name = [data objectForKey:@"name"];
+    entity.s_unit = [data objectForKey:@"unit"];
     entity.s_status = [data objectForKey:@"status"];
     entity.s_channel = [data objectForKey:@"channel"];
     entity.s_serial_num = [data objectForKey:@"serial_num"];
