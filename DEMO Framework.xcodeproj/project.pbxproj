@@ -42,7 +42,8 @@
 		C3EA395A1A97B2A1007849B4 /* AFURLResponseSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = C3EA39501A97B2A1007849B4 /* AFURLResponseSerialization.m */; };
 		C3EA395B1A97B2A1007849B4 /* AFURLSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C3EA39521A97B2A1007849B4 /* AFURLSessionManager.m */; };
 		C3EA395E1A97B67E007849B4 /* SensorReading.m in Sources */ = {isa = PBXBuildFile; fileRef = C3EA395D1A97B67E007849B4 /* SensorReading.m */; };
-		C3EA39611A97B7EC007849B4 /* Sensor.m in Sources */ = {isa = PBXBuildFile; fileRef = C3EA39601A97B7EC007849B4 /* Sensor.m */; };
+		C3EA39641A97C2C3007849B4 /* Sensor.m in Sources */ = {isa = PBXBuildFile; fileRef = C3EA39631A97C2C3007849B4 /* Sensor.m */; };
+		C3EA39671A97C6E5007849B4 /* NSString+EPPZKit.m in Sources */ = {isa = PBXBuildFile; fileRef = C3EA39661A97C6E5007849B4 /* NSString+EPPZKit.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -125,8 +126,10 @@
 		C3EA39521A97B2A1007849B4 /* AFURLSessionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFURLSessionManager.m; sourceTree = "<group>"; };
 		C3EA395C1A97B67E007849B4 /* SensorReading.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SensorReading.h; sourceTree = "<group>"; };
 		C3EA395D1A97B67E007849B4 /* SensorReading.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SensorReading.m; sourceTree = "<group>"; };
-		C3EA395F1A97B7EC007849B4 /* Sensor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Sensor.h; sourceTree = "<group>"; };
-		C3EA39601A97B7EC007849B4 /* Sensor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Sensor.m; sourceTree = "<group>"; };
+		C3EA39621A97C2C3007849B4 /* Sensor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Sensor.h; sourceTree = "<group>"; };
+		C3EA39631A97C2C3007849B4 /* Sensor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Sensor.m; sourceTree = "<group>"; };
+		C3EA39651A97C6E5007849B4 /* NSString+EPPZKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+EPPZKit.h"; sourceTree = "<group>"; };
+		C3EA39661A97C6E5007849B4 /* NSString+EPPZKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+EPPZKit.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -253,6 +256,8 @@
 		B042EC831A93A4CA00C2E6D9 /* Categories */ = {
 			isa = PBXGroup;
 			children = (
+				C3EA39651A97C6E5007849B4 /* NSString+EPPZKit.h */,
+				C3EA39661A97C6E5007849B4 /* NSString+EPPZKit.m */,
 				B0CDE4151A94EB7700C8F60E /* NSDate+PrettyDate.h */,
 				B0CDE4161A94EB7700C8F60E /* NSDate+PrettyDate.m */,
 			);
@@ -270,8 +275,8 @@
 				C3EA392D1A977E18007849B4 /* Controller.m */,
 				C3EA395C1A97B67E007849B4 /* SensorReading.h */,
 				C3EA395D1A97B67E007849B4 /* SensorReading.m */,
-				C3EA395F1A97B7EC007849B4 /* Sensor.h */,
-				C3EA39601A97B7EC007849B4 /* Sensor.m */,
+				C3EA39621A97C2C3007849B4 /* Sensor.h */,
+				C3EA39631A97C2C3007849B4 /* Sensor.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -440,7 +445,7 @@
 				C3EA39581A97B2A1007849B4 /* AFURLConnectionOperation.m in Sources */,
 				B0CDE4171A94EB7700C8F60E /* NSDate+PrettyDate.m in Sources */,
 				3C4FBCBD1A94FD450060440B /* CircularBarView.m in Sources */,
-				C3EA39611A97B7EC007849B4 /* Sensor.m in Sources */,
+				C3EA39641A97C2C3007849B4 /* Sensor.m in Sources */,
 				C3EA39531A97B2A1007849B4 /* AFHTTPRequestOperation.m in Sources */,
 				C3EA395A1A97B2A1007849B4 /* AFURLResponseSerialization.m in Sources */,
 				C38091B41A963F3E00BFB7C1 /* BEMSimpleLineGraphView.m in Sources */,
@@ -460,6 +465,7 @@
 				C3EA39561A97B2A1007849B4 /* AFNetworkReachabilityManager.m in Sources */,
 				B042EC7C1A939B6200C2E6D9 /* MasterViewController.m in Sources */,
 				C3EA39541A97B2A1007849B4 /* AFHTTPRequestOperationManager.m in Sources */,
+				C3EA39671A97C6E5007849B4 /* NSString+EPPZKit.m in Sources */,
 				C3EA39591A97B2A1007849B4 /* AFURLRequestSerialization.m in Sources */,
 				3C4FBCB91A94F96C0060440B /* GraphViewController.m in Sources */,
 				B042EC141A93891D00C2E6D9 /* AppDelegate.m in Sources */,

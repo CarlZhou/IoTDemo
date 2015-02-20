@@ -28,7 +28,7 @@
 - (void)getSensorReadingsForSensors:(NSArray *)sensors
                               Limit:(NSUInteger)limit
                                Skip:(NSUInteger)skip
-                            success:(void(^)(id responseObject))success
+                            success:(void(^)(NSArray *sensors, NSArray *readings))success
                             failure:(void (^)(AFHTTPRequestOperation *operation))failure
 {
     NSDictionary *params = @{ @"sensor_ids" : [sensors componentsJoinedByString:@","],
@@ -46,10 +46,9 @@
           
           if (responseObject && responseObject[@"meta"] && [responseObject[@"meta"][@"status_code"]  isEqual: @200])
           {
-              [[CoreDataManager sharedManager] createNewSensorReadingsWithData:responseObject[@"sensors"] completion:^(){
-                  
+              [self parseSensorReadingsData:responseObject[@"sensors"] Completion:^(NSArray *sensors, NSArray *readings){
                   if (success)
-                      success(responseObject);
+                      success(sensors, readings);
               }];
           }
           
@@ -59,6 +58,25 @@
           if (failure)
               failure(operation);
       }];
+}
+
+- (void)parseSensorReadingsData:(NSArray *)sensorReadingsData Completion:(void(^)(NSArray *sensors, NSArray *readings))completion
+{
+    NSMutableArray *sensors = [NSMutableArray array];
+    NSMutableArray *readings = [NSMutableArray array];
+    [sensorReadingsData enumerateObjectsUsingBlock:^(NSDictionary *data, NSUInteger index, BOOL *stop){
+        Sensor *sensor = [[CoreDataManager sharedManager] createNewSensorWithData:data[@"sensor"] Controller:nil SensorType:nil LastReading:nil];
+        [sensors addObject:sensor];
+        NSArray *sensorReadings = data[@"readings"];
+        [sensorReadings enumerateObjectsUsingBlock:^(NSDictionary *readingData, NSUInteger index2, BOOL *stop2){
+            [readings addObject:[[CoreDataManager sharedManager] createNewSensorReadingWithData:data]];
+        }];
+        if (index == sensorReadingsData.count-1)
+        {
+            if (completion)
+                completion(sensors, readings);
+        }
+    }];
 }
 
 @end

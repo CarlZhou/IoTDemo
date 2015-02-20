@@ -51,7 +51,7 @@
     <elements>
         <element name="Controller" positionX="0" positionY="0" width="128" height="120"/>
         <element name="Event" positionX="0" positionY="0" width="128" height="60"/>
-        <element name="Sensor" positionX="0" positionY="0" width="128" height="223"/>
+        <element name="Sensor" positionX="0" positionY="0" width="128" height="225"/>
         <element name="SensorReading" positionX="0" positionY="0" width="128" height="103"/>
         <element name="SensorType" positionX="0" positionY="0" width="128" height="165"/>
         <element name="SensorTypeCategory" positionX="0" positionY="0" width="128" height="90"/>

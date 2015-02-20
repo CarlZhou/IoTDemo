@@ -12,6 +12,7 @@
 #import "SensorTypeCategory.h"
 #import "SensorReading.h"
 #import "Controller.h"
+#import "NSString+EPPZKit.h"
 #include <stdlib.h>
 
 @implementation CoreDataManager
@@ -73,15 +74,21 @@
 - (Sensor *)createNewSensorWithData:(NSDictionary *)data Controller:(Controller *)controller SensorType:(SensorType *)type LastReading:(SensorReading *)reading
 {
     Sensor *entity = [[Sensor alloc] initWithEntity:[self getEntityForName:@"Sensor"] insertIntoManagedObjectContext:self.managedObjectContext];
-    entity.s_id = [data objectForKey:@"id"];
+    NSNumberFormatter *numFormat = [[NSNumberFormatter alloc] init];
+    entity.s_id = [numFormat numberFromString:[data objectForKey:@"id"]];
     entity.s_name = [data objectForKey:@"name"];
     entity.s_unit = [data objectForKey:@"unit"];
-    entity.s_status = [data objectForKey:@"status"];
-    entity.s_channel = [data objectForKey:@"channel"];
+    entity.s_status = [numFormat numberFromString:[data objectForKey:@"status"]];
+    entity.s_channel = [numFormat numberFromString:[data objectForKey:@"channel"]];
     entity.s_serial_num = [data objectForKey:@"serial_num"];
-    entity.s_last_updated = [data objectForKey:@"last_updated"];
-    entity.s_controller_id = [data objectForKey:@"controller_id"];
-    entity.s_sensor_type_id = [data objectForKey:@"sensor_type_id"];
+    NSString *dataString = [[data objectForKey:@"last_updated"] substringToIndex:19];
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    NSLog(@"Date String: %@", dataString);
+    NSLog(@"Date Value: %@", [dateFormatter dateFromString:dataString]);
+//    entity.s_last_updated = [data objectForKey:@"last_updated"];
+    entity.s_controller_id = [numFormat numberFromString:[data objectForKey:@"controller_id"]];
+    entity.s_sensor_type_id = [numFormat numberFromString:[data objectForKey:@"sensor_type_id"]];
     entity.s_controller = controller;
     entity.s_sensor_type = type;
     entity.s_last_reading = reading;
@@ -184,7 +191,7 @@
     SensorReading *reading = [self createNewSensorReadingWithData:mockReading];
     
     NSDictionary *mockSensor = @{
-                                 @"id" : @1,
+                                 @"id" : @"1",
                                  @"name" : @"sensor1",
                                  @"unit" : @"lumi",
                                  @"status" : @1,

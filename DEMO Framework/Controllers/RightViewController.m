@@ -39,8 +39,8 @@
     // Update the user interface for the detail item.
     if (self.detailItem)
     {
-        [[APIManager sharedManager] getSensorReadingsForSensors:@[@1] Limit:10 Skip:0 success:^(id responseObject){
-            
+        [[APIManager sharedManager] getSensorReadingsForSensors:@[@1] Limit:10 Skip:0 success:^(NSArray *sensors, NSArray *readings){
+            NSLog(@"readings: %@", readings);
         }failure:^(AFHTTPRequestOperation *operation){
             
         }];
