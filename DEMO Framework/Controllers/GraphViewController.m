@@ -54,16 +54,16 @@
 
 - (void)initCircularGraph
 {
-    currentBarView = [[CircularBarView alloc] initWithFrame:CGRectMake(0, 0, 175, 200) Title:@"Current" DisplayColor:customOrange Percentage:65];// fdaa29
+    currentBarView = [[CircularBarView alloc] initWithFrame:CGRectMake(0, 0, 175, 254) Title:@"Current" DisplayColor:customOrange Percentage:65 Reading:250 Unit:@"lumi"];// fdaa29
     [self.currentViewContainer addSubview:currentBarView];
     
-    avgBarView = [[CircularBarView alloc] initWithFrame:CGRectMake(0, 0, 175, 200) Title:@"Average" DisplayColor:customBlue Percentage:45];
+    avgBarView = [[CircularBarView alloc] initWithFrame:CGRectMake(0, 0, 175, 254) Title:@"Average" DisplayColor:customBlue Percentage:45 Reading:120 Unit:@"lumi"];
     [self.avgViewContainer addSubview:avgBarView];// 56a8e7
     
-    minBarView = [[CircularBarView alloc] initWithFrame:CGRectMake(0, 0, 175, 200) Title:@"Min" DisplayColor:customRed Percentage:31];
+    minBarView = [[CircularBarView alloc] initWithFrame:CGRectMake(0, 0, 175, 254) Title:@"Min" DisplayColor:customRed Percentage:31 Reading:15 Unit:@"lumi"];
     [self.minViewContainer addSubview:minBarView];// f1705c
     
-    maxBarView = [[CircularBarView alloc] initWithFrame:CGRectMake(0, 0, 175, 200) Title:@"Max" DisplayColor:customGreen Percentage:69];
+    maxBarView = [[CircularBarView alloc] initWithFrame:CGRectMake(0, 0, 175, 254) Title:@"Max" DisplayColor:customGreen Percentage:69 Reading:310 Unit:@"lumi"];
     [self.maxViewContainer addSubview:maxBarView]; // 8fc842
 
 }

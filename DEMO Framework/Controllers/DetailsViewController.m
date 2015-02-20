@@ -29,7 +29,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    currentBarView = [[CircularBarView alloc] initWithFrame:CGRectMake(0, 0, 175, 200) Title:@"Current" DisplayColor:customOrange Percentage:65];// fdaa29
+    currentBarView = [[CircularBarView alloc] initWithFrame:CGRectMake(0, 0, 175, 255) Title:@"Current" DisplayColor:customOrange Percentage:65 Reading:250 Unit:@"Lumens"];// fdaa29
     [self.currentViewContainer addSubview:currentBarView];
     
     [self reloadViews];

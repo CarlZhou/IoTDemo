@@ -11,10 +11,14 @@
 @interface CircularBarView : UIView
 
 @property (nonatomic) float percentage;
-@property UIColor *displayColor;
+@property (nonatomic) float reading;
+@property (nonatomic, strong) NSString *unit;
+@property (nonatomic, strong) UIColor *displayColor;
 @property (nonatomic, strong) UILabel *titleLabel;
+@property (nonatomic, strong) UILabel *percentLabel;
+@property (nonatomic, strong) UILabel *readingLabel;
 
-- (id)initWithFrame:(CGRect)frame Title:(NSString*)title DisplayColor:(UIColor*)displayColor Percentage:(CGFloat)percent;
-- (void)updateData:(CGFloat)percent;
+- (id)initWithFrame:(CGRect)frame Title:(NSString*)title DisplayColor:(UIColor*)displayColor Percentage:(CGFloat)percent Reading:(CGFloat)reading Unit:(NSString*)unit;
+- (void)updatePercentage:(CGFloat)percent Reading:(CGFloat)reading Unit:(NSString*)unit;
 
 @end
