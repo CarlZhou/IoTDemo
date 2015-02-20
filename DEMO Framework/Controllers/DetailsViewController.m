@@ -27,7 +27,11 @@
     // Do any additional setup after loading the view.
     // Do any additional setup after loading the view from its nib.
     CircularBarView *currentBarView = [[CircularBarView alloc] initWithFrame:CGRectMake(0, 0, 175, 200)];
+<<<<<<< HEAD
 //    currentBarView.title = @"Current";
+=======
+    currentBarView.titleLabel.text = @"Current";
+>>>>>>> FETCH_HEAD
     currentBarView.percentage = 65;
     currentBarView.displayColor = [UIColor orangeColor];    // fdaa29
     currentBarView.backgroundColor = [UIColor whiteColor];

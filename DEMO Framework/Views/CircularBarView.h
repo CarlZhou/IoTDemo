@@ -12,7 +12,9 @@
 
 @property (nonatomic) float percentage;
 @property UIColor *displayColor;
+@property (nonatomic, strong) UILabel *titleLabel;
 
 - (id)initWithFrame:(CGRect)frame Title:(NSString*)title DisplayColor:(UIColor*)displayColor Percentage:(CGFloat)percent;
+- (void)updateData:(CGFloat)percent;
 
 @end
