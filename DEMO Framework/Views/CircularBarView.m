@@ -33,6 +33,11 @@
         self.clipsToBounds = YES;
         self.displayColor = [UIColor blackColor];
         self.percentage = 0;
+        self.percentLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, 44.0f)];
+        self.percentLabel.textAlignment = NSTextAlignmentCenter;
+        [self.percentLabel setTextColor:[UIColor darkGrayColor]];
+        [self.percentLabel setFont:[UIFont boldSystemFontOfSize:25]];
+        [self addSubview:self.percentLabel];
     }
     return self;
 }
@@ -115,13 +120,8 @@
     
     // Display our percentage as a string
     NSString* textContent = [NSString stringWithFormat:@"%.f", self.percentage];
-    self.percentLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, 44.0f)];
-    self.percentLabel.textAlignment = NSTextAlignmentCenter;
     self.percentLabel.center = circleCentre;
-    [self.percentLabel setTextColor:[UIColor darkGrayColor]];
-    [self.percentLabel setFont:[UIFont boldSystemFontOfSize:25]];
     [self.percentLabel setText:textContent];
-    [self addSubview:self.percentLabel];
 
 }
 
