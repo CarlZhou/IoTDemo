@@ -56,7 +56,7 @@
         self.displayColor = displayColor;
         self.percentage = percent;
         self.reading = reading;
-        self.unit = @"Lumens";
+        self.unit = unit;
         self.titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 35, self.frame.size.width, 44.0f)];
         self.titleLabel.text = title;
         self.titleLabel.textAlignment = NSTextAlignmentCenter;

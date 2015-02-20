@@ -9,7 +9,7 @@
 #import "GraphViewController.h"
 #import "CircularBarView.h"
 #import "BEMSimpleLineGraphView.h"
-#import "constants.h"
+#import "Constants.h"
 
 @interface GraphViewController ()<BEMSimpleLineGraphDataSource, BEMSimpleLineGraphDelegate>
 {
@@ -37,8 +37,6 @@
     [super viewDidLoad];
     [self initLineGraph];
     [self initCircularGraph];
-    
-    // Do any additional setup after loading the view from its nib.
 }
 
 - (void)reloadViews
@@ -54,16 +52,16 @@
 
 - (void)initCircularGraph
 {
-    currentBarView = [[CircularBarView alloc] initWithFrame:CGRectMake(0, 0, 175, 254) Title:@"Current" DisplayColor:customOrange Percentage:65 Reading:250 Unit:@"lumi"];// fdaa29
+    currentBarView = [[CircularBarView alloc] initWithFrame:CGRectMake(0, 0, 175, 254) Title:@"Current" DisplayColor:customOrange Percentage:65 Reading:250 Unit:@"Lumens"];// fdaa29
     [self.currentViewContainer addSubview:currentBarView];
     
-    avgBarView = [[CircularBarView alloc] initWithFrame:CGRectMake(0, 0, 175, 254) Title:@"Average" DisplayColor:customBlue Percentage:45 Reading:120 Unit:@"lumi"];
+    avgBarView = [[CircularBarView alloc] initWithFrame:CGRectMake(0, 0, 175, 254) Title:@"Average" DisplayColor:customBlue Percentage:45 Reading:120 Unit:@"Lumens"];
     [self.avgViewContainer addSubview:avgBarView];// 56a8e7
     
-    minBarView = [[CircularBarView alloc] initWithFrame:CGRectMake(0, 0, 175, 254) Title:@"Min" DisplayColor:customRed Percentage:31 Reading:15 Unit:@"lumi"];
+    minBarView = [[CircularBarView alloc] initWithFrame:CGRectMake(0, 0, 175, 254) Title:@"Min" DisplayColor:customRed Percentage:31 Reading:15 Unit:@"Lumens"];
     [self.minViewContainer addSubview:minBarView];// f1705c
     
-    maxBarView = [[CircularBarView alloc] initWithFrame:CGRectMake(0, 0, 175, 254) Title:@"Max" DisplayColor:customGreen Percentage:69 Reading:310 Unit:@"lumi"];
+    maxBarView = [[CircularBarView alloc] initWithFrame:CGRectMake(0, 0, 175, 254) Title:@"Max" DisplayColor:customGreen Percentage:69 Reading:310 Unit:@"Lumens"];
     [self.maxViewContainer addSubview:maxBarView]; // 8fc842
 
 }
@@ -92,7 +90,7 @@
     self.lineGraph.colorBottom = graphBottomColor;
     self.lineGraph.colorLine = graphLineColor;
     
-    self.lineOneData = [NSMutableArray arrayWithArray:@[@60, @50, @30, @40, @60]];
+    self.lineOneData = [NSMutableArray arrayWithArray:@[@60, @50, @30, @40, @80]];
     self.lineOneDataDetail = [NSMutableArray arrayWithArray:@[@"Mon",@"Tue", @"Wed", @"Thu", @"Fri"]];
     // Line Graph End
 }
