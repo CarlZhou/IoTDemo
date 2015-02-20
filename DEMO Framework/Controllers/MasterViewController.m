@@ -34,45 +34,15 @@
     
     [self.tableView registerNib:[UINib nibWithNibName:@"SensorTableViewCell" bundle:nil] forCellReuseIdentifier:@"SensorCell"];
     
-    // Helpers
-    __weak MasterViewController *weakSelf = self;
-    
-    // Initialize Fetch Request
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"Sensor"];
-    
     // Add Sort Descriptors
-    [fetchRequest setSortDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"s_id" ascending:YES], [NSSortDescriptor sortDescriptorWithKey:@"s_last_updated" ascending:NO]]];
+    NSArray *discriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"s_id" ascending:YES], [NSSortDescriptor sortDescriptorWithKey:@"s_last_updated" ascending:NO]];
     
-    // Initialize Asynchronous Fetch Request
-    NSAsynchronousFetchRequest *asynchronousFetchRequest = [[NSAsynchronousFetchRequest alloc] initWithFetchRequest:fetchRequest completionBlock:^(NSAsynchronousFetchResult *result) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            // Process Asynchronous Fetch Result
-            [weakSelf processAsynchronousFetchResult:result];
-        });
-    }];
-    
-    // Execute Asynchronous Fetch Request
-    [[CoreDataManager sharedManager].managedObjectContext performBlock:^{
-        // Execute Asynchronous Fetch Request
-        NSError *asynchronousFetchRequestError = nil;
-        [[CoreDataManager sharedManager].managedObjectContext executeRequest:asynchronousFetchRequest error:&asynchronousFetchRequestError];
-        
-        if (asynchronousFetchRequestError) {
-            NSLog(@"Unable to execute asynchronous fetch result.");
-            NSLog(@"%@, %@", asynchronousFetchRequestError, asynchronousFetchRequestError.localizedDescription);
-        }
-    }];
-}
-
-- (void)processAsynchronousFetchResult:(NSAsynchronousFetchResult *)asynchronousFetchResult {
-    if (asynchronousFetchResult.finalResult) {
-        // Update Items
-        self.sensors = asynchronousFetchResult.finalResult.mutableCopy;
-        NSLog(@"Fetched %lu items", (unsigned long)asynchronousFetchResult.finalResult.count);
-        
-        // Reload Table View
+    [[CoreDataManager sharedManager] fetchDataWithEntityName:@"Sensor" Discriptors:discriptors Completion:^(NSArray *results){
+        self.sensors = results.mutableCopy;
         [self.tableView reloadData];
-    }
+    }];
+    
+    // test
 }
 
 #pragma mark - Segues

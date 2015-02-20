@@ -7,7 +7,16 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "AFHTTPRequestOperationManager.h"
 
-@interface APIManager : NSObject
+@interface APIManager : AFHTTPRequestOperationManager
+
++ (instancetype)sharedManager;
+
+- (void)getSensorReadingsForSensors:(NSArray *)sensors
+                              Limit:(NSUInteger)limit
+                               Skip:(NSUInteger)skip
+                            success:(void(^)(id responseObject))success
+                            failure:(void (^)(AFHTTPRequestOperation *operation))failure;
 
 @end

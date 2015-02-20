@@ -9,6 +9,11 @@
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
+@class Controller;
+@class Sensor;
+@class SensorType;
+@class SensorReading;
+
 @interface CoreDataManager : NSObject
 
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
@@ -17,6 +22,15 @@
 
 // Core Data
 - (NSEntityDescription *)getEntityForName:(NSString *)name;
+// Core Data fetch
+- (void)fetchDataWithEntityName:(NSString *)entityName Discriptors:(NSArray *)discriptors Completion:(void(^)(NSArray *))completion;
+
+// Sensor
+- (void)createNewSensorsWithData:(NSArray *)sensorData completion:(void(^)())completion;
+- (Sensor *)createNewSensorWithData:(NSDictionary *)data Controller:(Controller *)controller SensorType:(SensorType *)type LastReading:(SensorReading *)reading;
+
+// Sensor Readings
+- (void)createNewSensorReadingsWithData:(NSArray *)sensorReadingsData completion:(void(^)())completion;
 
 // test
 - (void)addMockupData;

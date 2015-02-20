@@ -58,6 +58,18 @@
 }
 
 #pragma mark - Sensor
+- (void)createNewSensorsWithData:(NSArray *)sensorData completion:(void(^)())completion
+{
+    [sensorData enumerateObjectsUsingBlock:^(NSDictionary *data, NSUInteger index, BOOL *stop){
+        [self createNewSensorWithData:data Controller:nil SensorType:nil LastReading:nil];
+        if (index == sensorData.count-1)
+        {
+            if (completion)
+                completion();
+        }
+    }];
+}
+
 - (Sensor *)createNewSensorWithData:(NSDictionary *)data Controller:(Controller *)controller SensorType:(SensorType *)type LastReading:(SensorReading *)reading
 {
     Sensor *entity = [[Sensor alloc] initWithEntity:[self getEntityForName:@"Sensor"] insertIntoManagedObjectContext:self.managedObjectContext];
@@ -68,6 +80,8 @@
     entity.s_channel = [data objectForKey:@"channel"];
     entity.s_serial_num = [data objectForKey:@"serial_num"];
     entity.s_last_updated = [data objectForKey:@"last_updated"];
+    entity.s_controller_id = [data objectForKey:@"controller_id"];
+    entity.s_sensor_type_id = [data objectForKey:@"sensor_type_id"];
     entity.s_controller = controller;
     entity.s_sensor_type = type;
     entity.s_last_reading = reading;
@@ -88,7 +102,7 @@
     entity.st_reading_max = [data objectForKey:@"reading_max"];
     entity.st_last_updated = [data objectForKey:@"last_updated"];
     entity.st_sensor_type_category = stc;
-//    [self saveContext];
+    [self saveContext];
     return entity;
 }
 
@@ -99,17 +113,35 @@
     entity.stc_id = [data objectForKey:@"id"];
     entity.stc_name = [data objectForKey:@"name"];
     entity.stc_last_updated = [data objectForKey:@"last_updated"];
-//    [self saveContext];
+    [self saveContext];
     return entity;
 }
 
-#pragma mark - Sensor Type Category
+#pragma mark - Sensor Reading
+- (void)createNewSensorReadingsWithData:(NSArray *)sensorReadingsData completion:(void(^)())completion
+{
+    [sensorReadingsData enumerateObjectsUsingBlock:^(NSDictionary *data, NSUInteger index, BOOL *stop){
+//        Sensor *sensor = [self createNewSensorWithData:data[@"sensor"] Controller:nil SensorType:nil LastReading:nil];
+        NSArray *sensorReadings = data[@"readings"];
+        [sensorReadings enumerateObjectsUsingBlock:^(NSDictionary *readingData, NSUInteger index2, BOOL *stop2){
+            [self createNewSensorReadingWithData:data];
+        }];
+        if (index == sensorReadingsData.count-1)
+        {
+            [self saveContext];
+            if (completion)
+                completion();
+        }
+    }];
+}
+
 - (SensorReading *)createNewSensorReadingWithData:(NSDictionary *)data
 {
     SensorReading *entity = [[SensorReading alloc] initWithEntity:[self getEntityForName:@"SensorReading"] insertIntoManagedObjectContext:self.managedObjectContext];
     entity.sr_reading = [data objectForKey:@"reading"];
     entity.sr_read_time = [data objectForKey:@"read_time"];
-//    [self saveContext];
+    entity.sr_last_updated = [data objectForKey:@"last_updated"];
+    entity.sr_sensor_id = [data objectForKey:@"sensor_id"];
     return entity;
 }
 
@@ -145,7 +177,9 @@
     
     NSDictionary *mockReading = @{
                                      @"reading" : [NSNumber numberWithFloat:arc4random_uniform(320)],
-                                     @"read_time" : [NSDate date]
+                                     @"read_time" : [NSDate date],
+                                     @"last_updated" : [NSDate date],
+                                     @"sensor_id" : @1
                                      };
     SensorReading *reading = [self createNewSensorReadingWithData:mockReading];
     
@@ -156,6 +190,8 @@
                                  @"status" : @1,
                                  @"channel" : @10,
                                  @"serial_num" : @"A12345",
+                                 @"controller_id" : @1,
+                                 @"sensor_type_id" : @1,
                                  @"last_updated" : [NSDate date]
                                  };
     [self createNewSensorWithData:mockSensor Controller:controller SensorType:sensorType LastReading:reading];
@@ -164,6 +200,49 @@
 - (void)clearMockupData
 {
     
+}
+
+// Coredata fetch
+- (void)fetchDataWithEntityName:(NSString *)entityName Discriptors:(NSArray *)discriptors Completion:(void(^)(NSArray *))completion
+{
+    // Initialize Fetch Request
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:entityName];
+    
+    // Add Sort Descriptors
+//    [fetchRequest setSortDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"s_id" ascending:YES], [NSSortDescriptor sortDescriptorWithKey:@"s_last_updated" ascending:NO]]];
+    [fetchRequest setSortDescriptors:discriptors];
+    
+    // Initialize Asynchronous Fetch Request
+    NSAsynchronousFetchRequest *asynchronousFetchRequest = [[NSAsynchronousFetchRequest alloc] initWithFetchRequest:fetchRequest completionBlock:^(NSAsynchronousFetchResult *result) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            // Process Asynchronous Fetch Result
+            if (result.finalResult) {
+                
+                NSLog(@"DEBUG: Fetched %lu items", (unsigned long)result.finalResult.count);
+                // Update Items
+                if (completion)
+                    completion(result.finalResult);
+                
+            } else {
+                NSLog(@"DEBUG: CoreData No Results Found");
+                if (completion)
+                    completion(nil);
+            }
+        });
+    }];
+    
+    // Execute Asynchronous Fetch Request
+    [[CoreDataManager sharedManager].managedObjectContext performBlock:^{
+        // Execute Asynchronous Fetch Request
+        NSError *asynchronousFetchRequestError = nil;
+        [[CoreDataManager sharedManager].managedObjectContext executeRequest:asynchronousFetchRequest error:&asynchronousFetchRequestError];
+        
+        if (asynchronousFetchRequestError) {
+            NSLog(@"Unable to execute asynchronous fetch result.");
+            NSLog(@"%@, %@", asynchronousFetchRequestError, asynchronousFetchRequestError.localizedDescription);
+        }
+    }];
+
 }
 
 @end

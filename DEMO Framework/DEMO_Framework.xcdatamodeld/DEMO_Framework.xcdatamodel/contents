@@ -15,9 +15,11 @@
     </entity>
     <entity name="Sensor" representedClassName="Sensor" syncable="YES">
         <attribute name="s_channel" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
-        <attribute name="s_id" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="s_controller_id" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="s_id" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
         <attribute name="s_last_updated" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="s_name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="s_sensor_type_id" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
         <attribute name="s_serial_num" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="s_status" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="s_unit" optional="YES" attributeType="String" syncable="YES"/>
@@ -26,8 +28,10 @@
         <relationship name="s_sensor_type" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="SensorType" syncable="YES"/>
     </entity>
     <entity name="SensorReading" representedClassName="SensorReading" syncable="YES">
+        <attribute name="sr_last_updated" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="sr_read_time" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="sr_reading" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="sr_sensor_id" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
     </entity>
     <entity name="SensorType" representedClassName="SensorType" syncable="YES">
         <attribute name="st_id" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
@@ -47,8 +51,8 @@
     <elements>
         <element name="Controller" positionX="0" positionY="0" width="128" height="120"/>
         <element name="Event" positionX="0" positionY="0" width="128" height="60"/>
-        <element name="Sensor" positionX="0" positionY="0" width="128" height="195"/>
-        <element name="SensorReading" positionX="0" positionY="0" width="128" height="75"/>
+        <element name="Sensor" positionX="0" positionY="0" width="128" height="223"/>
+        <element name="SensorReading" positionX="0" positionY="0" width="128" height="103"/>
         <element name="SensorType" positionX="0" positionY="0" width="128" height="165"/>
         <element name="SensorTypeCategory" positionX="0" positionY="0" width="128" height="90"/>
     </elements>

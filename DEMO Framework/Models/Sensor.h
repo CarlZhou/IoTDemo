@@ -20,6 +20,8 @@
 @property (nonatomic, retain) NSString * s_serial_num;
 @property (nonatomic, retain) NSNumber * s_status;
 @property (nonatomic, retain) NSString * s_unit;
+@property (nonatomic, retain) NSNumber * s_controller_id;
+@property (nonatomic, retain) NSNumber * s_sensor_type_id;
 @property (nonatomic, retain) Controller *s_controller;
 @property (nonatomic, retain) SensorReading *s_last_reading;
 @property (nonatomic, retain) SensorType *s_sensor_type;

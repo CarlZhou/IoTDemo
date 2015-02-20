@@ -9,6 +9,7 @@
 #import "RightViewController.h"
 #import "GraphViewController.h"
 #import "DetailsViewController.h"
+#import "APIManager.h"
 
 @interface RightViewController ()
 
@@ -38,6 +39,12 @@
     // Update the user interface for the detail item.
     if (self.detailItem)
     {
+        [[APIManager sharedManager] getSensorReadingsForSensors:@[@1] Limit:10 Skip:0 success:^(id responseObject){
+            
+        }failure:^(AFHTTPRequestOperation *operation){
+            
+        }];
+        
         self.detailsViewController.selectedSensor = self.detailItem;
         [self.detailsViewController reloadViews];
     }

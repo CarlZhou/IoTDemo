@@ -21,6 +21,8 @@
 @dynamic s_serial_num;
 @dynamic s_status;
 @dynamic s_unit;
+@dynamic s_controller_id;
+@dynamic s_sensor_type_id;
 @dynamic s_controller;
 @dynamic s_last_reading;
 @dynamic s_sensor_type;
