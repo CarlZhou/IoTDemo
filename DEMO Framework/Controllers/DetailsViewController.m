@@ -13,6 +13,7 @@
 #import "SensorType.h"
 #import "Constants.h"
 #import "WMGaugeView.h"
+#import "APIManager.h"
 
 #define DISPLAYED_PROPERTIES_NUM 10
 
@@ -27,6 +28,7 @@
 @property (strong, nonatomic) IBOutlet UITableView *sensorPropertiesTableview;
 @property (strong, nonatomic) IBOutlet UITableView *recentReadingsTableview;
 @property (strong, nonatomic) IBOutlet WMGaugeView *gaugeView;
+@property (nonatomic, strong) NSMutableArray *recentReadings;
 
 @end
 
@@ -45,6 +47,8 @@
     self.sensorPropertiesTableview.layer.cornerRadius = 5.0f;
     self.recentReadingsTableview.layer.cornerRadius = 5.0f;
     
+    self.recentReadings = [NSMutableArray array];
+    
     [self reloadViews];
     [self initGaugueView];
 }
@@ -52,6 +56,17 @@
 - (void)reloadViews
 {
     [self.sensorPropertiesTableview reloadData];
+    
+    [[APIManager sharedManager] getSensorReadingsForSensors:@[@1] Limit:10 Skip:0 success:^(NSArray *sensors, NSArray *readings){
+        
+        self.recentReadings = readings.mutableCopy;
+        [self.recentReadingsTableview reloadData];
+//                NSLog(@"readings: %@", readings);
+    }failure:^(AFHTTPRequestOperation *operation){
+        
+    }];
+    
+    [self reloadGaugueView];
 }
 
 #pragma mark - Gaugue View
@@ -76,14 +91,27 @@
 
 - (void)reloadGaugueView
 {
-//    self.gaugeView.rangeValues = @[ self.selectedSensor.s_sensor_type.st_reading_min, self.selectedSensor.s_sensor_type.st_reading_max];
+    NSInteger range = [self.selectedSensor.s_sensor_type.st_reading_max integerValue] - [self.selectedSensor.s_sensor_type.st_reading_min integerValue];
+//    float number = 350.0f;
+//    self.gaugeView.maxValue = number;
+    self.gaugeView.rangeValues = @[ @(range*0.25), @(range*0.75), @(range) ];
+    self.gaugeView.rangeColors = @[ RGB(27, 202, 33), RGB(232, 231, 33), RGB(231, 32, 43) ];
+    self.gaugeView.rangeLabels = @[ @"", @"", @"" ];
+    self.gaugeView.value = [self.selectedSensor.s_last_reading.sr_reading floatValue];
 }
 
 #pragma mark - Table View
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 6;
+    if ([tableView isEqual:self.sensorPropertiesTableview])
+    {
+        return 6;
+    }
+    else
+    {
+        return self.recentReadings.count;
+    }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -105,8 +133,14 @@
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
         if (cell == nil)
         {
-            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier];
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
         }
+        
+        SensorReading *reading = [self.recentReadings objectAtIndex:indexPath.row];
+        cell.textLabel.text = [NSString stringWithFormat:@"%@ %@", reading.sr_reading, self.selectedSensor.s_unit];
+        cell.detailTextLabel.text = [NSString stringWithFormat:@"%@", reading.sr_read_time];
+        NSLog(@"%@", reading);
+        
         return cell;
     }
 }

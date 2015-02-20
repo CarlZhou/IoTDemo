@@ -16,7 +16,7 @@
 - (void)getSensorReadingsForSensors:(NSArray *)sensors
                               Limit:(NSUInteger)limit
                                Skip:(NSUInteger)skip
-                            success:(void(^)(id responseObject))success
+                            success:(void(^)(NSArray *sensors, NSArray *readings))success
                             failure:(void (^)(AFHTTPRequestOperation *operation))failure;
 
 @end

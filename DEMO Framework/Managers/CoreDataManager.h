@@ -32,6 +32,7 @@
 
 // Sensor Readings
 - (void)createNewSensorReadingsWithData:(NSArray *)sensorReadingsData completion:(void(^)())completion;
+- (SensorReading *)createNewSensorReadingWithData:(NSDictionary *)data;
 
 // Controller
 - (Controller *)createNewControllerWithData:(NSDictionary *)data;
