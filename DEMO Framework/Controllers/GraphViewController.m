@@ -86,11 +86,11 @@
     //self.lineGraph.enableReferenceXAxisLines = YES;
     //    self.lineGraph.autoScaleYAxis = NO;
     self.lineGraph.alwaysDisplayDots = YES;
-    self.lineGraph.colorPoint = [UIColor colorWithRed:122.0/255.0 green:147.0/255.0 blue:174.0/255.0 alpha:1];
+    self.lineGraph.colorPoint = graphPointColor;
     self.lineGraph.colorBackgroundXaxis = [UIColor whiteColor];
     self.lineGraph.colorTop = [UIColor whiteColor];
-    self.lineGraph.colorBottom = [UIColor colorWithRed:193.0/255.0 green:210.0/255.0 blue:218.0/255.0 alpha:1.0];
-    self.lineGraph.colorLine = [UIColor colorWithRed:122.0/255.0 green:147.0/255.0 blue:174.0/255.0 alpha:1];
+    self.lineGraph.colorBottom = graphBottomColor;
+    self.lineGraph.colorLine = graphLineColor;
     
     self.lineOneData = [NSMutableArray arrayWithArray:@[@60, @50, @30, @40, @60]];
     self.lineOneDataDetail = [NSMutableArray arrayWithArray:@[@"Mon",@"Tue", @"Wed", @"Thu", @"Fri"]];
