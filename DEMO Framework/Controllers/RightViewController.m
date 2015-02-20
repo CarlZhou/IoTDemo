@@ -40,11 +40,17 @@
     if (self.detailItem)
     {   
         self.detailsViewController.selectedSensor = self.detailItem;
+        self.graphViewController.selectedSensor = self.detailItem;
 //        [self.detailsViewController reloadViews];
         [[APIManager sharedManager] getSensorReadingsForSensors:@[@1] Limit:10 Skip:0 success:^(NSArray *sensors, NSArray *readings){
             
+            // Could put in one shareinstance
+            self.graphViewController.recentReadings = readings.mutableCopy;
             self.detailsViewController.recentReadings = readings.mutableCopy;
             [self.detailsViewController reloadViews];
+            [self.graphViewController reloadData];
+            
+            
         }failure:^(AFHTTPRequestOperation *operation){
             
         }];

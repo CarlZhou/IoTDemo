@@ -8,8 +8,15 @@
 
 #import <UIKit/UIKit.h>
 
+@class Sensor;
+
 @interface GraphViewController : UIViewController
 
+@property (nonatomic, strong) Sensor *selectedSensor;
+
+@property (nonatomic, strong) NSMutableArray *recentReadings;
+
 - (void)reloadViews;
+- (void)reloadData;
 
 @end

@@ -10,6 +10,9 @@
 #import "CircularBarView.h"
 #import "BEMSimpleLineGraphView.h"
 #import "Constants.h"
+#import "SensorReading.h"
+#import "Sensor.h"
+#import "SensorType.h"
 
 @interface GraphViewController ()<BEMSimpleLineGraphDataSource, BEMSimpleLineGraphDelegate>
 {
@@ -66,6 +69,34 @@
 
 }
 
+- (void)reloadData
+{
+    [self.lineOneData removeAllObjects];
+    [self.lineOneDataDetail removeAllObjects];
+    [self.recentReadings enumerateObjectsUsingBlock:^(SensorReading *reading, NSUInteger index, BOOL *stop){
+        [self.lineOneData addObject:reading.sr_reading];
+        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+        [formatter setDateFormat:@"HH:mm:ss"];
+        [self.lineOneDataDetail addObject:[formatter stringFromDate:reading.sr_read_time]];
+    }];
+    [self.lineGraph reloadGraph];
+    
+    // Graphs
+    maxBarView.reading = [[self.lineGraph calculateMaximumPointValue] floatValue];
+    maxBarView.percentage = [[self.lineGraph calculateMaximumPointValue] floatValue]/[self.selectedSensor.s_sensor_type.st_reading_max floatValue] * 100;
+    
+    minBarView.reading = [[self.lineGraph calculateMinimumPointValue] floatValue];
+    minBarView.percentage = [[self.lineGraph calculateMinimumPointValue] floatValue]/[self.selectedSensor.s_sensor_type.st_reading_max floatValue] * 100;
+    
+    avgBarView.reading = [[self.lineGraph calculatePointValueAverage] floatValue];
+    avgBarView.percentage = [[self.lineGraph calculatePointValueAverage] floatValue]/[self.selectedSensor.s_sensor_type.st_reading_max floatValue] * 100;
+    
+    currentBarView.reading = [[self.lineOneData lastObject] floatValue];
+    currentBarView.percentage = [[self.lineOneData lastObject] floatValue]/[self.selectedSensor.s_sensor_type.st_reading_max floatValue] * 100;
+
+    [self reloadViews];
+}
+
 #pragma mark - Line Graph
 
 - (void)initLineGraph
@@ -89,6 +120,7 @@
     self.lineGraph.colorTop = [UIColor whiteColor];
     self.lineGraph.colorBottom = graphBottomColor;
     self.lineGraph.colorLine = graphLineColor;
+    self.lineGraph.clipsToBounds = NO;
     
     self.lineOneData = [NSMutableArray arrayWithArray:@[@60, @50, @30, @40, @80]];
     self.lineOneDataDetail = [NSMutableArray arrayWithArray:@[@"Mon",@"Tue", @"Wed", @"Thu", @"Fri"]];
