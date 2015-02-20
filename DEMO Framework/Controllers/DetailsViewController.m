@@ -9,10 +9,14 @@
 #import "DetailsViewController.h"
 #import "CircularBarView.h"
 #import "Sensor.h"
+#import "Constants.h"
 
 #define DISPLAYED_PROPERTIES_NUM 10
 
 @interface DetailsViewController ()<UITableViewDataSource, UITableViewDelegate>
+{
+    CircularBarView *currentBarView;
+}
 
 @property (strong, nonatomic) IBOutlet UILabel *sensorTitleLabel;
 @property (strong, nonatomic) IBOutlet UIView *currentViewContainer;
@@ -24,14 +28,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
-    // Do any additional setup after loading the view from its nib.
-    CircularBarView *currentBarView = [[CircularBarView alloc] initWithFrame:CGRectMake(0, 0, 175, 200)];
-//    currentBarView.title = @"Current";
-    currentBarView.percentage = 65;
-    currentBarView.displayColor = [UIColor orangeColor];    // fdaa29
-    currentBarView.backgroundColor = [UIColor whiteColor];
+    
+    currentBarView = [[CircularBarView alloc] initWithFrame:CGRectMake(0, 0, 175, 200) Title:@"Current" DisplayColor:customOrange Percentage:65];// fdaa29
     [self.currentViewContainer addSubview:currentBarView];
+    
     [self reloadViews];
     
 }
@@ -40,6 +40,7 @@
 {
     self.sensorTitleLabel.text = self.selectedSensor.s_name;
     [self.tableview reloadData];
+    [currentBarView setNeedsDisplay];
 }
 
 #pragma mark - Table View

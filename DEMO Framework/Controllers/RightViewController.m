@@ -62,6 +62,7 @@
             break;
         case 1:
             [self.view bringSubviewToFront:self.graphContainer];
+            [self.graphViewController reloadViews];
             break;
         default:
             break;

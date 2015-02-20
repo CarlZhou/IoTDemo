@@ -12,7 +12,12 @@
 #import "constants.h"
 
 @interface GraphViewController ()<BEMSimpleLineGraphDataSource, BEMSimpleLineGraphDelegate>
-@property (strong,nonatomic) CircularBarView *currentBarView;
+{
+    CircularBarView *currentBarView;
+    CircularBarView *avgBarView;
+    CircularBarView *minBarView;
+    CircularBarView *maxBarView;
+}
 @property (weak, nonatomic) IBOutlet UIView *currentViewContainer;
 @property (weak, nonatomic) IBOutlet UIView *avgViewContainer;
 @property (weak, nonatomic) IBOutlet UIView *minViewContainer;
@@ -31,18 +36,34 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self initLineGraph];
+    [self initCircularGraph];
     
     // Do any additional setup after loading the view from its nib.
-    CircularBarView *currentBarView = [[CircularBarView alloc] initWithFrame:CGRectMake(0, 0, 175, 200) Title:@"Current" DisplayColor:customOrange Percentage:65];// fdaa29
+}
+
+- (void)reloadViews
+{
+    [self.lineGraph reloadGraph];
+    [currentBarView setNeedsDisplay];
+    [avgBarView setNeedsDisplay];
+    [minBarView setNeedsDisplay];
+    [maxBarView setNeedsDisplay];
+}
+
+#pragma mark - Circlar Graph
+
+- (void)initCircularGraph
+{
+    currentBarView = [[CircularBarView alloc] initWithFrame:CGRectMake(0, 0, 175, 200) Title:@"Current" DisplayColor:customOrange Percentage:65];// fdaa29
     [self.currentViewContainer addSubview:currentBarView];
     
-    CircularBarView *avgBarView = [[CircularBarView alloc] initWithFrame:CGRectMake(0, 0, 175, 200) Title:@"Average" DisplayColor:customBlue Percentage:45];
+    avgBarView = [[CircularBarView alloc] initWithFrame:CGRectMake(0, 0, 175, 200) Title:@"Average" DisplayColor:customBlue Percentage:45];
     [self.avgViewContainer addSubview:avgBarView];// 56a8e7
-
-    CircularBarView *minBarView = [[CircularBarView alloc] initWithFrame:CGRectMake(0, 0, 175, 200) Title:@"Min" DisplayColor:customRed Percentage:31];
+    
+    minBarView = [[CircularBarView alloc] initWithFrame:CGRectMake(0, 0, 175, 200) Title:@"Min" DisplayColor:customRed Percentage:31];
     [self.minViewContainer addSubview:minBarView];// f1705c
     
-    CircularBarView *maxBarView = [[CircularBarView alloc] initWithFrame:CGRectMake(0, 0, 175, 200) Title:@"Max" DisplayColor:customGreen Percentage:69];
+    maxBarView = [[CircularBarView alloc] initWithFrame:CGRectMake(0, 0, 175, 200) Title:@"Max" DisplayColor:customGreen Percentage:69];
     [self.maxViewContainer addSubview:maxBarView]; // 8fc842
 
 }

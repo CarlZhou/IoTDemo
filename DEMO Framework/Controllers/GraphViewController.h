@@ -10,4 +10,6 @@
 
 @interface GraphViewController : UIViewController
 
+- (void)reloadViews;
+
 @end
