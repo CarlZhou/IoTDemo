@@ -9,6 +9,7 @@
 #import "DetailsViewController.h"
 #import "CircularBarView.h"
 #import "Sensor.h"
+#import "SensorReading.h"
 #import "Constants.h"
 
 #define DISPLAYED_PROPERTIES_NUM 10
@@ -18,7 +19,6 @@
     CircularBarView *currentBarView;
 }
 
-@property (strong, nonatomic) IBOutlet UILabel *sensorTitleLabel;
 @property (strong, nonatomic) IBOutlet UIView *currentViewContainer;
 
 
@@ -38,8 +38,8 @@
 
 - (void)reloadViews
 {
-    self.sensorTitleLabel.text = self.selectedSensor.s_name;
     [self.tableview reloadData];
+    currentBarView.percentage = [self.selectedSensor.s_last_reading.sr_reading floatValue];
     [currentBarView setNeedsDisplay];
 }
 
@@ -94,11 +94,6 @@
         default:
             break;
     }
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    return 100.0f;
 }
 
 @end
