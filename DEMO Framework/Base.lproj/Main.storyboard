@@ -263,7 +263,7 @@
                                         </subviews>
                                         <color key="backgroundColor" white="0.84999999999999998" alpha="1" colorSpace="calibratedWhite"/>
                                     </view>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Value Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="cvd-b5-BhH">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Value Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="cvd-b5-BhH">
                                         <rect key="frame" x="79" y="241" width="92" height="24"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="17"/>
@@ -323,6 +323,7 @@
                         <outlet property="recentReadingsTableview" destination="zxN-3J-r9B" id="rWy-Yj-pUY"/>
                         <outlet property="recentReadingsViewContainer" destination="XT9-rt-J6Q" id="Jvn-6z-aSk"/>
                         <outlet property="sensorPropertiesTableview" destination="ogv-9q-gDT" id="OZS-9c-WnE"/>
+                        <outlet property="valueLabel" destination="cvd-b5-BhH" id="myF-LP-vam"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sNz-yx-6v4" userLabel="First Responder" sceneMemberID="firstResponder"/>

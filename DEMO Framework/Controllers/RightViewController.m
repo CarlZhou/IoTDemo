@@ -40,7 +40,14 @@
     if (self.detailItem)
     {   
         self.detailsViewController.selectedSensor = self.detailItem;
-        [self.detailsViewController reloadViews];
+//        [self.detailsViewController reloadViews];
+        [[APIManager sharedManager] getSensorReadingsForSensors:@[@1] Limit:10 Skip:0 success:^(NSArray *sensors, NSArray *readings){
+            
+            self.detailsViewController.recentReadings = readings.mutableCopy;
+            [self.detailsViewController reloadViews];
+        }failure:^(AFHTTPRequestOperation *operation){
+            
+        }];
     }
 }
 

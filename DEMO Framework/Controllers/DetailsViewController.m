@@ -11,6 +11,7 @@
 #import "Sensor.h"
 #import "SensorReading.h"
 #import "SensorType.h"
+#import "SensorTypeCategory.h"
 #import "Constants.h"
 #import "WMGaugeView.h"
 #import "APIManager.h"
@@ -27,8 +28,8 @@
 @property (strong, nonatomic) IBOutlet UIView *recentReadingsViewContainer;
 @property (strong, nonatomic) IBOutlet UITableView *sensorPropertiesTableview;
 @property (strong, nonatomic) IBOutlet UITableView *recentReadingsTableview;
+@property (strong, nonatomic) IBOutlet UILabel *valueLabel;
 @property (strong, nonatomic) IBOutlet WMGaugeView *gaugeView;
-@property (nonatomic, strong) NSMutableArray *recentReadings;
 
 @end
 
@@ -57,14 +58,15 @@
 {
     [self.sensorPropertiesTableview reloadData];
     
-    [[APIManager sharedManager] getSensorReadingsForSensors:@[@1] Limit:10 Skip:0 success:^(NSArray *sensors, NSArray *readings){
-        
-        self.recentReadings = readings.mutableCopy;
-        [self.recentReadingsTableview reloadData];
-//                NSLog(@"readings: %@", readings);
-    }failure:^(AFHTTPRequestOperation *operation){
-        
-    }];
+//    [[APIManager sharedManager] getSensorReadingsForSensors:@[@1] Limit:10 Skip:0 success:^(NSArray *sensors, NSArray *readings){
+//        
+//        self.recentReadings = readings.mutableCopy;
+//        [self.recentReadingsTableview reloadData];
+////                NSLog(@"readings: %@", readings);
+//    }failure:^(AFHTTPRequestOperation *operation){
+//        
+//    }];
+    [self.recentReadingsTableview reloadData];
     
     [self reloadGaugueView];
 }
@@ -72,32 +74,35 @@
 #pragma mark - Gaugue View
 - (void)initGaugueView
 {
-    self.gaugeView.maxValue = 240.0;
-    self.gaugeView.showRangeLabels = YES;
-    self.gaugeView.rangeValues = @[ @50,                  @90,                @130,               @240.0              ];
-    self.gaugeView.rangeColors = @[ RGB(232, 111, 33),    RGB(232, 231, 33),  RGB(27, 202, 33),   RGB(231, 32, 43)    ];
-    self.gaugeView.rangeLabels = @[ @"VERY LOW",          @"LOW",             @"OK",              @"OVER FILL"        ];
-    self.gaugeView.unitOfMeasurement = @"Lumi";
-    self.gaugeView.showUnitOfMeasurement = YES;
+    self.gaugeView.scaleDivisions = 10;
+    self.gaugeView.scaleSubdivisions = 5;
+    self.gaugeView.scaleStartAngle = 30;
+    self.gaugeView.scaleEndAngle = 330;
+    self.gaugeView.innerBackgroundStyle = WMGaugeViewInnerBackgroundStyleFlat;
+    self.gaugeView.showScaleShadow = YES;
     self.gaugeView.showScale = YES;
-    self.gaugeView.scaleDivisionsWidth = 0.008;
-    self.gaugeView.scaleSubdivisionsWidth = 0.006;
-    self.gaugeView.rangeLabelsFontColor = [UIColor blackColor];
-    self.gaugeView.rangeLabelsWidth = 0.04;
-    self.gaugeView.value = 50.0f;
-    self.gaugeView.rangeLabelsFont = [UIFont fontWithName:@"Helvetica" size:0.04];
+    self.gaugeView.scaleFont = [UIFont fontWithName:@"AvenirNext-UltraLight" size:0.065];
+    self.gaugeView.scalesubdivisionsAligment = WMGaugeViewSubdivisionsAlignmentCenter;
+    self.gaugeView.scaleSubdivisionsWidth = 0.002;
+    self.gaugeView.scaleSubdivisionsLength = 0.04;
+    self.gaugeView.scaleDivisionsWidth = 0.007;
+    self.gaugeView.scaleDivisionsLength = 0.07;
+    self.gaugeView.needleStyle = WMGaugeViewNeedleStyleFlatThin;
+    self.gaugeView.needleWidth = 0.012;
+    self.gaugeView.needleHeight = 0.4;
+    self.gaugeView.needleScrewStyle = WMGaugeViewNeedleScrewStylePlain;
+    self.gaugeView.needleScrewRadius = 0.05;
+    self.gaugeView.maxValue = 240;
+    self.gaugeView.value = 50;
     self.gaugeView.backgroundColor = [UIColor clearColor];
 }
 
 - (void)reloadGaugueView
 {
-    NSInteger range = [self.selectedSensor.s_sensor_type.st_reading_max integerValue] - [self.selectedSensor.s_sensor_type.st_reading_min integerValue];
-//    float number = 350.0f;
-//    self.gaugeView.maxValue = number;
-    self.gaugeView.rangeValues = @[ @(range*0.25), @(range*0.75), @(range) ];
-    self.gaugeView.rangeColors = @[ RGB(27, 202, 33), RGB(232, 231, 33), RGB(231, 32, 43) ];
-    self.gaugeView.rangeLabels = @[ @"", @"", @"" ];
+    NSInteger range = [self.selectedSensor.s_sensor_type.st_reading_max floatValue] - [self.selectedSensor.s_sensor_type.st_reading_min floatValue];
+    self.gaugeView.maxValue = range == 0 ? 320 : range;
     self.gaugeView.value = [self.selectedSensor.s_last_reading.sr_reading floatValue];
+    self.valueLabel.text = [NSString stringWithFormat:@"%@ %@", self.selectedSensor.s_last_reading.sr_reading, self.selectedSensor.s_unit];
 }
 
 #pragma mark - Table View
@@ -106,7 +111,7 @@
 {
     if ([tableView isEqual:self.sensorPropertiesTableview])
     {
-        return 6;
+        return 10;
     }
     else
     {
@@ -150,28 +155,44 @@
     switch (indexPath.row)
     {
         case 0:
-            cell.textLabel.text = @"id";
+            cell.textLabel.text = @"ID";
             cell.detailTextLabel.text = [NSString stringWithFormat:@"%@", self.selectedSensor.s_id];
             break;
         case 1:
-            cell.textLabel.text = @"name";
+            cell.textLabel.text = @"Name";
             cell.detailTextLabel.text = [NSString stringWithFormat:@"%@", self.selectedSensor.s_name];
             break;
         case 2:
-            cell.textLabel.text = @"unit";
+            cell.textLabel.text = @"Unit";
             cell.detailTextLabel.text = [NSString stringWithFormat:@"%@", self.selectedSensor.s_unit];
             break;
         case 3:
-            cell.textLabel.text = @"status";
+            cell.textLabel.text = @"Status";
             cell.detailTextLabel.text = [NSString stringWithFormat:@"%@", self.selectedSensor.s_status];
             break;
         case 4:
-            cell.textLabel.text = @"channel";
+            cell.textLabel.text = @"Channel";
             cell.detailTextLabel.text = [NSString stringWithFormat:@"%@", self.selectedSensor.s_channel];
             break;
         case 5:
-            cell.textLabel.text = @"serial_num";
+            cell.textLabel.text = @"Serial Number";
             cell.detailTextLabel.text = [NSString stringWithFormat:@"%@", self.selectedSensor.s_serial_num];
+            break;
+        case 6:
+            cell.textLabel.text = @"Sensor Type Catagory";
+            cell.detailTextLabel.text = [NSString stringWithFormat:@"%@", self.selectedSensor.s_sensor_type.st_sensor_type_category.stc_name];
+            break;
+        case 7:
+            cell.textLabel.text = @"Type Name";
+            cell.detailTextLabel.text = [NSString stringWithFormat:@"%@", self.selectedSensor.s_sensor_type.st_name];
+            break;
+        case 8:
+            cell.textLabel.text = @"Type Description";
+            cell.detailTextLabel.text = [NSString stringWithFormat:@"%@", self.selectedSensor.s_sensor_type.st_type_description];
+            break;
+        case 9:
+            cell.textLabel.text = @"Model Number";
+            cell.detailTextLabel.text = [NSString stringWithFormat:@"%@", self.selectedSensor.s_sensor_type.st_model_num];
             break;
             
         default:
