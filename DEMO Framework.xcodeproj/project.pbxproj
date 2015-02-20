@@ -33,6 +33,7 @@
 		C3EA39341A977E18007849B4 /* Sensor.m in Sources */ = {isa = PBXBuildFile; fileRef = C3EA39331A977E18007849B4 /* Sensor.m */; };
 		C3EA39371A977E19007849B4 /* SensorTypeCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = C3EA39361A977E19007849B4 /* SensorTypeCategory.m */; };
 		C3EA393A1A977E19007849B4 /* SensorReading.m in Sources */ = {isa = PBXBuildFile; fileRef = C3EA39391A977E19007849B4 /* SensorReading.m */; };
+		C3EA393E1A979A04007849B4 /* WMGaugeView.m in Sources */ = {isa = PBXBuildFile; fileRef = C3EA393D1A979A04007849B4 /* WMGaugeView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -96,6 +97,8 @@
 		C3EA39361A977E19007849B4 /* SensorTypeCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SensorTypeCategory.m; sourceTree = "<group>"; };
 		C3EA39381A977E19007849B4 /* SensorReading.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SensorReading.h; sourceTree = "<group>"; };
 		C3EA39391A977E19007849B4 /* SensorReading.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SensorReading.m; sourceTree = "<group>"; };
+		C3EA393C1A979A04007849B4 /* WMGaugeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMGaugeView.h; sourceTree = "<group>"; };
+		C3EA393D1A979A04007849B4 /* WMGaugeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMGaugeView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -248,6 +251,7 @@
 		C38091A71A963F3E00BFB7C1 /* ThirdParty */ = {
 			isa = PBXGroup;
 			children = (
+				C3EA393B1A979A04007849B4 /* WMGaugeView */,
 				C38091A81A963F3E00BFB7C1 /* BEMSimpleLineGraph */,
 			);
 			path = ThirdParty;
@@ -266,6 +270,15 @@
 				C38091B01A963F3E00BFB7C1 /* BEMSimpleLineGraphView.m */,
 			);
 			path = BEMSimpleLineGraph;
+			sourceTree = "<group>";
+		};
+		C3EA393B1A979A04007849B4 /* WMGaugeView */ = {
+			isa = PBXGroup;
+			children = (
+				C3EA393C1A979A04007849B4 /* WMGaugeView.h */,
+				C3EA393D1A979A04007849B4 /* WMGaugeView.m */,
+			);
+			path = WMGaugeView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -379,6 +392,7 @@
 				B042EC7B1A939B6200C2E6D9 /* RightViewController.m in Sources */,
 				B042EC7F1A939D0A00C2E6D9 /* CoreDataManager.m in Sources */,
 				C3EA39371A977E19007849B4 /* SensorTypeCategory.m in Sources */,
+				C3EA393E1A979A04007849B4 /* WMGaugeView.m in Sources */,
 				C3EA39311A977E18007849B4 /* SensorType.m in Sources */,
 				B042EC7C1A939B6200C2E6D9 /* MasterViewController.m in Sources */,
 				3C4FBCB91A94F96C0060440B /* GraphViewController.m in Sources */,

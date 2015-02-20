@@ -12,7 +12,6 @@
 
 @interface DetailsViewController : UIViewController
 
-@property (strong, nonatomic) IBOutlet UITableView *tableview;
 @property (nonatomic, strong) Sensor *selectedSensor;
 
 - (void)reloadViews;

@@ -12,6 +12,7 @@
 #import "SensorTypeCategory.h"
 #import "SensorReading.h"
 #import "Controller.h"
+#include <stdlib.h>
 
 @implementation CoreDataManager
 
@@ -136,14 +137,14 @@
                                      @"name" : @"light1",
                                      @"description" : @"a light sensor",
                                      @"model_num" : @"A1",
-                                     @"reading_min" : @1,
-                                     @"reading_max" : @99,
+                                     @"reading_min" : @0,
+                                     @"reading_max" : @320,
                                      @"last_updated" : [NSDate date]
                                      };
     SensorType *sensorType = [self createNewSensorTypeWithData:mockSensorType STC:stc];
     
     NSDictionary *mockReading = @{
-                                     @"reading" : @15.534,
+                                     @"reading" : [NSNumber numberWithFloat:arc4random_uniform(320)],
                                      @"read_time" : [NSDate date]
                                      };
     SensorReading *reading = [self createNewSensorReadingWithData:mockReading];

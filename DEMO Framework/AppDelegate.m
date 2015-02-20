@@ -29,9 +29,7 @@
 //    MasterViewController *controller = (MasterViewController *)masterNavigationController.topViewController;
 //    controller.managedObjectContext = self.managedObjectContext;
     [CoreDataManager sharedManager].managedObjectContext = self.managedObjectContext;
-    [[CoreDataManager sharedManager] addMockupData];
-    
-    
+//    [[CoreDataManager sharedManager] addMockupData];
     
     return YES;
 }
