@@ -49,11 +49,11 @@
 - (Controller *)createNewControllerWithData:(NSDictionary *)data
 {
     Controller *entity = [[Controller alloc] initWithEntity:[self getEntityForName:@"Controller"] insertIntoManagedObjectContext:self.managedObjectContext];
-    entity.c_id = [data objectForKey:@"id"];
+    entity.c_id = [DataUtils numberFromString:[data objectForKey:@"id"]];
     entity.c_name = [data objectForKey:@"name"];
-    entity.c_x_coordinate = [data objectForKey:@"x_coordinate"];
-    entity.c_y_coordinate = [data objectForKey:@"y_coordinate"];
-    entity.c_last_updated = [data objectForKey:@"last_updated"];
+    entity.c_x_coordinate = [DataUtils numberFromString:[data objectForKey:@"x_coordinate"]];
+    entity.c_y_coordinate = [DataUtils numberFromString:[data objectForKey:@"y_coordinate"]];
+    entity.c_last_updated = [DataUtils dateFromSQLDateString:[data objectForKey:@"last_updated"]];
 //    [self saveContext];
     return entity;
 }
@@ -95,13 +95,13 @@
 - (SensorType *)createNewSensorTypeWithData:(NSDictionary *)data STC:(SensorTypeCategory *)stc
 {
     SensorType *entity = [[SensorType alloc] initWithEntity:[self getEntityForName:@"SensorType"] insertIntoManagedObjectContext:self.managedObjectContext];
-    entity.st_id = [data objectForKey:@"id"];
+    entity.st_id = [DataUtils numberFromString:[data objectForKey:@"id"]];
     entity.st_name = [data objectForKey:@"name"];
     entity.st_type_description = [data objectForKey:@"description"];
     entity.st_model_num = [data objectForKey:@"model_num"];
-    entity.st_reading_min = [data objectForKey:@"reading_min"];
-    entity.st_reading_max = [data objectForKey:@"reading_max"];
-    entity.st_last_updated = [data objectForKey:@"last_updated"];
+    entity.st_reading_min = [DataUtils numberFromString:[data objectForKey:@"reading_min"]];
+    entity.st_reading_max = [DataUtils numberFromString:[data objectForKey:@"reading_max"]];
+    entity.st_last_updated = [DataUtils dateFromSQLDateString:[data objectForKey:@"last_updated"]];
     entity.st_sensor_type_category = stc;
     [self saveContext];
     return entity;
@@ -111,9 +111,9 @@
 - (SensorTypeCategory *)createNewSensorTypeCategoryWithData:(NSDictionary *)data
 {
     SensorTypeCategory *entity = [[SensorTypeCategory alloc] initWithEntity:[self getEntityForName:@"SensorTypeCategory"] insertIntoManagedObjectContext:self.managedObjectContext];
-    entity.stc_id = [data objectForKey:@"id"];
+    entity.stc_id = [DataUtils numberFromString:[data objectForKey:@"id"]];
     entity.stc_name = [data objectForKey:@"name"];
-    entity.stc_last_updated = [data objectForKey:@"last_updated"];
+    entity.stc_last_updated = [DataUtils dateFromSQLDateString:[data objectForKey:@"last_updated"]];
     [self saveContext];
     return entity;
 }
