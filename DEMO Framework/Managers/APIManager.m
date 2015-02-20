@@ -69,7 +69,7 @@
         [sensors addObject:sensor];
         NSArray *sensorReadings = data[@"readings"];
         [sensorReadings enumerateObjectsUsingBlock:^(NSDictionary *readingData, NSUInteger index2, BOOL *stop2){
-            [readings addObject:[[CoreDataManager sharedManager] createNewSensorReadingWithData:data]];
+            [readings addObject:[[CoreDataManager sharedManager] createNewSensorReadingWithData:readingData]];
         }];
         if (index == sensorReadingsData.count-1)
         {

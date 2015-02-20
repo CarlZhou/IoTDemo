@@ -44,6 +44,7 @@
 		C3EA395E1A97B67E007849B4 /* SensorReading.m in Sources */ = {isa = PBXBuildFile; fileRef = C3EA395D1A97B67E007849B4 /* SensorReading.m */; };
 		C3EA39641A97C2C3007849B4 /* Sensor.m in Sources */ = {isa = PBXBuildFile; fileRef = C3EA39631A97C2C3007849B4 /* Sensor.m */; };
 		C3EA39671A97C6E5007849B4 /* NSString+EPPZKit.m in Sources */ = {isa = PBXBuildFile; fileRef = C3EA39661A97C6E5007849B4 /* NSString+EPPZKit.m */; };
+		C3EA396B1A97CE13007849B4 /* DataUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = C3EA396A1A97CE13007849B4 /* DataUtils.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -130,6 +131,8 @@
 		C3EA39631A97C2C3007849B4 /* Sensor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Sensor.m; sourceTree = "<group>"; };
 		C3EA39651A97C6E5007849B4 /* NSString+EPPZKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+EPPZKit.h"; sourceTree = "<group>"; };
 		C3EA39661A97C6E5007849B4 /* NSString+EPPZKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+EPPZKit.m"; sourceTree = "<group>"; };
+		C3EA39691A97CE13007849B4 /* DataUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataUtils.h; sourceTree = "<group>"; };
+		C3EA396A1A97CE13007849B4 /* DataUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataUtils.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -171,6 +174,7 @@
 		B042EC0D1A93891D00C2E6D9 /* DEMO Framework */ = {
 			isa = PBXGroup;
 			children = (
+				C3EA39681A97CE01007849B4 /* Utils */,
 				C38091A71A963F3E00BFB7C1 /* ThirdParty */,
 				B042EC871A93ABC300C2E6D9 /* Models */,
 				B042EC831A93A4CA00C2E6D9 /* Categories */,
@@ -341,6 +345,15 @@
 			path = AFNetworking;
 			sourceTree = "<group>";
 		};
+		C3EA39681A97CE01007849B4 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				C3EA39691A97CE13007849B4 /* DataUtils.h */,
+				C3EA396A1A97CE13007849B4 /* DataUtils.m */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -450,6 +463,7 @@
 				C3EA395A1A97B2A1007849B4 /* AFURLResponseSerialization.m in Sources */,
 				C38091B41A963F3E00BFB7C1 /* BEMSimpleLineGraphView.m in Sources */,
 				B042EC171A93891D00C2E6D9 /* DEMO_Framework.xcdatamodeld in Sources */,
+				C3EA396B1A97CE13007849B4 /* DataUtils.m in Sources */,
 				C3EA392E1A977E18007849B4 /* Controller.m in Sources */,
 				B042EC3E1A938BC300C2E6D9 /* SensorTableViewCell.m in Sources */,
 				C3EA395E1A97B67E007849B4 /* SensorReading.m in Sources */,

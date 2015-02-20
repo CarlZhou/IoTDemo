@@ -12,7 +12,7 @@
 #import "SensorTypeCategory.h"
 #import "SensorReading.h"
 #import "Controller.h"
-#import "NSString+EPPZKit.h"
+#import "DataUtils.h"
 #include <stdlib.h>
 
 @implementation CoreDataManager
@@ -74,21 +74,15 @@
 - (Sensor *)createNewSensorWithData:(NSDictionary *)data Controller:(Controller *)controller SensorType:(SensorType *)type LastReading:(SensorReading *)reading
 {
     Sensor *entity = [[Sensor alloc] initWithEntity:[self getEntityForName:@"Sensor"] insertIntoManagedObjectContext:self.managedObjectContext];
-    NSNumberFormatter *numFormat = [[NSNumberFormatter alloc] init];
-    entity.s_id = [numFormat numberFromString:[data objectForKey:@"id"]];
+    entity.s_id = [DataUtils numberFromString:[data objectForKey:@"id"]];
     entity.s_name = [data objectForKey:@"name"];
     entity.s_unit = [data objectForKey:@"unit"];
-    entity.s_status = [numFormat numberFromString:[data objectForKey:@"status"]];
-    entity.s_channel = [numFormat numberFromString:[data objectForKey:@"channel"]];
+    entity.s_status = [DataUtils numberFromString:[data objectForKey:@"status"]];
+    entity.s_channel = [DataUtils numberFromString:[data objectForKey:@"channel"]];
     entity.s_serial_num = [data objectForKey:@"serial_num"];
-    NSString *dataString = [[data objectForKey:@"last_updated"] substringToIndex:19];
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
-    NSLog(@"Date String: %@", dataString);
-    NSLog(@"Date Value: %@", [dateFormatter dateFromString:dataString]);
-//    entity.s_last_updated = [data objectForKey:@"last_updated"];
-    entity.s_controller_id = [numFormat numberFromString:[data objectForKey:@"controller_id"]];
-    entity.s_sensor_type_id = [numFormat numberFromString:[data objectForKey:@"sensor_type_id"]];
+    entity.s_last_updated = [DataUtils dateFromSQLDateString:[data objectForKey:@"last_updated"]];
+    entity.s_controller_id = [DataUtils numberFromString:[data objectForKey:@"controller_id"]];
+    entity.s_sensor_type_id = [DataUtils numberFromString:[data objectForKey:@"sensor_type_id"]];
     entity.s_controller = controller;
     entity.s_sensor_type = type;
     entity.s_last_reading = reading;
@@ -145,10 +139,10 @@
 - (SensorReading *)createNewSensorReadingWithData:(NSDictionary *)data
 {
     SensorReading *entity = [[SensorReading alloc] initWithEntity:[self getEntityForName:@"SensorReading"] insertIntoManagedObjectContext:self.managedObjectContext];
-    entity.sr_reading = [data objectForKey:@"reading"];
-    entity.sr_read_time = [data objectForKey:@"read_time"];
-    entity.sr_last_updated = [data objectForKey:@"last_updated"];
-    entity.sr_sensor_id = [data objectForKey:@"sensor_id"];
+    entity.sr_reading = [DataUtils numberFromString:[data objectForKey:@"reading"]];
+    entity.sr_read_time = [DataUtils dateFromSQLDateString:[data objectForKey:@"read_time"]];
+    entity.sr_last_updated = [DataUtils dateFromSQLDateString:[data objectForKey:@"last_updated"]];
+    entity.sr_sensor_id = [DataUtils numberFromString:[data objectForKey:@"sensor_id"]];
     return entity;
 }
 
