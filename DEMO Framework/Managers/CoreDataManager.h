@@ -11,8 +11,9 @@
 
 @class Controller;
 @class Sensor;
-@class SensorType;
 @class SensorReading;
+@class SensorType;
+@class SensorTypeCategory;
 
 @interface CoreDataManager : NSObject
 
@@ -31,6 +32,15 @@
 
 // Sensor Readings
 - (void)createNewSensorReadingsWithData:(NSArray *)sensorReadingsData completion:(void(^)())completion;
+
+// Controller
+- (Controller *)createNewControllerWithData:(NSDictionary *)data;
+
+// Sensor Type
+- (SensorType *)createNewSensorTypeWithData:(NSDictionary *)data STC:(SensorTypeCategory *)stc;
+
+// Sensor Type Category
+- (SensorTypeCategory *)createNewSensorTypeCategoryWithData:(NSDictionary *)data;
 
 // test
 - (void)addMockupData;
