@@ -54,16 +54,16 @@
 
 - (void)initCircularGraph
 {
-    currentBarView = [[CircularBarView alloc] initWithFrame:CGRectMake(0, 0, 175, 200) Title:@"Current" DisplayColor:customOrange Percentage:65];// fdaa29
+    currentBarView = [[CircularBarView alloc] initWithFrame:CGRectMake(0, 0, 175, 254) Title:@"Current" DisplayColor:customOrange Percentage:65 Reading:250 Unit:@"lumi"];// fdaa29
     [self.currentViewContainer addSubview:currentBarView];
     
-    avgBarView = [[CircularBarView alloc] initWithFrame:CGRectMake(0, 0, 175, 200) Title:@"Average" DisplayColor:customBlue Percentage:45];
+    avgBarView = [[CircularBarView alloc] initWithFrame:CGRectMake(0, 0, 175, 254) Title:@"Average" DisplayColor:customBlue Percentage:45 Reading:120 Unit:@"lumi"];
     [self.avgViewContainer addSubview:avgBarView];// 56a8e7
     
-    minBarView = [[CircularBarView alloc] initWithFrame:CGRectMake(0, 0, 175, 200) Title:@"Min" DisplayColor:customRed Percentage:31];
+    minBarView = [[CircularBarView alloc] initWithFrame:CGRectMake(0, 0, 175, 254) Title:@"Min" DisplayColor:customRed Percentage:31 Reading:15 Unit:@"lumi"];
     [self.minViewContainer addSubview:minBarView];// f1705c
     
-    maxBarView = [[CircularBarView alloc] initWithFrame:CGRectMake(0, 0, 175, 200) Title:@"Max" DisplayColor:customGreen Percentage:69];
+    maxBarView = [[CircularBarView alloc] initWithFrame:CGRectMake(0, 0, 175, 254) Title:@"Max" DisplayColor:customGreen Percentage:69 Reading:310 Unit:@"lumi"];
     [self.maxViewContainer addSubview:maxBarView]; // 8fc842
 
 }
@@ -86,11 +86,11 @@
     //self.lineGraph.enableReferenceXAxisLines = YES;
     //    self.lineGraph.autoScaleYAxis = NO;
     self.lineGraph.alwaysDisplayDots = YES;
-    self.lineGraph.colorPoint = [UIColor colorWithRed:122.0/255.0 green:147.0/255.0 blue:174.0/255.0 alpha:1];
+    self.lineGraph.colorPoint = graphPointColor;
     self.lineGraph.colorBackgroundXaxis = [UIColor whiteColor];
     self.lineGraph.colorTop = [UIColor whiteColor];
-    self.lineGraph.colorBottom = [UIColor colorWithRed:193.0/255.0 green:210.0/255.0 blue:218.0/255.0 alpha:1.0];
-    self.lineGraph.colorLine = [UIColor colorWithRed:122.0/255.0 green:147.0/255.0 blue:174.0/255.0 alpha:1];
+    self.lineGraph.colorBottom = graphBottomColor;
+    self.lineGraph.colorLine = graphLineColor;
     
     self.lineOneData = [NSMutableArray arrayWithArray:@[@60, @50, @30, @40, @60]];
     self.lineOneDataDetail = [NSMutableArray arrayWithArray:@[@"Mon",@"Tue", @"Wed", @"Thu", @"Fri"]];

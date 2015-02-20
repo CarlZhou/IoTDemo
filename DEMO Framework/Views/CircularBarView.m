@@ -14,7 +14,6 @@
     float currPercent;
 }
 
-@property (nonatomic, strong) UILabel *percentLabel;
 @property (nonatomic, weak) CAShapeLayer *barLayer;
 
 @end
@@ -32,23 +31,33 @@
         self.backgroundColor = [UIColor whiteColor];
         self.clipsToBounds = YES;
         self.displayColor = [UIColor blackColor];
+        
         self.percentage = 0;
         self.percentLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, 44.0f)];
         self.percentLabel.textAlignment = NSTextAlignmentCenter;
         [self.percentLabel setTextColor:[UIColor darkGrayColor]];
-        [self.percentLabel setFont:[UIFont boldSystemFontOfSize:25]];
+        [self.percentLabel setFont:[UIFont boldSystemFontOfSize:20]];
         [self addSubview:self.percentLabel];
+        
+        self.reading = 0;
+        self.readingLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 175, self.frame.size.width, 44.0f)];
+        self.readingLabel.textAlignment = NSTextAlignmentCenter;
+        [self.readingLabel setTextColor:[UIColor darkGrayColor]];
+        [self.readingLabel setFont:[UIFont systemFontOfSize:15]];
+        [self addSubview:self.readingLabel];
     }
     return self;
 }
 
-- (id)initWithFrame:(CGRect)frame Title:(NSString*)title DisplayColor:(UIColor*)displayColor Percentage:(CGFloat)percent
+- (id)initWithFrame:(CGRect)frame Title:(NSString*)title DisplayColor:(UIColor*)displayColor Percentage:(CGFloat)percent Reading:(CGFloat)reading Unit:(NSString*)unit
 {
     self = [self initWithFrame:frame];
     if (self) {
         self.displayColor = displayColor;
         self.percentage = percent;
-        self.titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 25, self.frame.size.width, 44.0f)];
+        self.reading = reading;
+        self.unit = @"Lumens";
+        self.titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 35, self.frame.size.width, 44.0f)];
         self.titleLabel.text = title;
         self.titleLabel.textAlignment = NSTextAlignmentCenter;
         [self.titleLabel setFont:[UIFont boldSystemFontOfSize:18]];
@@ -61,7 +70,7 @@
 - (void)drawRect:(CGRect)rect
 {
     CGFloat circleRadius = self.frame.size.width/4;
-    CGPoint circleCentre = CGPointMake(self.center.x, self.center.y+25);
+    CGPoint circleCentre = CGPointMake(self.center.x, self.center.y);
     CGFloat startAngle = start;
     CGFloat endAngle = start + 2.0 * M_PI * (MAX(self.percentage, currPercent)/ 100.0);
     
@@ -119,16 +128,24 @@
     } [CATransaction commit];
     
     // Display our percentage as a string
-    NSString* textContent = [NSString stringWithFormat:@"%.f", self.percentage];
+    NSString* percentText = [NSString stringWithFormat:@"%.f%@", self.percentage, @"%"];
     self.percentLabel.center = circleCentre;
-    [self.percentLabel setText:textContent];
-
+    [self.percentLabel setText:percentText];
+    
+    NSString* readingText;
+    if (self.reading != 0) {
+        // Display current reading
+        readingText = [NSString stringWithFormat:@"%.f %@", self.reading, self.unit];
+        [self.readingLabel setText:readingText];
+    }
 }
 
-- (void)updateData:(CGFloat)percent
+- (void)updatePercentage:(CGFloat)percent Reading:(CGFloat)reading Unit:(NSString*)unit
 {
     currPercent = self.percentage;
     self.percentage = percent;
+    self.reading = reading;
+    self.unit = unit;
     [self setNeedsDisplay];
 }
 

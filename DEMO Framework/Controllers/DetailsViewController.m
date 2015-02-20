@@ -37,6 +37,7 @@
 {
     [super viewDidLoad];
     
+<<<<<<< HEAD
     self.propertiesViewContainer.layer.cornerRadius = 5.0f;
     self.propertiesViewContainer.clipsToBounds = YES;
     self.readingViewContainer.layer.cornerRadius = 5.0f;
@@ -45,6 +46,10 @@
     self.recentReadingsViewContainer.clipsToBounds = YES;
     self.sensorPropertiesTableview.layer.cornerRadius = 5.0f;
     self.recentReadingsTableview.layer.cornerRadius = 5.0f;
+=======
+    currentBarView = [[CircularBarView alloc] initWithFrame:CGRectMake(0, 0, 175, 255) Title:@"Current" DisplayColor:customOrange Percentage:65 Reading:250 Unit:@"Lumens"];// fdaa29
+    [self.currentViewContainer addSubview:currentBarView];
+>>>>>>> FETCH_HEAD
     
     [self reloadViews];
     [self initGaugueView];
