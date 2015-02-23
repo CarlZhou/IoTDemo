@@ -25,13 +25,29 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "DEMO Framework/Controllers/GraphViewController.m"
-            timestampString = "446162978.313246"
+            filePath = "DEMO Framework/Managers/APIManager.m"
+            timestampString = "446420632.832163"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "89"
-            endingLineNumber = "89"
-            landmarkName = "-reloadData"
+            startingLineNumber = "45"
+            endingLineNumber = "45"
+            landmarkName = "-getSensorReadingsForSensors:Limit:Skip:success:failure:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "DEMO Framework/Managers/APIManager.m"
+            timestampString = "446420634.042227"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "57"
+            endingLineNumber = "57"
+            landmarkName = "-getSensorReadingsForSensors:Limit:Skip:success:failure:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

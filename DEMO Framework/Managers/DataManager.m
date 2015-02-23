@@ -126,7 +126,7 @@
 }
 
 #pragma mark - Test
-- (void)addMockupData
+- (NSArray *)addMockupData
 {
     NSDictionary *mockController = @{
                                  @"id" : @"1",
@@ -164,6 +164,17 @@
     SensorReading *reading = [self createNewSensorReadingWithData:mockReading];
     
     NSDictionary *mockSensor = @{
+                                 @"id" : @"1",
+                                 @"name" : @"sensor1",
+                                 @"unit" : @"lumi",
+                                 @"status" : @"1",
+                                 @"channel" : @"10",
+                                 @"serial_num" : @"A12345",
+                                 @"controller_id" : @"1",
+                                 @"sensor_type_id" : @"1",
+                                 @"last_updated" : @"2015-02-20 16:58:20.8250000"
+                                 };
+    NSDictionary *mockSensor2 = @{
                                  @"id" : @"2",
                                  @"name" : @"sensor2",
                                  @"unit" : @"lumi",
@@ -174,7 +185,10 @@
                                  @"sensor_type_id" : @"1",
                                  @"last_updated" : @"2015-02-20 16:58:20.8250000"
                                  };
-    [self createNewSensorWithData:mockSensor Controller:controller SensorType:sensorType LastReading:reading];
+    Sensor *sensor = [self createNewSensorWithData:mockSensor Controller:controller SensorType:sensorType LastReading:reading];
+    Sensor *sensor2 = [self createNewSensorWithData:mockSensor2 Controller:controller SensorType:sensorType LastReading:reading];
+    
+    return @[sensor, sensor2];
 }
 
 - (void)clearMockupData

@@ -42,6 +42,9 @@
 //        [self.tableView reloadData];
 //    }];
     
+    self.sensors = [NSMutableArray arrayWithArray:[[DataManager sharedManager] addMockupData]];
+    [self.tableView reloadData];
+    
     // test
 }
 

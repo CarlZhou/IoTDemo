@@ -36,7 +36,7 @@
 - (SensorTypeCategory *)createNewSensorTypeCategoryWithData:(NSDictionary *)data;
 
 // test
-- (void)addMockupData;
+- (NSArray *)addMockupData;
 - (void)clearMockupData;
 
 // Data

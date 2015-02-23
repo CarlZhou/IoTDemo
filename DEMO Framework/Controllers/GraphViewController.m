@@ -86,23 +86,28 @@
         {
             [self.lineGraph reloadGraph];
             // Graphs
-            maxBarView.reading = [[self.lineGraph calculateMaximumPointValue] floatValue];
-            maxBarView.percentage = [[self.lineGraph calculateMaximumPointValue] floatValue]/[self.selectedSensor.s_sensor_type.st_reading_max floatValue] * 100;
-            
-            minBarView.reading = [[self.lineGraph calculateMinimumPointValue] floatValue];
-            minBarView.percentage = [[self.lineGraph calculateMinimumPointValue] floatValue]/[self.selectedSensor.s_sensor_type.st_reading_max floatValue] * 100;
-            
-            avgBarView.reading = [[self.lineGraph calculatePointValueAverage] floatValue];
-            avgBarView.percentage = [[self.lineGraph calculatePointValueAverage] floatValue]/[self.selectedSensor.s_sensor_type.st_reading_max floatValue] * 100;
-            
-            currentBarView.reading = [[self.lineOneData lastObject] floatValue];
-            currentBarView.percentage = [[self.lineOneData lastObject] floatValue]/[self.selectedSensor.s_sensor_type.st_reading_max floatValue] * 100;
-            
-            [self reloadViews];
+            [self performSelector:@selector(reloadCircularGraph) withObject:nil afterDelay:0.1];
         }
         
     }];
 //    [self.lineGraph reloadGraph];
+}
+
+- (void)reloadCircularGraph
+{
+    maxBarView.reading = [[self.lineGraph calculateMaximumPointValue] floatValue];
+    maxBarView.percentage = [[self.lineGraph calculateMaximumPointValue] floatValue]/[self.selectedSensor.s_sensor_type.st_reading_max floatValue] * 100;
+    
+    minBarView.reading = [[self.lineGraph calculateMinimumPointValue] floatValue];
+    minBarView.percentage = [[self.lineGraph calculateMinimumPointValue] floatValue]/[self.selectedSensor.s_sensor_type.st_reading_max floatValue] * 100;
+    
+    avgBarView.reading = [[self.lineGraph calculatePointValueAverage] floatValue];
+    avgBarView.percentage = [[self.lineGraph calculatePointValueAverage] floatValue]/[self.selectedSensor.s_sensor_type.st_reading_max floatValue] * 100;
+    
+    currentBarView.reading = [[self.lineOneData lastObject] floatValue];
+    currentBarView.percentage = [[self.lineOneData lastObject] floatValue]/[self.selectedSensor.s_sensor_type.st_reading_max floatValue] * 100;
+    
+    [self reloadViews];
 }
 
 #pragma mark - Line Graph
