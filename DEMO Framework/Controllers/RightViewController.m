@@ -11,6 +11,7 @@
 #import "DetailsViewController.h"
 #import "APIManager.h"
 #import "Sensor.h"
+#import "MBProgressHUD.h"
 
 @interface RightViewController ()
 
@@ -43,6 +44,7 @@
         self.detailsViewController.selectedSensor = self.detailItem;
         self.graphViewController.selectedSensor = self.detailItem;
 //        [self.detailsViewController reloadViews];
+        [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         [[APIManager sharedManager] getSensorReadingsForSensors:@[self.detailsViewController.selectedSensor.s_id] Limit:10 Skip:0 success:^(NSArray *sensors, NSArray *readings){
             
             // Could put in one shareinstance
@@ -51,6 +53,7 @@
             [self.detailsViewController reloadViews];
             [self.graphViewController reloadData];
             
+            [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
             
         }failure:^(AFHTTPRequestOperation *operation){
             
