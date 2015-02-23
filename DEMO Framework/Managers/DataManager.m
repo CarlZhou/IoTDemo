@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 SAP Canada. All rights reserved.
 //
 
-#import "CoreDataManager.h"
+#import "DataManager.h"
 #import "Sensor.h"
 #import "SensorType.h"
 #import "SensorTypeCategory.h"
@@ -15,10 +15,10 @@
 #import "DataUtils.h"
 #include <stdlib.h>
 
-@implementation CoreDataManager
+@implementation DataManager
 
 + (instancetype)sharedManager {
-    static CoreDataManager *sharedMyManager = nil;
+    static DataManager *sharedMyManager = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         sharedMyManager = [[self alloc] init];

@@ -14,7 +14,7 @@
 @class SensorType;
 @class SensorTypeCategory;
 
-@interface CoreDataManager : NSObject
+@interface DataManager : NSObject
 
 + (instancetype)sharedManager;
 

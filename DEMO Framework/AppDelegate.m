@@ -9,7 +9,7 @@
 #import "AppDelegate.h"
 #import "RightViewController.h"
 #import "MasterViewController.h"
-#import "CoreDataManager.h"
+#import "DataManager.h"
 
 @interface AppDelegate () <UISplitViewControllerDelegate>
 

@@ -9,7 +9,7 @@
 #import "MasterViewController.h"
 #import "RightViewController.h"
 #import "SensorTableViewCell.h"
-#import "CoreDataManager.h"
+#import "DataManager.h"
 #import "Sensor.h"
 
 @interface MasterViewController ()
@@ -35,7 +35,7 @@
     [self.tableView registerNib:[UINib nibWithNibName:@"SensorTableViewCell" bundle:nil] forCellReuseIdentifier:@"SensorCell"];
     
     // Add Sort Descriptors
-    NSArray *discriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"s_id" ascending:YES], [NSSortDescriptor sortDescriptorWithKey:@"s_last_updated" ascending:NO]];
+//    NSArray *discriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"s_id" ascending:YES], [NSSortDescriptor sortDescriptorWithKey:@"s_last_updated" ascending:NO]];
     
 //    [[CoreDataManager sharedManager] fetchDataWithEntityName:@"Sensor" Discriptors:discriptors Completion:^(NSArray *results){
 //        self.sensors = results.mutableCopy;

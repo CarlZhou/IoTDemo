@@ -7,7 +7,7 @@
 //
 
 #import "APIManager.h"
-#import "CoreDataManager.h"
+#import "DataManager.h"
 
 #define BASE_URL @"https://xshackerlounge.us1.hana.ondemand.com/DemoFramework"
 #define API_PATH(path) [BASE_URL stringByAppendingString:path]
@@ -92,17 +92,17 @@
               SensorType *sensorType = nil;
               SensorReading *lastReading = nil;
               if (showLastReading) {
-                  controller = [[CoreDataManager sharedManager] createNewControllerWithData:responseObject[@"sensors"][@"controller"]];
-                  sensorTypeCategory = [[CoreDataManager sharedManager] createNewSensorTypeCategoryWithData:responseObject[@"sensors"][@"sensor_type"][@"sensor_type_category"]];
-                  sensorType = [[CoreDataManager sharedManager] createNewSensorTypeWithData:responseObject[@"sensors"][@"sensor_type"] STC:sensorTypeCategory];
+                  controller = [[DataManager sharedManager] createNewControllerWithData:responseObject[@"sensors"][@"controller"]];
+                  sensorTypeCategory = [[DataManager sharedManager] createNewSensorTypeCategoryWithData:responseObject[@"sensors"][@"sensor_type"][@"sensor_type_category"]];
+                  sensorType = [[DataManager sharedManager] createNewSensorTypeWithData:responseObject[@"sensors"][@"sensor_type"] STC:sensorTypeCategory];
               }
               if (showDetails) {
-                  [[CoreDataManager sharedManager] createNewSensorReadingsWithData:responseObject[@"sensors"][@"last_reading"] completion:^(){
+                  [[DataManager sharedManager] createNewSensorReadingsWithData:responseObject[@"sensors"][@"last_reading"] completion:^(){
                       if (success)
                           success(responseObject);
                   }];
               }
-              [[CoreDataManager sharedManager] createNewSensorWithData:responseObject[@"sensors"] Controller:controller SensorType:sensorType LastReading:lastReading];
+              [[DataManager sharedManager] createNewSensorWithData:responseObject[@"sensors"] Controller:controller SensorType:sensorType LastReading:lastReading];
           }
           
       } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -118,11 +118,11 @@
     NSMutableArray *sensors = [NSMutableArray array];
     NSMutableArray *readings = [NSMutableArray array];
     [sensorReadingsData enumerateObjectsUsingBlock:^(NSDictionary *data, NSUInteger index, BOOL *stop){
-        Sensor *sensor = [[CoreDataManager sharedManager] createNewSensorWithData:data[@"sensor"] Controller:nil SensorType:nil LastReading:nil];
+        Sensor *sensor = [[DataManager sharedManager] createNewSensorWithData:data[@"sensor"] Controller:nil SensorType:nil LastReading:nil];
         [sensors addObject:sensor];
         NSArray *sensorReadings = data[@"readings"];
         [sensorReadings enumerateObjectsUsingBlock:^(NSDictionary *readingData, NSUInteger index2, BOOL *stop2){
-            [readings addObject:[[CoreDataManager sharedManager] createNewSensorReadingWithData:readingData]];
+            [readings addObject:[[DataManager sharedManager] createNewSensorReadingWithData:readingData]];
         }];
         if (index == sensorReadingsData.count-1)
         {

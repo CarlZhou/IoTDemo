@@ -20,7 +20,7 @@
 		B042EC3F1A938BC300C2E6D9 /* SensorTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B042EC3D1A938BC300C2E6D9 /* SensorTableViewCell.xib */; };
 		B042EC7B1A939B6200C2E6D9 /* RightViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B042EC781A939B6200C2E6D9 /* RightViewController.m */; };
 		B042EC7C1A939B6200C2E6D9 /* MasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B042EC7A1A939B6200C2E6D9 /* MasterViewController.m */; };
-		B042EC7F1A939D0A00C2E6D9 /* CoreDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B042EC7E1A939D0A00C2E6D9 /* CoreDataManager.m */; };
+		B042EC7F1A939D0A00C2E6D9 /* DataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B042EC7E1A939D0A00C2E6D9 /* DataManager.m */; };
 		B042EC821A939D2100C2E6D9 /* APIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B042EC811A939D2100C2E6D9 /* APIManager.m */; };
 		B0CDE4171A94EB7700C8F60E /* NSDate+PrettyDate.m in Sources */ = {isa = PBXBuildFile; fileRef = B0CDE4161A94EB7700C8F60E /* NSDate+PrettyDate.m */; };
 		C38091B11A963F3E00BFB7C1 /* BEMCircle.m in Sources */ = {isa = PBXBuildFile; fileRef = C38091AA1A963F3E00BFB7C1 /* BEMCircle.m */; };
@@ -81,8 +81,8 @@
 		B042EC781A939B6200C2E6D9 /* RightViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RightViewController.m; sourceTree = "<group>"; };
 		B042EC791A939B6200C2E6D9 /* MasterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MasterViewController.h; sourceTree = "<group>"; };
 		B042EC7A1A939B6200C2E6D9 /* MasterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MasterViewController.m; sourceTree = "<group>"; };
-		B042EC7D1A939D0A00C2E6D9 /* CoreDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreDataManager.h; sourceTree = "<group>"; };
-		B042EC7E1A939D0A00C2E6D9 /* CoreDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreDataManager.m; sourceTree = "<group>"; };
+		B042EC7D1A939D0A00C2E6D9 /* DataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataManager.h; sourceTree = "<group>"; };
+		B042EC7E1A939D0A00C2E6D9 /* DataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataManager.m; sourceTree = "<group>"; };
 		B042EC801A939D2100C2E6D9 /* APIManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APIManager.h; sourceTree = "<group>"; };
 		B042EC811A939D2100C2E6D9 /* APIManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = APIManager.m; sourceTree = "<group>"; };
 		B0CDE4151A94EB7700C8F60E /* NSDate+PrettyDate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+PrettyDate.h"; sourceTree = "<group>"; };
@@ -234,8 +234,8 @@
 		B042EC751A939AFD00C2E6D9 /* Managers */ = {
 			isa = PBXGroup;
 			children = (
-				B042EC7D1A939D0A00C2E6D9 /* CoreDataManager.h */,
-				B042EC7E1A939D0A00C2E6D9 /* CoreDataManager.m */,
+				B042EC7D1A939D0A00C2E6D9 /* DataManager.h */,
+				B042EC7E1A939D0A00C2E6D9 /* DataManager.m */,
 				B042EC801A939D2100C2E6D9 /* APIManager.h */,
 				B042EC811A939D2100C2E6D9 /* APIManager.m */,
 			);
@@ -469,7 +469,7 @@
 				C3EA395E1A97B67E007849B4 /* SensorReading.m in Sources */,
 				C38091B31A963F3E00BFB7C1 /* BEMPermanentPopupView.m in Sources */,
 				B042EC7B1A939B6200C2E6D9 /* RightViewController.m in Sources */,
-				B042EC7F1A939D0A00C2E6D9 /* CoreDataManager.m in Sources */,
+				B042EC7F1A939D0A00C2E6D9 /* DataManager.m in Sources */,
 				C3EA39571A97B2A1007849B4 /* AFSecurityPolicy.m in Sources */,
 				C3EA395B1A97B2A1007849B4 /* AFURLSessionManager.m in Sources */,
 				C3EA39371A977E19007849B4 /* SensorTypeCategory.m in Sources */,
