@@ -26,29 +26,10 @@
     return sharedMyManager;
 }
 
-#pragma mark - Core Data
-- (NSEntityDescription *)getEntityForName:(NSString *)name
-{
-    return [NSEntityDescription entityForName:name inManagedObjectContext:[CoreDataManager sharedManager].managedObjectContext];
-}
-
-- (void)saveContext {
-    NSManagedObjectContext *managedObjectContext = self.managedObjectContext;
-    if (managedObjectContext != nil) {
-        NSError *error = nil;
-        if ([managedObjectContext hasChanges] && ![managedObjectContext save:&error]) {
-            // Replace this implementation with code to handle the error appropriately.
-            // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-            NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-            abort();
-        }
-    }
-}
-
 #pragma mark - Controller
 - (Controller *)createNewControllerWithData:(NSDictionary *)data
 {
-    Controller *entity = [[Controller alloc] initWithEntity:[self getEntityForName:@"Controller"] insertIntoManagedObjectContext:self.managedObjectContext];
+    Controller *entity = [[Controller alloc] init];
     entity.c_id = [DataUtils numberFromString:[data objectForKey:@"id"]];
     entity.c_name = [data objectForKey:@"name"];
     entity.c_x_coordinate = [DataUtils numberFromString:[data objectForKey:@"x_coordinate"]];
@@ -73,7 +54,7 @@
 
 - (Sensor *)createNewSensorWithData:(NSDictionary *)data Controller:(Controller *)controller SensorType:(SensorType *)type LastReading:(SensorReading *)reading
 {
-    Sensor *entity = [[Sensor alloc] initWithEntity:[self getEntityForName:@"Sensor"] insertIntoManagedObjectContext:self.managedObjectContext];
+    Sensor *entity = [[Sensor alloc] init];
     entity.s_id = [DataUtils numberFromString:[data objectForKey:@"id"]];
     entity.s_name = [data objectForKey:@"name"];
     entity.s_unit = [data objectForKey:@"unit"];
@@ -86,7 +67,6 @@
     entity.s_controller = controller;
     entity.s_sensor_type = type;
     entity.s_last_reading = reading;
-    [self saveContext];
     NSLog(@"New sensor");
     return entity;
 }
@@ -94,7 +74,7 @@
 #pragma mark - Sensor Type
 - (SensorType *)createNewSensorTypeWithData:(NSDictionary *)data STC:(SensorTypeCategory *)stc
 {
-    SensorType *entity = [[SensorType alloc] initWithEntity:[self getEntityForName:@"SensorType"] insertIntoManagedObjectContext:self.managedObjectContext];
+    SensorType *entity = [[SensorType alloc] init];
     entity.st_id = [DataUtils numberFromString:[data objectForKey:@"id"]];
     entity.st_name = [data objectForKey:@"name"];
     entity.st_type_description = [data objectForKey:@"description"];
@@ -103,18 +83,16 @@
     entity.st_reading_max = [DataUtils numberFromString:[data objectForKey:@"reading_max"]];
     entity.st_last_updated = [DataUtils dateFromSQLDateString:[data objectForKey:@"last_updated"]];
     entity.st_sensor_type_category = stc;
-    [self saveContext];
     return entity;
 }
 
 #pragma mark - Sensor Type Category
 - (SensorTypeCategory *)createNewSensorTypeCategoryWithData:(NSDictionary *)data
 {
-    SensorTypeCategory *entity = [[SensorTypeCategory alloc] initWithEntity:[self getEntityForName:@"SensorTypeCategory"] insertIntoManagedObjectContext:self.managedObjectContext];
+    SensorTypeCategory *entity = [[SensorTypeCategory alloc] init];
     entity.stc_id = [DataUtils numberFromString:[data objectForKey:@"id"]];
     entity.stc_name = [data objectForKey:@"name"];
     entity.stc_last_updated = [DataUtils dateFromSQLDateString:[data objectForKey:@"last_updated"]];
-    [self saveContext];
     return entity;
 }
 
@@ -129,7 +107,6 @@
         }];
         if (index == sensorReadingsData.count-1)
         {
-            [self saveContext];
             if (completion)
                 completion();
         }
@@ -138,7 +115,7 @@
 
 - (SensorReading *)createNewSensorReadingWithData:(NSDictionary *)data
 {
-    SensorReading *entity = [[SensorReading alloc] initWithEntity:[self getEntityForName:@"SensorReading"] insertIntoManagedObjectContext:self.managedObjectContext];
+    SensorReading *entity = [[SensorReading alloc] init];
     entity.sr_reading = [DataUtils numberFromString:[data objectForKey:@"reading"]];
     entity.sr_read_time = [DataUtils dateFromSQLDateString:[data objectForKey:@"read_time"]];
     entity.sr_last_updated = [DataUtils dateFromSQLDateString:[data objectForKey:@"last_updated"]];
@@ -201,49 +178,6 @@
 - (void)clearMockupData
 {
     
-}
-
-// Coredata fetch
-- (void)fetchDataWithEntityName:(NSString *)entityName Discriptors:(NSArray *)discriptors Completion:(void(^)(NSArray *))completion
-{
-    // Initialize Fetch Request
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:entityName];
-    
-    // Add Sort Descriptors
-//    [fetchRequest setSortDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"s_id" ascending:YES], [NSSortDescriptor sortDescriptorWithKey:@"s_last_updated" ascending:NO]]];
-    [fetchRequest setSortDescriptors:discriptors];
-    
-    // Initialize Asynchronous Fetch Request
-    NSAsynchronousFetchRequest *asynchronousFetchRequest = [[NSAsynchronousFetchRequest alloc] initWithFetchRequest:fetchRequest completionBlock:^(NSAsynchronousFetchResult *result) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            // Process Asynchronous Fetch Result
-            if (result.finalResult) {
-                
-                NSLog(@"DEBUG: Fetched %lu items", (unsigned long)result.finalResult.count);
-                // Update Items
-                if (completion)
-                    completion(result.finalResult);
-                
-            } else {
-                NSLog(@"DEBUG: CoreData No Results Found");
-                if (completion)
-                    completion(nil);
-            }
-        });
-    }];
-    
-    // Execute Asynchronous Fetch Request
-    [[CoreDataManager sharedManager].managedObjectContext performBlock:^{
-        // Execute Asynchronous Fetch Request
-        NSError *asynchronousFetchRequestError = nil;
-        [[CoreDataManager sharedManager].managedObjectContext executeRequest:asynchronousFetchRequest error:&asynchronousFetchRequestError];
-        
-        if (asynchronousFetchRequestError) {
-            NSLog(@"Unable to execute asynchronous fetch result.");
-            NSLog(@"%@, %@", asynchronousFetchRequestError, asynchronousFetchRequestError.localizedDescription);
-        }
-    }];
-
 }
 
 @end

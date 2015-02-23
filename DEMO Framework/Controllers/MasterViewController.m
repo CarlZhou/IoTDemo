@@ -37,10 +37,10 @@
     // Add Sort Descriptors
     NSArray *discriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"s_id" ascending:YES], [NSSortDescriptor sortDescriptorWithKey:@"s_last_updated" ascending:NO]];
     
-    [[CoreDataManager sharedManager] fetchDataWithEntityName:@"Sensor" Discriptors:discriptors Completion:^(NSArray *results){
-        self.sensors = results.mutableCopy;
-        [self.tableView reloadData];
-    }];
+//    [[CoreDataManager sharedManager] fetchDataWithEntityName:@"Sensor" Discriptors:discriptors Completion:^(NSArray *results){
+//        self.sensors = results.mutableCopy;
+//        [self.tableView reloadData];
+//    }];
     
     // test
 }

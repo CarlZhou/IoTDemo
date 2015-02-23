@@ -7,7 +7,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <CoreData/CoreData.h>
 
 @class Controller;
 @class Sensor;
@@ -17,14 +16,7 @@
 
 @interface CoreDataManager : NSObject
 
-@property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
-
 + (instancetype)sharedManager;
-
-// Core Data
-- (NSEntityDescription *)getEntityForName:(NSString *)name;
-// Core Data fetch
-- (void)fetchDataWithEntityName:(NSString *)entityName Discriptors:(NSArray *)discriptors Completion:(void(^)(NSArray *))completion;
 
 // Sensor
 - (void)createNewSensorsWithData:(NSArray *)sensorData completion:(void(^)())completion;
