@@ -10,6 +10,7 @@
 #import "GraphViewController.h"
 #import "DetailsViewController.h"
 #import "APIManager.h"
+#import "Sensor.h"
 
 @interface RightViewController ()
 
@@ -42,7 +43,7 @@
         self.detailsViewController.selectedSensor = self.detailItem;
         self.graphViewController.selectedSensor = self.detailItem;
 //        [self.detailsViewController reloadViews];
-        [[APIManager sharedManager] getSensorReadingsForSensors:@[@1] Limit:10 Skip:0 success:^(NSArray *sensors, NSArray *readings){
+        [[APIManager sharedManager] getSensorReadingsForSensors:@[self.detailsViewController.selectedSensor.s_id] Limit:10 Skip:0 success:^(NSArray *sensors, NSArray *readings){
             
             // Could put in one shareinstance
             self.graphViewController.recentReadings = readings.mutableCopy;

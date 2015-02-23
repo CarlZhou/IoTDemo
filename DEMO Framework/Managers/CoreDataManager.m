@@ -150,50 +150,50 @@
 - (void)addMockupData
 {
     NSDictionary *mockController = @{
-                                 @"id" : @1,
+                                 @"id" : @"1",
                                  @"name" : @"controller1",
-                                 @"x_coordinate" : @20,
-                                 @"y_coordinate" : @20,
-                                 @"last_updated" : [NSDate date]
+                                 @"x_coordinate" : @"20",
+                                 @"y_coordinate" : @"20",
+                                 @"last_updated" : @"2015-02-20 16:58:20.8250000"
                                  };
     Controller *controller = [self createNewControllerWithData:mockController];
     
     NSDictionary *mockSTC = @{
-                              @"id" : @1,
+                              @"id" : @"1",
                               @"name" : @"lightSensor",
-                              @"last_updated" : [NSDate date]
+                              @"last_updated" : @"2015-02-20 16:58:20.8250000"
                               };
     SensorTypeCategory *stc = [self createNewSensorTypeCategoryWithData:mockSTC];
     
     NSDictionary *mockSensorType = @{
-                                     @"id" : @1,
+                                     @"id" : @"1",
                                      @"name" : @"light1",
                                      @"description" : @"a light sensor",
                                      @"model_num" : @"A1",
-                                     @"reading_min" : @0,
-                                     @"reading_max" : @320,
-                                     @"last_updated" : [NSDate date]
+                                     @"reading_min" : @"0",
+                                     @"reading_max" : @"320",
+                                     @"last_updated" : @"2015-02-20 16:58:20.8250000"
                                      };
     SensorType *sensorType = [self createNewSensorTypeWithData:mockSensorType STC:stc];
     
     NSDictionary *mockReading = @{
-                                     @"reading" : [NSNumber numberWithFloat:arc4random_uniform(320)],
-                                     @"read_time" : [NSDate date],
-                                     @"last_updated" : [NSDate date],
-                                     @"sensor_id" : @1
+                                     @"reading" : @"55",
+                                     @"read_time" : @"2015-02-20 16:58:20.8250000",
+                                     @"last_updated" : @"2015-02-20 16:58:20.8250000",
+                                     @"sensor_id" : @"1"
                                      };
     SensorReading *reading = [self createNewSensorReadingWithData:mockReading];
     
     NSDictionary *mockSensor = @{
-                                 @"id" : @"1",
-                                 @"name" : @"sensor1",
+                                 @"id" : @"2",
+                                 @"name" : @"sensor2",
                                  @"unit" : @"lumi",
-                                 @"status" : @1,
-                                 @"channel" : @10,
+                                 @"status" : @"1",
+                                 @"channel" : @"10",
                                  @"serial_num" : @"A12345",
-                                 @"controller_id" : @1,
-                                 @"sensor_type_id" : @1,
-                                 @"last_updated" : [NSDate date]
+                                 @"controller_id" : @"1",
+                                 @"sensor_type_id" : @"1",
+                                 @"last_updated" : @"2015-02-20 16:58:20.8250000"
                                  };
     [self createNewSensorWithData:mockSensor Controller:controller SensorType:sensorType LastReading:reading];
 }
