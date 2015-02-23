@@ -37,10 +37,24 @@
     [[APIManager sharedManager] getSensors:nil Details:true LastReading:true Limit:10 Skip:0 success:^(NSArray *sensors) {
         self.sensors = sensors.mutableCopy;
         [self.tableView reloadData];
+        [self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:YES scrollPosition:UITableViewScrollPositionNone];
+        [self tableView:self.tableView didSelectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
     } failure:^(AFHTTPRequestOperation *operation) {
         
     }];
 
+    // Add Sort Descriptors
+//    NSArray *discriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"s_id" ascending:YES], [NSSortDescriptor sortDescriptorWithKey:@"s_last_updated" ascending:NO]];
+    
+//    [[CoreDataManager sharedManager] fetchDataWithEntityName:@"Sensor" Discriptors:discriptors Completion:^(NSArray *results){
+//        self.sensors = results.mutableCopy;
+//        [self.tableView reloadData];
+//    }];
+    
+//    self.sensors = [NSMutableArray arrayWithArray:[[DataManager sharedManager] addMockupData]];
+//    [self.tableView reloadData];
+    
+    // test
 }
 
 #pragma mark - Segues

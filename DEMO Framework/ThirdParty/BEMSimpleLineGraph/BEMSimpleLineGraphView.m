@@ -18,7 +18,7 @@
 #define DEFAULT_FONT_NAME @"HelveticaNeue-Light"
 
 #pragma mark - Modified Here
-#define MODIFIED_OFFSET 15
+#define MODIFIED_OFFSET 28
 
 typedef NS_ENUM(NSInteger, BEMInternalTags)
 {
