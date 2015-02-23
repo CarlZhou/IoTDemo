@@ -39,4 +39,8 @@
 - (void)addMockupData;
 - (void)clearMockupData;
 
+// Data
+@property (nonatomic, strong) NSMutableArray *sensors;
+@property (nonatomic, strong) NSMutableArray *sensorReadings;
+
 @end

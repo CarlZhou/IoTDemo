@@ -22,6 +22,8 @@
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         sharedMyManager = [[self alloc] init];
+        sharedMyManager.sensors = [NSMutableArray array];
+        sharedMyManager.sensorReadings = [NSMutableArray array];
     });
     return sharedMyManager;
 }
