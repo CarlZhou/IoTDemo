@@ -134,6 +134,8 @@
                 completion(sensors, readings);
         }
     }];
+    if (sensorReadingsData.count == 0 && completion)
+        completion(nil, nil);
 }
 
 @end

@@ -102,7 +102,7 @@
     NSInteger range = [self.selectedSensor.s_sensor_type.st_reading_max floatValue] - [self.selectedSensor.s_sensor_type.st_reading_min floatValue];
     self.gaugeView.maxValue = range == 0 ? 320 : range;
     self.gaugeView.value = [self.selectedSensor.s_last_reading.sr_reading floatValue];
-    self.valueLabel.text = [NSString stringWithFormat:@"%@ %@", self.selectedSensor.s_last_reading.sr_reading, self.selectedSensor.s_unit];
+    self.valueLabel.text = [NSString stringWithFormat:@"%@ %@", self.selectedSensor.s_last_reading.sr_reading ? self.selectedSensor.s_last_reading.sr_reading : @0, self.selectedSensor.s_unit];
 }
 
 #pragma mark - Table View
