@@ -12,13 +12,4 @@
 
 @implementation SensorType
 
-@dynamic st_id;
-@dynamic st_last_updated;
-@dynamic st_model_num;
-@dynamic st_name;
-@dynamic st_reading_max;
-@dynamic st_reading_min;
-@dynamic st_type_description;
-@dynamic st_sensor_type_category;
-
 @end

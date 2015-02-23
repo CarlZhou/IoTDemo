@@ -14,17 +14,4 @@
 
 @implementation Sensor
 
-@dynamic s_channel;
-@dynamic s_controller_id;
-@dynamic s_id;
-@dynamic s_last_updated;
-@dynamic s_name;
-@dynamic s_sensor_type_id;
-@dynamic s_serial_num;
-@dynamic s_status;
-@dynamic s_unit;
-@dynamic s_controller;
-@dynamic s_last_reading;
-@dynamic s_sensor_type;
-
 @end

@@ -10,10 +10,10 @@
 #import <CoreData/CoreData.h>
 
 
-@interface SensorTypeCategory : NSManagedObject
+@interface SensorTypeCategory : NSObject
 
-@property (nonatomic, retain) NSNumber * stc_id;
-@property (nonatomic, retain) NSDate * stc_last_updated;
-@property (nonatomic, retain) NSString * stc_name;
+@property (nonatomic, strong) NSNumber * stc_id;
+@property (nonatomic, strong) NSDate * stc_last_updated;
+@property (nonatomic, strong) NSString * stc_name;
 
 @end

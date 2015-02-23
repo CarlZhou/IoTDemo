@@ -7,13 +7,12 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <CoreData/CoreData.h>
 
-@interface SensorReading : NSManagedObject
+@interface SensorReading : NSObject
 
-@property (nonatomic, retain) NSDate * sr_read_time;
-@property (nonatomic, retain) NSNumber * sr_reading;
-@property (nonatomic, retain) NSDate * sr_last_updated;
-@property (nonatomic, retain) NSNumber *sr_sensor_id;
+@property (nonatomic, strong) NSDate * sr_read_time;
+@property (nonatomic, strong) NSNumber * sr_reading;
+@property (nonatomic, strong) NSDate * sr_last_updated;
+@property (nonatomic, strong) NSNumber *sr_sensor_id;
 
 @end

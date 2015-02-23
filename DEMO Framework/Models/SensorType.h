@@ -7,19 +7,18 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <CoreData/CoreData.h>
 
 @class SensorTypeCategory;
 
-@interface SensorType : NSManagedObject
+@interface SensorType : NSObject
 
-@property (nonatomic, retain) NSNumber * st_id;
-@property (nonatomic, retain) NSDate * st_last_updated;
-@property (nonatomic, retain) NSString * st_model_num;
-@property (nonatomic, retain) NSString * st_name;
-@property (nonatomic, retain) NSNumber * st_reading_max;
-@property (nonatomic, retain) NSNumber * st_reading_min;
-@property (nonatomic, retain) NSString * st_type_description;
-@property (nonatomic, retain) SensorTypeCategory *st_sensor_type_category;
+@property (nonatomic, strong) NSNumber * st_id;
+@property (nonatomic, strong) NSDate * st_last_updated;
+@property (nonatomic, strong) NSString * st_model_num;
+@property (nonatomic, strong) NSString * st_name;
+@property (nonatomic, strong) NSNumber * st_reading_max;
+@property (nonatomic, strong) NSNumber * st_reading_min;
+@property (nonatomic, strong) NSString * st_type_description;
+@property (nonatomic, strong) SensorTypeCategory *st_sensor_type_category;
 
 @end

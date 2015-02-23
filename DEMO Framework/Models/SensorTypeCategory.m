@@ -11,8 +11,4 @@
 
 @implementation SensorTypeCategory
 
-@dynamic stc_id;
-@dynamic stc_last_updated;
-@dynamic stc_name;
-
 @end

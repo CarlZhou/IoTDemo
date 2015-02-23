@@ -11,10 +11,4 @@
 
 @implementation Controller
 
-@dynamic c_id;
-@dynamic c_last_updated;
-@dynamic c_name;
-@dynamic c_x_coordinate;
-@dynamic c_y_coordinate;
-
 @end

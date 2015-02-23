@@ -7,15 +7,13 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <CoreData/CoreData.h>
 
+@interface Controller : NSObject
 
-@interface Controller : NSManagedObject
-
-@property (nonatomic, retain) NSNumber * c_id;
-@property (nonatomic, retain) NSDate * c_last_updated;
-@property (nonatomic, retain) NSString * c_name;
-@property (nonatomic, retain) NSNumber * c_x_coordinate;
-@property (nonatomic, retain) NSNumber * c_y_coordinate;
+@property (nonatomic, strong) NSNumber * c_id;
+@property (nonatomic, strong) NSDate * c_last_updated;
+@property (nonatomic, strong) NSString * c_name;
+@property (nonatomic, strong) NSNumber * c_x_coordinate;
+@property (nonatomic, strong) NSNumber * c_y_coordinate;
 
 @end
