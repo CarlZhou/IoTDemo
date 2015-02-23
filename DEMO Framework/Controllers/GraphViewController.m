@@ -77,7 +77,8 @@
 {
     [self.lineOneData removeAllObjects];
     [self.lineOneDataDetail removeAllObjects];
-    [self.recentReadings enumerateObjectsUsingBlock:^(SensorReading *reading, NSUInteger index, BOOL *stop){
+    self.recentReadings = [[[self.recentReadings reverseObjectEnumerator] allObjects] mutableCopy];
+    [self.recentReadings  enumerateObjectsUsingBlock:^(SensorReading *reading, NSUInteger index, BOOL *stop){
         [self.lineOneData addObject:reading.sr_reading];
         NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
         [formatter setDateFormat:@"HH:mm:ss"];

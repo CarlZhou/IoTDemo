@@ -44,6 +44,8 @@
     
     self.sensors = [NSMutableArray arrayWithArray:[[DataManager sharedManager] addMockupData]];
     [self.tableView reloadData];
+    [self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:YES scrollPosition:UITableViewScrollPositionNone];
+    [self tableView:self.tableView didSelectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
     
     // test
 }
