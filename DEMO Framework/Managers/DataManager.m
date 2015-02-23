@@ -37,7 +37,6 @@
     entity.c_x_coordinate = [DataUtils numberFromString:[data objectForKey:@"x_coordinate"]];
     entity.c_y_coordinate = [DataUtils numberFromString:[data objectForKey:@"y_coordinate"]];
     entity.c_last_updated = [DataUtils dateFromSQLDateString:[data objectForKey:@"last_updated"]];
-//    [self saveContext];
     return entity;
 }
 

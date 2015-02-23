@@ -9,7 +9,7 @@
 #import "MasterViewController.h"
 #import "RightViewController.h"
 #import "SensorTableViewCell.h"
-#import "DataManager.h"
+#import "APIManager.h"
 #import "Sensor.h"
 
 @interface MasterViewController ()
@@ -30,19 +30,17 @@
     
     self.sensors = [NSMutableArray array];
     
-    self.detailViewController = (RightViewController *)[[self.splitViewController.viewControllers lastObject] topViewController];
+    self.rightViewController = (RightViewController *)[[self.splitViewController.viewControllers lastObject] topViewController];
     
     [self.tableView registerNib:[UINib nibWithNibName:@"SensorTableViewCell" bundle:nil] forCellReuseIdentifier:@"SensorCell"];
     
-    // Add Sort Descriptors
-//    NSArray *discriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"s_id" ascending:YES], [NSSortDescriptor sortDescriptorWithKey:@"s_last_updated" ascending:NO]];
-    
-//    [[CoreDataManager sharedManager] fetchDataWithEntityName:@"Sensor" Discriptors:discriptors Completion:^(NSArray *results){
-//        self.sensors = results.mutableCopy;
-//        [self.tableView reloadData];
-//    }];
-    
-    // test
+    [[APIManager sharedManager] getSensors:nil Details:true LastReading:true Limit:10 Skip:0 success:^(NSArray *sensors) {
+        self.sensors = sensors.mutableCopy;
+        [self.tableView reloadData];
+    } failure:^(AFHTTPRequestOperation *operation) {
+        
+    }];
+
 }
 
 #pragma mark - Segues
@@ -50,7 +48,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSManagedObject *object = [[self sensors] objectAtIndex:indexPath.row];
-    RightViewController *controller = self.detailViewController;
+    RightViewController *controller = self.rightViewController;
     [controller setDetailItem:object];
     controller.navigationItem.leftBarButtonItem = self.splitViewController.displayModeButtonItem;
     controller.navigationItem.leftItemsSupplementBackButton = YES;

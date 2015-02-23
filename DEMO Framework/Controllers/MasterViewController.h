@@ -13,10 +13,9 @@
 
 @interface MasterViewController : UITableViewController <NSFetchedResultsControllerDelegate>
 
-@property (strong, nonatomic) RightViewController *detailViewController;
+@property (strong, nonatomic) RightViewController *rightViewController;
 
 @property (strong, nonatomic) NSMutableArray *sensors;
-//@property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 
 
 @end

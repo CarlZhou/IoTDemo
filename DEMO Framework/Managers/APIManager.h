@@ -19,4 +19,12 @@
                             success:(void(^)(NSArray *sensors, NSArray *readings))success
                             failure:(void (^)(AFHTTPRequestOperation *operation))failure;
 
+- (void)getSensors:(NSArray *)sensorIds
+           Details:(BOOL)showDetails
+       LastReading:(BOOL)showLastReading
+             Limit:(NSUInteger)limit
+              Skip:(NSUInteger)skip   // offset
+           success:(void(^)(NSArray *sensors))success
+           failure:(void (^)(AFHTTPRequestOperation *operation))failure;
+
 @end

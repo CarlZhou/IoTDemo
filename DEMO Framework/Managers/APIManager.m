@@ -31,7 +31,7 @@
                             success:(void(^)(NSArray *sensors, NSArray *readings))success
                             failure:(void (^)(AFHTTPRequestOperation *operation))failure
 {
-    NSDictionary *params = @{ @"sensor_ids" : [sensors componentsJoinedByString:@","],
+    NSDictionary *params = @{ @"sensor_ids" : (sensors ? [sensors componentsJoinedByString:@","] : @""),
                               @"limit" : [NSNumber numberWithInteger:limit],
                               @"skip" : [NSNumber numberWithInteger:skip] };
     
@@ -41,9 +41,7 @@
     [self GET:API_PATH(@"/sensor_readings.xsjs")
    parameters:params
       success:^(AFHTTPRequestOperation *operation, id responseObject) {
-          
           NSLog(@"%@", responseObject);
-          
           if (responseObject && responseObject[@"meta"] && [responseObject[@"meta"][@"status_code"]  isEqual: @200])
           {
               [self parseSensorReadingsData:responseObject[@"sensors"] Completion:^(NSArray *sensors, NSArray *readings){
@@ -51,26 +49,24 @@
                       success(sensors, readings);
               }];
           }
-          
-          
       } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-          
           if (failure)
               failure(operation);
       }];
 }
 
 #pragma mark - Sensors
-- (void)getSensorSensors:(NSArray *)sensorIds
-                 Details:(BOOL)showDetails
-             LastReading:(BOOL)showLastReading
-                   Limit:(NSUInteger)limit
-                    Skip:(NSUInteger)skip   // offset
-                 success:(void(^)(id responseObject))success
-                 failure:(void (^)(AFHTTPRequestOperation *operation))failure
+- (void)getSensors:(NSArray *)sensorIds
+           Details:(BOOL)showDetails
+       LastReading:(BOOL)showLastReading
+             Limit:(NSUInteger)limit
+              Skip:(NSUInteger)skip   // offset
+           success:(void(^)(NSArray *sensors))success
+           failure:(void (^)(AFHTTPRequestOperation *operation))failure
 {
 
-    NSDictionary *params = @{ @"sensor_ids" : [sensorIds componentsJoinedByString:@","],
+    
+    NSDictionary *params = @{ @"sensor_ids" : (sensorIds ? [sensorIds componentsJoinedByString:@","] : @""),
                               @"details" : [NSString stringWithFormat: showDetails ? @"true" : @"false"],
                               @"last_reading" : [NSString stringWithFormat: showLastReading ? @"true" : @"false"],
                               @"limit" : [NSNumber numberWithInteger:limit],
@@ -82,36 +78,44 @@
     [self GET:API_PATH(@"/getsensor.xsjs")
    parameters:params
       success:^(AFHTTPRequestOperation *operation, id responseObject) {
-          
           NSLog(@"%@", responseObject);
-          
-          if (responseObject && responseObject[@"meta"] && [responseObject[@"meta"][@"status_code"]  isEqual: @200])
-          {
-              Controller *controller = nil;
-              SensorTypeCategory *sensorTypeCategory = nil;
-              SensorType *sensorType = nil;
-              SensorReading *lastReading = nil;
-              if (showLastReading) {
-                  controller = [[DataManager sharedManager] createNewControllerWithData:responseObject[@"sensors"][@"controller"]];
-                  sensorTypeCategory = [[DataManager sharedManager] createNewSensorTypeCategoryWithData:responseObject[@"sensors"][@"sensor_type"][@"sensor_type_category"]];
-                  sensorType = [[DataManager sharedManager] createNewSensorTypeWithData:responseObject[@"sensors"][@"sensor_type"] STC:sensorTypeCategory];
-              }
-              if (showDetails) {
-                  [[DataManager sharedManager] createNewSensorReadingsWithData:responseObject[@"sensors"][@"last_reading"] completion:^(){
-                      if (success)
-                          success(responseObject);
-                  }];
-              }
-              [[DataManager sharedManager] createNewSensorWithData:responseObject[@"sensors"] Controller:controller SensorType:sensorType LastReading:lastReading];
+          if (responseObject && responseObject[@"meta"] && [responseObject[@"meta"][@"status_code"]  isEqual: @200]) {
+              [self parseSensorsData:responseObject[@"sensors"] Details:showDetails LastReading:showLastReading Completion:^(NSArray *sensors) {
+                  if (success)
+                      success(sensors);
+              }];
           }
-          
       } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-          
           if (failure)
               failure(operation);
       }];
 }
 
+- (void)parseSensorsData:(NSArray *)responseObjectSensors Details:(BOOL)showDetails LastReading:(BOOL)showLastReading  Completion:(void(^)(NSArray *sensors))completion
+{
+    NSMutableArray *sensors = [NSMutableArray array];
+    [responseObjectSensors enumerateObjectsUsingBlock:^(NSDictionary *data, NSUInteger index, BOOL *stop){
+        Controller *controller = nil;
+        SensorTypeCategory *sensorTypeCategory = nil;
+        SensorType *sensorType = nil;
+        SensorReading *lastReading = nil;
+        Sensor *sensor = nil;
+        if (showDetails) {
+            controller = [[DataManager sharedManager] createNewControllerWithData:data[@"controller"]];
+            sensorTypeCategory = [[DataManager sharedManager] createNewSensorTypeCategoryWithData:data[@"sensor_type"][@"sensor_type_category"]];
+            sensorType = [[DataManager sharedManager] createNewSensorTypeWithData:data[@"sensor_type"] STC:sensorTypeCategory];
+        }
+        if (showLastReading) {
+            if (![data[@"last_reading"][@"id"] isKindOfClass:[NSNull class]]) {
+                lastReading = [[DataManager sharedManager] createNewSensorReadingWithData:data[@"last_reading"][@"sensor_reading"]];
+            }
+        }
+        sensor = [[DataManager sharedManager] createNewSensorWithData:data Controller:controller SensorType:sensorType LastReading:lastReading];
+        [sensors addObject:sensor];
+        if (completion)
+            completion(sensors);
+    }];
+}
 
 - (void)parseSensorReadingsData:(NSArray *)sensorReadingsData Completion:(void(^)(NSArray *sensors, NSArray *readings))completion
 {
