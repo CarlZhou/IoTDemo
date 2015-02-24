@@ -100,7 +100,7 @@
         if (index == self.recentReadings.count-1)
         {
             self.lineGraph.animationGraphEntranceTime = isNewSensor ? 1.5 : 0;
-            circularViewAnimatingTime = isNewSensor ? 0.5 : 0;
+            circularViewAnimatingTime = 0.5;
             [self.lineGraph reloadGraph];
             if (isNewSensor)
             {
@@ -114,20 +114,16 @@
 
 - (void)reloadCircularGraph
 {
-    maxBarView.reading = [[self.lineGraph calculateMaximumPointValue] floatValue];
-    maxBarView.percentage = [[self.lineGraph calculateMaximumPointValue] floatValue]/[self.selectedSensor.s_sensor_type.st_reading_max floatValue] * 100;
+    [maxBarView updatePercentage:[[self.lineGraph calculateMaximumPointValue] floatValue]/[self.selectedSensor.s_sensor_type.st_reading_max floatValue] * 100 Reading:[[self.lineGraph calculateMaximumPointValue] floatValue] Unit:maxBarView.unit];
     maxBarView.animatingTime = circularViewAnimatingTime;
     
-    minBarView.reading = [[self.lineGraph calculateMinimumPointValue] floatValue];
-    minBarView.percentage = [[self.lineGraph calculateMinimumPointValue] floatValue]/[self.selectedSensor.s_sensor_type.st_reading_max floatValue] * 100;
+    [minBarView updatePercentage:[[self.lineGraph calculateMinimumPointValue] floatValue]/[self.selectedSensor.s_sensor_type.st_reading_max floatValue] * 100 Reading:[[self.lineGraph calculateMinimumPointValue] floatValue] Unit:minBarView.unit];
     minBarView.animatingTime = circularViewAnimatingTime;
     
-    avgBarView.reading = [[self.lineGraph calculatePointValueAverage] floatValue];
-    avgBarView.percentage = [[self.lineGraph calculatePointValueAverage] floatValue]/[self.selectedSensor.s_sensor_type.st_reading_max floatValue] * 100;
+    [avgBarView updatePercentage:[[self.lineGraph calculatePointValueAverage] floatValue]/[self.selectedSensor.s_sensor_type.st_reading_max floatValue] * 100 Reading:[[self.lineGraph calculatePointValueAverage] floatValue] Unit:avgBarView.unit];
     avgBarView.animatingTime = circularViewAnimatingTime;
     
-    currentBarView.reading = [[self.lineOneData lastObject] floatValue];
-    currentBarView.percentage = [[self.lineOneData lastObject] floatValue]/[self.selectedSensor.s_sensor_type.st_reading_max floatValue] * 100;
+    [currentBarView updatePercentage:[[self.lineOneData lastObject] floatValue]/[self.selectedSensor.s_sensor_type.st_reading_max floatValue] * 100 Reading:[[self.lineOneData lastObject] floatValue] Unit:currentBarView.unit];
     currentBarView.animatingTime = circularViewAnimatingTime;
     
     [self reloadCircularViews];

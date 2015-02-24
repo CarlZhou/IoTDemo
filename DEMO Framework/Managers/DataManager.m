@@ -200,6 +200,11 @@
 {
     [[APIManager sharedManager] getSensors:nil Details:true LastReading:true Limit:10 Skip:0 success:^(NSArray *sensors) {
         self.sensors = sensors.mutableCopy;
+        if (self.selectedSensorIndexPath)
+        {
+            if (self.sensors.count > self.selectedSensorIndexPath.row)
+            self.selectedSensor = [self.sensors objectAtIndex:self.selectedSensorIndexPath.row];
+        }
         [[NSNotificationCenter defaultCenter] postNotificationName:SENSOR_DATA_UPDATED object:nil];
     } failure:^(AFHTTPRequestOperation *operation) {
         

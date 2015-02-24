@@ -52,6 +52,7 @@
     {
         // Select the first row for the first time open
         selectedIndexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+        [DataManager sharedManager].selectedSensorIndexPath = selectedIndexPath;
         [self.tableView selectRowAtIndexPath:selectedIndexPath animated:YES scrollPosition:UITableViewScrollPositionNone];
         [self tableView:self.tableView didSelectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
         isInitCompleted = YES;
@@ -69,13 +70,14 @@
     if (selectedIndexPath != indexPath)
     {
         selectedIndexPath = indexPath;
+        [DataManager sharedManager].selectedSensorIndexPath = selectedIndexPath;
         [[NSNotificationCenter defaultCenter] postNotificationName:DID_SELECT_NEW_SENSOR object:nil];
     }
     NSManagedObject *object = [[self sensors] objectAtIndex:indexPath.row];
     RightViewController *controller = self.rightViewController;
     [controller setDetailItem:object];
-    controller.navigationItem.leftBarButtonItem = self.splitViewController.displayModeButtonItem;
-    controller.navigationItem.leftItemsSupplementBackButton = YES;
+//    controller.navigationItem.leftBarButtonItem = self.splitViewController.displayModeButtonItem;
+//    controller.navigationItem.leftItemsSupplementBackButton = YES;
 }
 
 #pragma mark - Table View
