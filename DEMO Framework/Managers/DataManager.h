@@ -41,6 +41,14 @@
 
 // Data
 @property (nonatomic, strong) NSMutableArray *sensors;
+@property (nonatomic, strong) NSTimer *sensorsInfoUpdateTimer;
+@property (nonatomic, strong) Sensor *selectedSensor;
 @property (nonatomic, strong) NSMutableArray *sensorReadings;
+@property (nonatomic, strong) NSTimer *sensorReadingsInfoUpdateTimer;
+
+- (void)updateSensorsInfomation;
+- (void)startToUpdateSensorsInfoWithTimeInterval:(NSTimeInterval)interval;
+- (void)updateSensorReadingsInfomationWithCompletion:(void(^)())completion;
+- (void)startToUpdateSensorReadingsInfoWithTimeInterval:(NSTimeInterval)interval;
 
 @end

@@ -15,6 +15,7 @@
 #import "Constants.h"
 #import "WMGaugeView.h"
 #import "APIManager.h"
+#import "DataManager.h"
 
 #define DISPLAYED_PROPERTIES_NUM 10
 
@@ -52,22 +53,20 @@
     
     [self reloadViews];
     [self initGaugueView];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateWithNewData) name:SENSOR_READINGS_DATA_UPDATED object:nil];
+}
+
+- (void)updateWithNewData
+{
+    self.recentReadings = [DataManager sharedManager].sensorReadings;
+    [self reloadViews];
 }
 
 - (void)reloadViews
 {
     [self.sensorPropertiesTableview reloadData];
-    
-//    [[APIManager sharedManager] getSensorReadingsForSensors:@[@1] Limit:10 Skip:0 success:^(NSArray *sensors, NSArray *readings){
-//        
-//        self.recentReadings = readings.mutableCopy;
-//        [self.recentReadingsTableview reloadData];
-////                NSLog(@"readings: %@", readings);
-//    }failure:^(AFHTTPRequestOperation *operation){
-//        
-//    }];
     [self.recentReadingsTableview reloadData];
-    
     [self reloadGaugueView];
 }
 
@@ -144,7 +143,6 @@
         SensorReading *reading = [self.recentReadings objectAtIndex:indexPath.row];
         cell.textLabel.text = [NSString stringWithFormat:@"%@ %@", reading.sr_reading, self.selectedSensor.s_unit];
         cell.detailTextLabel.text = [NSString stringWithFormat:@"%@", reading.sr_read_time];
-        NSLog(@"%@", reading);
         
         return cell;
     }

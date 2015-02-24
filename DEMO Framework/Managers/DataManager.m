@@ -14,6 +14,8 @@
 #import "Controller.h"
 #import "DataUtils.h"
 #include <stdlib.h>
+#import "APIManager.h"
+#import "constants.h"
 
 @implementation DataManager
 
@@ -68,7 +70,6 @@
     entity.s_controller = controller;
     entity.s_sensor_type = type;
     entity.s_last_reading = reading;
-    NSLog(@"New sensor");
     return entity;
 }
 
@@ -193,6 +194,65 @@
 - (void)clearMockupData
 {
     
+}
+
+- (void)updateSensorsInfomation
+{
+    [[APIManager sharedManager] getSensors:nil Details:true LastReading:true Limit:10 Skip:0 success:^(NSArray *sensors) {
+        self.sensors = sensors.mutableCopy;
+        [[NSNotificationCenter defaultCenter] postNotificationName:SENSOR_DATA_UPDATED object:nil];
+    } failure:^(AFHTTPRequestOperation *operation) {
+        
+    }];
+}
+
+- (void)startToUpdateSensorsInfoWithTimeInterval:(NSTimeInterval)interval
+{
+    if (self.sensorsInfoUpdateTimer)
+    {
+        [self.sensorsInfoUpdateTimer invalidate];
+        self.sensorsInfoUpdateTimer = nil;
+    }
+    
+    self.sensorsInfoUpdateTimer = [NSTimer scheduledTimerWithTimeInterval:interval target:self selector:@selector(updateSensorsInfomation) userInfo:nil repeats:YES];
+}
+
+- (void)updateSensorReadingsInfomationWithCompletion:(void(^)())completion
+{
+    if (self.selectedSensor)
+    {
+        [[APIManager sharedManager] getSensorReadingsForSensors:@[self.selectedSensor.s_id] Limit:10 Skip:0 success:^(NSArray *sensors, NSArray *readings){
+            
+            self.sensorReadings = [readings mutableCopy];
+            if (completion)
+            {
+                completion();
+            }
+            else
+            {
+                [[NSNotificationCenter defaultCenter] postNotificationName:SENSOR_READINGS_DATA_UPDATED object:nil];
+            }
+            
+        }failure:^(AFHTTPRequestOperation *operation){
+            
+        }];
+    }
+}
+
+- (void)updateSensorReadingsInfoHelper
+{
+    [self updateSensorReadingsInfomationWithCompletion:nil];
+}
+
+- (void)startToUpdateSensorReadingsInfoWithTimeInterval:(NSTimeInterval)interval
+{
+    if (self.sensorReadingsInfoUpdateTimer)
+    {
+        [self.sensorReadingsInfoUpdateTimer invalidate];
+        self.sensorReadingsInfoUpdateTimer = nil;
+    }
+    
+    self.sensorReadingsInfoUpdateTimer = [NSTimer scheduledTimerWithTimeInterval:interval target:self selector:@selector(updateSensorReadingsInfoHelper) userInfo:nil repeats:YES];
 }
 
 @end

@@ -18,4 +18,9 @@
 #define graphLineColor [UIColor colorWithRed:122.0/255.0 green:147.0/255.0 blue:174.0/255.0 alpha:1]
 #define RGB(r,g,b) [UIColor colorWithRed:r/255.0 green:g/255.0 blue:b/255.0 alpha:1.0]
 
+// Notification
+#define SENSOR_DATA_UPDATED @"SENSOR_DATA_UPDATED"
+#define SENSOR_READINGS_DATA_UPDATED @"SENSOR_DATA_UPDATED"
+#define DID_SELECT_NEW_SENSOR @"DID_SELECT_NEW_SENSOR"
+
 #endif

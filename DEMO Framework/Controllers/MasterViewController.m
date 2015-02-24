@@ -11,8 +11,14 @@
 #import "SensorTableViewCell.h"
 #import "APIManager.h"
 #import "Sensor.h"
+#import "DataManager.h"
+#import "constants.h"
 
 @interface MasterViewController ()
+{
+    BOOL isInitCompleted;
+    NSIndexPath *selectedIndexPath;
+}
 
 @end
 
@@ -29,38 +35,42 @@
     // Do any additional setup after loading the view, typically from a nib.
     
     self.sensors = [NSMutableArray array];
-    
     self.rightViewController = (RightViewController *)[[self.splitViewController.viewControllers lastObject] topViewController];
-    
     [self.tableView registerNib:[UINib nibWithNibName:@"SensorTableViewCell" bundle:nil] forCellReuseIdentifier:@"SensorCell"];
     
-    [[APIManager sharedManager] getSensors:nil Details:true LastReading:true Limit:10 Skip:0 success:^(NSArray *sensors) {
-        self.sensors = sensors.mutableCopy;
-        [self.tableView reloadData];
-        [self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:YES scrollPosition:UITableViewScrollPositionNone];
-        [self tableView:self.tableView didSelectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
-    } failure:^(AFHTTPRequestOperation *operation) {
-        
-    }];
+    
+    [[DataManager sharedManager] updateSensorsInfomation];
+    [[DataManager sharedManager] startToUpdateSensorsInfoWithTimeInterval:5];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateTable) name:@"SENSOR_DATA_UPDATED" object:nil];
+}
 
-    // Add Sort Descriptors
-//    NSArray *discriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"s_id" ascending:YES], [NSSortDescriptor sortDescriptorWithKey:@"s_last_updated" ascending:NO]];
-    
-//    [[CoreDataManager sharedManager] fetchDataWithEntityName:@"Sensor" Discriptors:discriptors Completion:^(NSArray *results){
-//        self.sensors = results.mutableCopy;
-//        [self.tableView reloadData];
-//    }];
-    
-//    self.sensors = [NSMutableArray arrayWithArray:[[DataManager sharedManager] addMockupData]];
-//    [self.tableView reloadData];
-    
-    // test
+- (void)updateTable
+{
+    self.sensors = [DataManager sharedManager].sensors;
+    [self.tableView reloadData];
+    if (!isInitCompleted)
+    {
+        // Select the first row for the first time open
+        selectedIndexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+        [self.tableView selectRowAtIndexPath:selectedIndexPath animated:YES scrollPosition:UITableViewScrollPositionNone];
+        [self tableView:self.tableView didSelectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
+        isInitCompleted = YES;
+    }
+    else
+    {
+        [self.tableView selectRowAtIndexPath:selectedIndexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
+    }
 }
 
 #pragma mark - Segues
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    if (selectedIndexPath != indexPath)
+    {
+        selectedIndexPath = indexPath;
+        [[NSNotificationCenter defaultCenter] postNotificationName:DID_SELECT_NEW_SENSOR object:nil];
+    }
     NSManagedObject *object = [[self sensors] objectAtIndex:indexPath.row];
     RightViewController *controller = self.rightViewController;
     [controller setDetailItem:object];

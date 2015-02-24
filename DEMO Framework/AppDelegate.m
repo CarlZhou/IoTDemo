@@ -10,8 +10,12 @@
 #import "RightViewController.h"
 #import "MasterViewController.h"
 #import "DataManager.h"
+#import "Constants.h"
 
 @interface AppDelegate () <UISplitViewControllerDelegate>
+{
+    UIView* launchScreen;
+}
 
 @end
 
@@ -20,18 +24,32 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
-    UISplitViewController *splitViewController = (UISplitViewController *)self.window.rootViewController;
-    UINavigationController *navigationController = [splitViewController.viewControllers lastObject];
-    navigationController.topViewController.navigationItem.leftBarButtonItem = splitViewController.displayModeButtonItem;
-    splitViewController.delegate = self;
+    self.splitViewController = (UISplitViewController *)self.window.rootViewController;
+    UINavigationController *navigationController = [self.splitViewController.viewControllers lastObject];
+    navigationController.topViewController.navigationItem.leftBarButtonItem = self.splitViewController.displayModeButtonItem;
+    self.splitViewController.delegate = self;
 
-//    UINavigationController *masterNavigationController = splitViewController.viewControllers[0];
-//    MasterViewController *controller = (MasterViewController *)masterNavigationController.topViewController;
-//    controller.managedObjectContext = self.managedObjectContext;
-//    [CoreDataManager sharedManager].managedObjectContext = self.managedObjectContext;
-//    [[CoreDataManager sharedManager] addMockupData];
+    [self enforceLaunchScreen];
     
     return YES;
+}
+
+- (void)enforceLaunchScreen
+{
+    // Enforce LaunchScreen Until The Data is loaded
+    NSArray* nibViews= [[NSBundle mainBundle] loadNibNamed:@"LaunchScreen"
+                                                     owner:self
+                                                   options:nil];
+    launchScreen = [nibViews objectAtIndex:0];
+    [self.splitViewController.view addSubview:launchScreen];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dismissLaunchScreen) name:SENSOR_DATA_UPDATED object:nil];
+}
+
+- (void)dismissLaunchScreen
+{
+    [launchScreen removeFromSuperview];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:SENSOR_DATA_UPDATED object:nil];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {

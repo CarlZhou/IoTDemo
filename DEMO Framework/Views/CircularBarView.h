@@ -12,6 +12,7 @@
 
 @property (nonatomic) float percentage;
 @property (nonatomic) float reading;
+@property (nonatomic) double animatingTime;
 @property (nonatomic, strong) NSString *unit;
 @property (nonatomic, strong) UIColor *displayColor;
 @property (nonatomic, strong) UILabel *titleLabel;

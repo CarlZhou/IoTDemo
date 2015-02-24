@@ -28,6 +28,7 @@
         start = M_PI * 1.0;        // Start and stop angles for the arc (in radians)
         end = start + (M_PI * 2);
         currPercent = 0;
+        self.animatingTime = 0.5;
         self.backgroundColor = [UIColor whiteColor];
         self.clipsToBounds = YES;
         self.displayColor = [UIColor blackColor];
@@ -114,16 +115,20 @@
             [self.barLayer setPath:bezierPath.CGPath];
         }];
         
-        CABasicAnimation *animateStroke = [CABasicAnimation animationWithKeyPath:@"strokeEnd"];
-        if (self.percentage >= currPercent) {
-            animateStroke.fromValue = [NSNumber numberWithFloat:currPercent/self.percentage];   // Set animation start point
-            animateStroke.toValue = [NSNumber numberWithFloat:1.0f];                            // Set animation end point
-        } else {
-            animateStroke.fromValue = [NSNumber numberWithFloat:1.0f];
-            animateStroke.toValue = [NSNumber numberWithFloat:self.percentage/currPercent];
+        if (self.animatingTime != 0)
+        {
+            
+            CABasicAnimation *animateStroke = [CABasicAnimation animationWithKeyPath:@"strokeEnd"];
+            if (self.percentage >= currPercent) {
+                animateStroke.fromValue = [NSNumber numberWithFloat:currPercent/self.percentage];   // Set animation start point
+                animateStroke.toValue = [NSNumber numberWithFloat:1.0f];                            // Set animation end point
+            } else {
+                animateStroke.fromValue = [NSNumber numberWithFloat:1.0f];
+                animateStroke.toValue = [NSNumber numberWithFloat:self.percentage/currPercent];
+            }
+            animateStroke.duration = self.animatingTime;                                                           // Set animation duration, default is 0.25
+            [shapeLayer addAnimation:animateStroke forKey:@"strokeEnd"];
         }
-        animateStroke.duration = 0.5;                                                           // Set animation duration, default is 0.25
-        [shapeLayer addAnimation:animateStroke forKey:@"strokeEnd"];
         
     } [CATransaction commit];
     

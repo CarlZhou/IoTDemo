@@ -41,7 +41,6 @@
     [self GET:API_PATH(@"/sensor_readings.xsjs")
    parameters:params
       success:^(AFHTTPRequestOperation *operation, id responseObject) {
-          NSLog(@"%@", responseObject);
           if (responseObject && responseObject[@"meta"] && [responseObject[@"meta"][@"status_code"]  isEqual: @200])
           {
               [self parseSensorReadingsData:responseObject[@"sensors"] Completion:^(NSArray *sensors, NSArray *readings){
@@ -78,7 +77,6 @@
     [self GET:API_PATH(@"/getsensor.xsjs")
    parameters:params
       success:^(AFHTTPRequestOperation *operation, id responseObject) {
-          NSLog(@"%@", responseObject);
           if (responseObject && responseObject[@"meta"] && [responseObject[@"meta"][@"status_code"]  isEqual: @200]) {
               [self parseSensorsData:responseObject[@"sensors"] Details:showDetails LastReading:showLastReading Completion:^(NSArray *sensors) {
                   if (success)

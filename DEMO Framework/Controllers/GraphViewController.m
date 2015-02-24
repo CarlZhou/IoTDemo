@@ -13,6 +13,7 @@
 #import "SensorReading.h"
 #import "Sensor.h"
 #import "SensorType.h"
+#import "DataManager.h"
 
 @interface GraphViewController ()<BEMSimpleLineGraphDataSource, BEMSimpleLineGraphDelegate>
 {
@@ -20,6 +21,8 @@
     CircularBarView *avgBarView;
     CircularBarView *minBarView;
     CircularBarView *maxBarView;
+    BOOL isNewSensor;
+    double circularViewAnimatingTime;
 }
 @property (weak, nonatomic) IBOutlet UIView *currentViewContainer;
 @property (weak, nonatomic) IBOutlet UIView *avgViewContainer;
@@ -36,19 +39,30 @@
 
 @implementation GraphViewController
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
     [self initLineGraph];
     [self initCircularGraph];
-    
     self.recentReadings = [NSMutableArray array];
-    
-//    [NSTimer timerWithTimeInterval:5 target:self selector:@selector(reloadData) userInfo:nil repeats:YES];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateWithNewData) name:SENSOR_READINGS_DATA_UPDATED object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(selectedNewSensor) name:DID_SELECT_NEW_SENSOR object:nil];
 }
 
-- (void)reloadViews
+- (void)selectedNewSensor
 {
-//    [self.lineGraph reloadGraph];
+    isNewSensor = YES;
+}
+
+- (void)updateWithNewData
+{
+    self.recentReadings = [DataManager sharedManager].sensorReadings;
+    [self reloadData];
+}
+
+// ReloadCircularViews
+- (void)reloadCircularViews
+{
     [currentBarView setNeedsDisplay];
     [avgBarView setNeedsDisplay];
     [minBarView setNeedsDisplay];
@@ -85,30 +99,38 @@
         [self.lineOneDataDetail addObject:[formatter stringFromDate:reading.sr_read_time]];
         if (index == self.recentReadings.count-1)
         {
+            self.lineGraph.animationGraphEntranceTime = isNewSensor ? 1.5 : 0;
+            circularViewAnimatingTime = isNewSensor ? 0.5 : 0;
             [self.lineGraph reloadGraph];
+            if (isNewSensor)
+            {
+                isNewSensor = NO;
+            }
             // Graphs
             [self performSelector:@selector(reloadCircularGraph) withObject:nil afterDelay:0.1];
         }
-        
     }];
-//    [self.lineGraph reloadGraph];
 }
 
 - (void)reloadCircularGraph
 {
     maxBarView.reading = [[self.lineGraph calculateMaximumPointValue] floatValue];
     maxBarView.percentage = [[self.lineGraph calculateMaximumPointValue] floatValue]/[self.selectedSensor.s_sensor_type.st_reading_max floatValue] * 100;
+    maxBarView.animatingTime = circularViewAnimatingTime;
     
     minBarView.reading = [[self.lineGraph calculateMinimumPointValue] floatValue];
     minBarView.percentage = [[self.lineGraph calculateMinimumPointValue] floatValue]/[self.selectedSensor.s_sensor_type.st_reading_max floatValue] * 100;
+    minBarView.animatingTime = circularViewAnimatingTime;
     
     avgBarView.reading = [[self.lineGraph calculatePointValueAverage] floatValue];
     avgBarView.percentage = [[self.lineGraph calculatePointValueAverage] floatValue]/[self.selectedSensor.s_sensor_type.st_reading_max floatValue] * 100;
+    avgBarView.animatingTime = circularViewAnimatingTime;
     
     currentBarView.reading = [[self.lineOneData lastObject] floatValue];
     currentBarView.percentage = [[self.lineOneData lastObject] floatValue]/[self.selectedSensor.s_sensor_type.st_reading_max floatValue] * 100;
+    currentBarView.animatingTime = circularViewAnimatingTime;
     
-    [self reloadViews];
+    [self reloadCircularViews];
 }
 
 #pragma mark - Line Graph

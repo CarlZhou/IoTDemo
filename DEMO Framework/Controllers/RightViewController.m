@@ -10,6 +10,7 @@
 #import "GraphViewController.h"
 #import "DetailsViewController.h"
 #import "APIManager.h"
+#import "DataManager.h"
 #import "Sensor.h"
 #import "MBProgressHUD.h"
 
@@ -29,7 +30,8 @@
 
 - (void)setDetailItem:(id)newDetailItem
 {
-    if (_detailItem != newDetailItem) {
+    if (_detailItem != newDetailItem)
+    {
         _detailItem = newDetailItem;
             
         // Update the view.
@@ -40,23 +42,18 @@
 - (void)configureView {
     // Update the user interface for the detail item.
     if (self.detailItem)
-    {   
+    {
+        [DataManager sharedManager].selectedSensor = self.detailItem;
         self.detailsViewController.selectedSensor = self.detailItem;
         self.graphViewController.selectedSensor = self.detailItem;
-//        [self.detailsViewController reloadViews];
         [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-        [[APIManager sharedManager] getSensorReadingsForSensors:@[self.detailsViewController.selectedSensor.s_id] Limit:10 Skip:0 success:^(NSArray *sensors, NSArray *readings){
-            
-            // Could put in one shareinstance
-            self.graphViewController.recentReadings = readings.mutableCopy;
-            self.detailsViewController.recentReadings = readings.mutableCopy;
+        [[DataManager sharedManager] updateSensorReadingsInfomationWithCompletion:^(){
+            self.graphViewController.recentReadings = [DataManager sharedManager].sensorReadings;
+            self.detailsViewController.recentReadings = [DataManager sharedManager].sensorReadings;
             [self.detailsViewController reloadViews];
             [self.graphViewController reloadData];
-            
             [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
-            
-        }failure:^(AFHTTPRequestOperation *operation){
-            
+            [[DataManager sharedManager] startToUpdateSensorReadingsInfoWithTimeInterval:2];
         }];
     }
 }
@@ -67,11 +64,6 @@
     [self configureView];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
 - (IBAction)segControllValueChanged:(UISegmentedControl *)sender
 {
     switch (sender.selectedSegmentIndex) {
@@ -80,7 +72,7 @@
             break;
         case 1:
             [self.view bringSubviewToFront:self.graphContainer];
-            [self.graphViewController reloadViews];
+            [self.graphViewController reloadCircularViews];
             break;
         default:
             break;

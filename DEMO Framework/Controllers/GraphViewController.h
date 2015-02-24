@@ -16,7 +16,7 @@
 
 @property (nonatomic, strong) NSMutableArray *recentReadings;
 
-- (void)reloadViews;
+- (void)reloadCircularViews;
 - (void)reloadData;
 
 @end
