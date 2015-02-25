@@ -75,32 +75,31 @@
 - (void)initGaugueView
 {
     self.gaugeView.scaleDivisions = 10;
-    self.gaugeView.scaleSubdivisions = 5;
+    self.gaugeView.scaleSubdivisions = 10;
     self.gaugeView.scaleStartAngle = 30;
     self.gaugeView.scaleEndAngle = 330;
     self.gaugeView.innerBackgroundStyle = WMGaugeViewInnerBackgroundStyleFlat;
+    self.gaugeView.showInnerBackground = NO;
     self.gaugeView.showScaleShadow = YES;
     self.gaugeView.showScale = YES;
-    self.gaugeView.scaleFont = [UIFont fontWithName:@"AvenirNext-UltraLight" size:0.065];
+    self.gaugeView.scaleFont = [UIFont fontWithName:@"AvenirNext-Bold" size:0.065];
     self.gaugeView.scalesubdivisionsAligment = WMGaugeViewSubdivisionsAlignmentCenter;
-    self.gaugeView.scaleSubdivisionsWidth = 0.002;
-    self.gaugeView.scaleSubdivisionsLength = 0.04;
-    self.gaugeView.scaleDivisionsWidth = 0.007;
-    self.gaugeView.scaleDivisionsLength = 0.07;
     self.gaugeView.needleStyle = WMGaugeViewNeedleStyleFlatThin;
     self.gaugeView.needleWidth = 0.012;
     self.gaugeView.needleHeight = 0.4;
     self.gaugeView.needleScrewStyle = WMGaugeViewNeedleScrewStylePlain;
     self.gaugeView.needleScrewRadius = 0.05;
-    self.gaugeView.maxValue = 240;
+    self.gaugeView.maxValue = [self.selectedSensor.s_sensor_type.st_reading_max integerValue] ? [self.selectedSensor.s_sensor_type.st_reading_max integerValue] : 100;
     self.gaugeView.value = 50;
     self.gaugeView.backgroundColor = [UIColor clearColor];
 }
 
 - (void)reloadGaugueView
 {
+    self.gaugeView.scaleDivisions = 10;
+    self.gaugeView.scaleSubdivisions = 10;
     NSInteger range = [self.selectedSensor.s_sensor_type.st_reading_max floatValue] - [self.selectedSensor.s_sensor_type.st_reading_min floatValue];
-    self.gaugeView.maxValue = range == 0 ? 320 : range;
+    self.gaugeView.maxValue = range == 0 ? 100 : 10.0 * floor((range/10.0)+0.5);
     [self.gaugeView setValue:[self.selectedSensor.s_last_reading.sr_reading floatValue] animated:YES duration:3];
     self.valueLabel.text = [NSString stringWithFormat:@"%@ %@", self.selectedSensor.s_last_reading.sr_reading ? self.selectedSensor.s_last_reading.sr_reading : @0, self.selectedSensor.s_unit];
 }
