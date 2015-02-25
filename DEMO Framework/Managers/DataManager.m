@@ -113,7 +113,7 @@
         }
         [[NSNotificationCenter defaultCenter] postNotificationName:SENSOR_DATA_UPDATED object:nil];
     } Failure:^(NSError *error) {
-        
+        [[NSNotificationCenter defaultCenter] postNotificationName:SENSOR_DATA_UPDATED_FAILED object:nil];
     }];
 }
 
@@ -145,7 +145,6 @@
             }
             
         }Failure:^(NSError *error){
-            [[NSNotificationCenter defaultCenter] postNotificationName:SENSOR_READINGS_DATA_UPDATED object:nil];
         }];
     }
 }

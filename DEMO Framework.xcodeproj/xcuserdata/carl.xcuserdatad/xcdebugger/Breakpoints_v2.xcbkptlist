@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "DEMO Framework/Managers/APIManager.m"
-            timestampString = "446581616.561114"
+            timestampString = "446582357.446124"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "55"
-            endingLineNumber = "55"
+            startingLineNumber = "44"
+            endingLineNumber = "44"
             landmarkName = "-getSensorReadingsForSensors:Limit:Skip:Success:Failure:"
             landmarkType = "5">
          </BreakpointContent>
@@ -25,13 +25,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "DEMO Framework/AppDelegate.m"
-            timestampString = "446570977.280493"
+            filePath = "DEMO Framework/Managers/DataManager.m"
+            timestampString = "446582995.677223"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "47"
-            endingLineNumber = "47"
-            landmarkName = "-dismissLaunchScreen"
+            startingLineNumber = "136"
+            endingLineNumber = "136"
+            landmarkName = "-updateSensorReadingsInfomationWithCompletion:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

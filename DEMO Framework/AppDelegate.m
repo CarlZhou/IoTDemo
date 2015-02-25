@@ -10,11 +10,13 @@
 #import "RightViewController.h"
 #import "MasterViewController.h"
 #import "DataManager.h"
+#import "APIManager.h"
 #import "Constants.h"
 
 @interface AppDelegate () <UISplitViewControllerDelegate>
 {
     UIView* launchScreen;
+    UIView* errorScreen;
 }
 
 @end
@@ -26,6 +28,12 @@
 
     self.splitViewController = (UISplitViewController *)self.window.rootViewController;
     self.splitViewController.delegate = self;
+    
+    // Set API Request Authorization Info
+    [APIManager sharedManager].APIAuthorizationMethod = @"Basic";
+    [APIManager sharedManager].APIAuthorizationAccount = @"I847885";
+    [APIManager sharedManager].APIAuthorizationPassword = @"Black920417!";
+    
     [self enforceLaunchScreen];
     
     return YES;
@@ -41,11 +49,32 @@
     [self.splitViewController.view addSubview:launchScreen];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dismissLaunchScreen) name:SENSOR_DATA_UPDATED object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showErrorScreen) name:SENSOR_DATA_UPDATED_FAILED object:nil];
 }
 
 - (void)dismissLaunchScreen
 {
     [launchScreen removeFromSuperview];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:SENSOR_DATA_UPDATED object:nil];
+}
+
+- (void)showErrorScreen
+{
+    // Enforce LaunchScreen Until The Data is loaded
+    NSArray* nibViews= [[NSBundle mainBundle] loadNibNamed:@"ErrorScreen"
+                                                     owner:self
+                                                   options:nil];
+    errorScreen = [nibViews objectAtIndex:0];
+    [self.splitViewController.view addSubview:errorScreen];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dismissErrorScreen) name:SENSOR_DATA_UPDATED object:nil];
+}
+
+- (void)dismissErrorScreen
+{
+    if (errorScreen)
+    {
+        [errorScreen removeFromSuperview];
+    }
     [[NSNotificationCenter defaultCenter] removeObserver:self name:SENSOR_DATA_UPDATED object:nil];
 }
 

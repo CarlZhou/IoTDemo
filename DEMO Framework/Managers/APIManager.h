@@ -27,4 +27,9 @@
            Success:(void(^)(NSArray *sensors))success
            Failure:(void (^)(NSError *operation))failure;
 
+// Authorization
+@property (strong, nonatomic) NSString *APIAuthorizationMethod;
+@property (strong, nonatomic) NSString *APIAuthorizationAccount;
+@property (strong, nonatomic) NSString *APIAuthorizationPassword;
+
 @end

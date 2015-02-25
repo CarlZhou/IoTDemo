@@ -38,8 +38,11 @@
                               @"limit" : [NSNumber numberWithInteger:limit],
                               @"skip" : [NSNumber numberWithInteger:skip] };
     
-    // Need to do an anonymous user connection
-    [self.requestSerializer setValue:@"Basic STg0Nzg4NTpCbGFjazkyMDQxNyE=" forHTTPHeaderField:@"Authorization"];
+    // Set account
+    if (self.APIAuthorizationMethod && self.APIAuthorizationAccount && self.APIAuthorizationPassword)
+    {
+        [self.requestSerializer setValue:[NSString stringWithFormat:@"%@ %@", self.APIAuthorizationMethod, [[[NSString stringWithFormat:@"%@:%@", self.APIAuthorizationAccount, self.APIAuthorizationPassword] dataUsingEncoding:NSUTF8StringEncoding] base64EncodedStringWithOptions:0]] forHTTPHeaderField:@"Authorization"];
+    }
     
     [self GET:GET_SENSOR_READING_PATH
    parameters:params
@@ -74,8 +77,11 @@
                               @"limit" : [NSNumber numberWithInteger:limit],
                               @"skip" : [NSNumber numberWithInteger:skip] };
     
-    // Need to do an anonymous user connection
-    [self.requestSerializer setValue:@"Basic STg0Nzg4NTpCbGFjazkyMDQxNyE=" forHTTPHeaderField:@"Authorization"];
+//    [self.requestSerializer setValue:@"Basic STg0Nzg4NTpCbGFjazkyMDQxNyE=" forHTTPHeaderField:@"Authorization"];
+    if (self.APIAuthorizationMethod && self.APIAuthorizationAccount && self.APIAuthorizationPassword)
+    {
+        [self.requestSerializer setValue:[NSString stringWithFormat:@"%@ %@", self.APIAuthorizationMethod, [[[NSString stringWithFormat:@"%@:%@", self.APIAuthorizationAccount, self.APIAuthorizationPassword] dataUsingEncoding:NSUTF8StringEncoding] base64EncodedStringWithOptions:0]] forHTTPHeaderField:@"Authorization"];
+    }
     
     [self GET:GET_SENSOR_PATH
    parameters:params
