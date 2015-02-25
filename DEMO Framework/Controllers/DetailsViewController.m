@@ -212,7 +212,7 @@
         NSArray *data = [self.sensorReadings objectAtIndex:indexPath.section];
         SensorReading *reading = [data objectAtIndex:indexPath.row];
         cell.textLabel.text = [NSString stringWithFormat:@"%@ %@", reading.sr_reading, self.selectedSensor.s_unit];
-        cell.detailTextLabel.text = [NSString stringWithFormat:@"%@", reading.sr_read_time];
+        cell.detailTextLabel.text = [DataUtils timeStringFromDate:reading.sr_read_time];
         
         return cell;
     }

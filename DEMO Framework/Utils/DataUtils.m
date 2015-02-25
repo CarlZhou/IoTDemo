@@ -20,21 +20,31 @@
 + (NSDate *)dateFromSQLDateString:(NSString *)string
 {
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    dateFormatter.timeZone = [NSTimeZone timeZoneWithAbbreviation:@"GMT"];
     [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
     return [dateFormatter dateFromString:[string substringToIndex:19]];
+}
+
++ (NSDate *)dateFromDateString:(NSString *)string
+{
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    return [dateFormatter dateFromString:string];
 }
 
 + (NSString *)dateStringFromDate:(NSDate *)date
 {
     NSDateFormatter *df = [[NSDateFormatter alloc] init];
-    df.locale = [NSLocale systemLocale];
-    df.timeZone = [NSTimeZone systemTimeZone];
     [df setDateFormat:@"yyyy-MM-dd"];
-    NSString *string = [df stringFromDate:date];
-    
-    NSLog(@"Date: %@", string);
-    
-    return string;
+    return [df stringFromDate:date];
+}
+
++ (NSString *)timeStringFromDate:(NSDate *)date
+{
+    NSDateFormatter *df = [[NSDateFormatter alloc] init];
+    df.locale = [NSLocale systemLocale];
+    [df setDateFormat:@"HH:mm:ss"];
+    return [df stringFromDate:date];
 }
 
 @end
