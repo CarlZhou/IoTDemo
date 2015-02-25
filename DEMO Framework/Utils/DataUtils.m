@@ -24,4 +24,17 @@
     return [dateFormatter dateFromString:[string substringToIndex:19]];
 }
 
++ (NSString *)dateStringFromDate:(NSDate *)date
+{
+    NSDateFormatter *df = [[NSDateFormatter alloc] init];
+    df.locale = [NSLocale systemLocale];
+    df.timeZone = [NSTimeZone systemTimeZone];
+    [df setDateFormat:@"yyyy-MM-dd"];
+    NSString *string = [df stringFromDate:date];
+    
+    NSLog(@"Date: %@", string);
+    
+    return string;
+}
+
 @end

@@ -49,8 +49,7 @@
         [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         [[DataManager sharedManager] updateSensorReadingsInfomationWithCompletion:^(){
             self.graphViewController.recentReadings = [DataManager sharedManager].sensorReadings;
-            self.detailsViewController.recentReadings = [DataManager sharedManager].sensorReadings;
-            [self.detailsViewController reloadViews];
+            [self.detailsViewController updateWithNewData];
             [self.graphViewController reloadData];
             [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
             [[DataManager sharedManager] startToUpdateSensorReadingsInfoWithTimeInterval:[[DataManager sharedManager].sensorReadingUpdatingFrequency integerValue]];

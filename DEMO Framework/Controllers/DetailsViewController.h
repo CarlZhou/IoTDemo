@@ -15,7 +15,9 @@
 @property (nonatomic, strong) Sensor *selectedSensor;
 
 @property (nonatomic, strong) NSMutableArray *recentReadings;
+@property (nonatomic, strong) NSMutableArray *sensorReadings;
 
 - (void)reloadViews;
+- (void)updateWithNewData;
 
 @end

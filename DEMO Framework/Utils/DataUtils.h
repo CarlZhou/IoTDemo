@@ -12,5 +12,6 @@
 
 + (NSNumber *)numberFromString:(NSString *)string;
 + (NSDate *)dateFromSQLDateString:(NSString *)string;
++ (NSString *)dateStringFromDate:(NSDate *)date;
 
 @end

@@ -17,6 +17,7 @@
 #import "WMGaugeView.h"
 #import "APIManager.h"
 #import "DataManager.h"
+#import "DataUtils.h"
 
 #define DISPLAYED_PROPERTIES_NUM 10
 
@@ -51,6 +52,7 @@
     self.recentReadingsTableview.layer.cornerRadius = 5.0f;
     
     self.recentReadings = [NSMutableArray array];
+    self.sensorReadings = [NSMutableArray array];
     
     [self reloadViews];
     [self initGaugueView];
@@ -61,14 +63,47 @@
 - (void)updateWithNewData
 {
     self.recentReadings = [DataManager sharedManager].sensorReadings;
+    [self filterReadingsIntoSections:[DataManager sharedManager].sensorReadings];
     self.selectedSensor = [DataManager sharedManager].selectedSensor;
     [self reloadViews];
+}
+
+- (void)filterReadingsIntoSections:(NSMutableArray *)readings
+{
+    [self.sensorReadings removeAllObjects];
+    __block NSString *currentDate;
+    __block NSMutableArray *currentSectionOfReadings;
+    [readings enumerateObjectsUsingBlock:^(SensorReading *reading, NSUInteger index, BOOL *stop){
+        if (!currentDate)
+        {
+            currentDate = [DataUtils dateStringFromDate:reading.sr_read_time];
+            currentSectionOfReadings = [NSMutableArray array];
+            [currentSectionOfReadings addObject:reading];
+        }
+        else if ([currentDate isEqualToString:[DataUtils dateStringFromDate:reading.sr_read_time]])
+        {
+            [currentSectionOfReadings addObject:reading];
+        }
+        else
+        {
+            [self.sensorReadings addObject:currentSectionOfReadings];
+            currentSectionOfReadings = nil;
+            currentDate = [DataUtils dateStringFromDate:reading.sr_read_time];
+            currentSectionOfReadings = [NSMutableArray array];
+            [currentSectionOfReadings addObject:reading];
+        }
+        
+        if (index == readings.count-1)
+        {
+            [self.sensorReadings addObject:currentSectionOfReadings];
+            [self.recentReadingsTableview reloadData];
+        }
+    }];
 }
 
 - (void)reloadViews
 {
     [self.sensorPropertiesTableview reloadData];
-    [self.recentReadingsTableview reloadData];
     [self reloadGaugueView];
 }
 
@@ -107,6 +142,38 @@
 
 #pragma mark - Table View
 
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    if ([tableView isEqual:self.sensorPropertiesTableview])
+    {
+        return 1;
+    }
+    else
+    {
+        return self.sensorReadings.count;
+    }
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
+    if ([tableView isEqual:self.sensorPropertiesTableview])
+    {
+        return @"";
+    }
+    else
+    {
+        if (self.recentReadings.count > 0)
+        {
+            SensorReading *reading = [[self.sensorReadings objectAtIndex:0] objectAtIndex:0];
+            return [DataUtils dateStringFromDate:reading.sr_read_time];
+        }
+        else
+        {
+            return @"";
+        }
+    }
+}
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     if ([tableView isEqual:self.sensorPropertiesTableview])
@@ -115,7 +182,8 @@
     }
     else
     {
-        return self.recentReadings.count;
+        NSArray *data = [self.sensorReadings objectAtIndex:section];
+        return data.count;
     }
 }
 
@@ -141,7 +209,8 @@
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
         }
         
-        SensorReading *reading = [self.recentReadings objectAtIndex:indexPath.row];
+        NSArray *data = [self.sensorReadings objectAtIndex:indexPath.section];
+        SensorReading *reading = [data objectAtIndex:indexPath.row];
         cell.textLabel.text = [NSString stringWithFormat:@"%@ %@", reading.sr_reading, self.selectedSensor.s_unit];
         cell.detailTextLabel.text = [NSString stringWithFormat:@"%@", reading.sr_read_time];
         
