@@ -26,6 +26,10 @@
 @property (nonatomic, strong) NSMutableArray *sensorReadings;
 @property (nonatomic, strong) NSTimer *sensorReadingsInfoUpdateTimer;
 
+// User Defaults
+@property (nonatomic, strong) NSNumber *sensorUpdatingFrequency;
+@property (nonatomic, strong) NSNumber *sensorReadingUpdatingFrequency;
+
 - (void)updateSensorsInfomation;
 - (void)startToUpdateSensorsInfoWithTimeInterval:(NSTimeInterval)interval;
 - (void)updateSensorReadingsInfomationWithCompletion:(void(^)())completion;

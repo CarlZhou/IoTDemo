@@ -40,7 +40,7 @@
     
     
     [[DataManager sharedManager] updateSensorsInfomation];
-    [[DataManager sharedManager] startToUpdateSensorsInfoWithTimeInterval:5];
+    [[DataManager sharedManager] startToUpdateSensorsInfoWithTimeInterval:[[DataManager sharedManager].sensorUpdatingFrequency integerValue]];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateTable) name:SENSOR_DATA_UPDATED object:nil];
 }
 

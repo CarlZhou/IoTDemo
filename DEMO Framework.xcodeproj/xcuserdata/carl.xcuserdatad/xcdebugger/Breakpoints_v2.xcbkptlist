@@ -9,13 +9,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "DEMO Framework/Managers/APIManager.m"
-            timestampString = "446582357.446124"
+            filePath = "DEMO Framework/Controllers/MasterViewController.m"
+            timestampString = "446584716.702841"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "44"
-            endingLineNumber = "44"
-            landmarkName = "-getSensorReadingsForSensors:Limit:Skip:Success:Failure:"
+            startingLineNumber = "43"
+            endingLineNumber = "43"
+            landmarkName = "-viewDidLoad"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -25,13 +25,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "DEMO Framework/Managers/DataManager.m"
-            timestampString = "446582995.677223"
+            filePath = "DEMO Framework/Controllers/RightViewController.m"
+            timestampString = "446584727.850413"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "136"
-            endingLineNumber = "136"
-            landmarkName = "-updateSensorReadingsInfomationWithCompletion:"
+            startingLineNumber = "56"
+            endingLineNumber = "56"
+            landmarkName = "-configureView"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

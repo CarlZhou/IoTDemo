@@ -53,7 +53,7 @@
             [self.detailsViewController reloadViews];
             [self.graphViewController reloadData];
             [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
-            [[DataManager sharedManager] startToUpdateSensorReadingsInfoWithTimeInterval:2];
+            [[DataManager sharedManager] startToUpdateSensorReadingsInfoWithTimeInterval:[[DataManager sharedManager].sensorReadingUpdatingFrequency integerValue]];
         }];
     }
 }
