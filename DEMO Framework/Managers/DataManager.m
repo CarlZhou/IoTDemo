@@ -202,7 +202,7 @@
         if (self.selectedSensorIndexPath)
         {
             if (self.sensors.count > self.selectedSensorIndexPath.row)
-            self.selectedSensor = [self.sensors objectAtIndex:self.selectedSensorIndexPath.row];
+                self.selectedSensor = [self.sensors objectAtIndex:self.selectedSensorIndexPath.row];
         }
         [[NSNotificationCenter defaultCenter] postNotificationName:SENSOR_DATA_UPDATED object:nil];
     } failure:^(AFHTTPRequestOperation *operation) {
