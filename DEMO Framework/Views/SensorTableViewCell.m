@@ -10,6 +10,7 @@
 #import "Sensor.h"
 #import "SensorReading.h"
 #import "SensorType.h"
+#import "SensorTypeCategory.h"
 #import "NSDate+PrettyDate.h"
 
 @implementation SensorTableViewCell
@@ -26,14 +27,16 @@
 
 - (void)setCellWithSensor:(Sensor *)sensor
 {
+    NSString *sensorTypeCategory = sensor.s_sensor_type.st_sensor_type_category.stc_name;
+    float currentReading = [sensor.s_last_reading.sr_reading floatValue];
+    float maxReading = [sensor.s_sensor_type.st_reading_max floatValue];
+    
     self.stvc_sensor = sensor;
     self.stvc_nameLabel.text = sensor.s_name;
-    
-    self.stvc_primaryUnitLabel.text = [NSString stringWithFormat:@"%.4f", [sensor.s_last_reading.sr_reading doubleValue]];
-    [self.stvc_progressView setProgress:[sensor.s_last_reading.sr_reading doubleValue]/[sensor.s_sensor_type.st_reading_max floatValue] animated:YES];
+    self.stvc_primaryUnitLabel.text = sensorTypeCategory;
+    self.stvc_secondaryUnitLabel.text = [NSString stringWithFormat:@"%f %@", currentReading, sensor.s_unit];
     self.stvc_timeLabel.text = [sensor.s_last_reading.sr_read_time prettyDate];
-    
-    self.stvc_secondaryUnitLabel.hidden = YES;
+    [self.stvc_progressView setProgress:currentReading/maxReading animated:YES];
 }
 
 @end
