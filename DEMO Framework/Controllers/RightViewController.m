@@ -71,7 +71,7 @@
             break;
         case 1:
             [self.view bringSubviewToFront:self.graphContainer];
-            [self.graphViewController reloadCircularViews];
+            [self.graphViewController reloadGaugeViews];
             break;
         default:
             break;

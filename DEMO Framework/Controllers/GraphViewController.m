@@ -14,13 +14,14 @@
 #import "Sensor.h"
 #import "SensorType.h"
 #import "DataManager.h"
+#import "WMGaugeView.h"
+
+#define SCALE_DIVISION 10
+#define SCALE_START_ANGLE 30
+#define SCALE_END_ANGLE 330
 
 @interface GraphViewController ()<BEMSimpleLineGraphDataSource, BEMSimpleLineGraphDelegate>
-{
-    CircularBarView *currentBarView;
-    CircularBarView *avgBarView;
-    CircularBarView *minBarView;
-    CircularBarView *maxBarView;
+{    
     BOOL isNewSensor;
     double circularViewAnimatingTime;
 }
@@ -29,9 +30,19 @@
 @property (weak, nonatomic) IBOutlet UIView *minViewContainer;
 @property (weak, nonatomic) IBOutlet UIView *maxViewContainer;
 
+@property (weak, nonatomic) IBOutlet WMGaugeView *currentGaugeView;
+@property (weak, nonatomic) IBOutlet WMGaugeView *averageGaugeView;
+@property (weak, nonatomic) IBOutlet WMGaugeView *minGaugeView;
+@property (weak, nonatomic) IBOutlet WMGaugeView *maxGaugeView;
+
+@property (weak, nonatomic) IBOutlet UILabel *currentLabel;
+@property (weak, nonatomic) IBOutlet UILabel *averageLabel;
+@property (weak, nonatomic) IBOutlet UILabel *minLabel;
+@property (weak, nonatomic) IBOutlet UILabel *maxLabel;
+
+
 // Line Graph
 @property (strong, nonatomic) IBOutlet BEMSimpleLineGraphView *lineGraph;
-
 @property (strong, nonatomic) NSMutableArray *lineOneData;
 @property (strong, nonatomic) NSMutableArray *lineOneDataDetail;
 
@@ -43,7 +54,7 @@
 {
     [super viewDidLoad];
     [self initLineGraph];
-    [self initCircularGraph];
+    [self initGaugeViews];
     self.recentReadings = [NSMutableArray array];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateWithNewData) name:SENSOR_READINGS_DATA_UPDATED object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(selectedNewSensor) name:DID_SELECT_NEW_SENSOR object:nil];
@@ -60,32 +71,65 @@
     [self reloadData];
 }
 
-// ReloadCircularViews
-- (void)reloadCircularViews
+
+#pragma mark - Gauge Views
+
+- (void)initGaugeViews
 {
-    [currentBarView setNeedsDisplay];
-    [avgBarView setNeedsDisplay];
-    [minBarView setNeedsDisplay];
-    [maxBarView setNeedsDisplay];
+    [self initSingleGaugeView:self.currentGaugeView ScaleDivisionColor:customOrange];
+    [self initSingleGaugeView:self.averageGaugeView ScaleDivisionColor:customBlue];
+    [self initSingleGaugeView:self.minGaugeView ScaleDivisionColor:customRed];
+    [self initSingleGaugeView:self.maxGaugeView ScaleDivisionColor:customGreen];
 }
 
-#pragma mark - Circlar Graph
-
-- (void)initCircularGraph
+- (void)initSingleGaugeView:(WMGaugeView*)gaugeView ScaleDivisionColor:(UIColor*)color
 {
-    currentBarView = [[CircularBarView alloc] initWithFrame:CGRectMake(0, 0, 175, 254) Title:@"Current" DisplayColor:customOrange Percentage:65 Reading:250 Unit:@"Lumens"];// fdaa29
-    [self.currentViewContainer addSubview:currentBarView];
-    
-    avgBarView = [[CircularBarView alloc] initWithFrame:CGRectMake(0, 0, 175, 254) Title:@"Average" DisplayColor:customBlue Percentage:45 Reading:120 Unit:@"Lumens"];
-    [self.avgViewContainer addSubview:avgBarView];// 56a8e7
-    
-    minBarView = [[CircularBarView alloc] initWithFrame:CGRectMake(0, 0, 175, 254) Title:@"Min" DisplayColor:customRed Percentage:31 Reading:15 Unit:@"Lumens"];
-    [self.minViewContainer addSubview:minBarView];// f1705c
-    
-    maxBarView = [[CircularBarView alloc] initWithFrame:CGRectMake(0, 0, 175, 254) Title:@"Max" DisplayColor:customGreen Percentage:69 Reading:310 Unit:@"Lumens"];
-    [self.maxViewContainer addSubview:maxBarView]; // 8fc842
-
+    gaugeView.scaleDivisions = SCALE_DIVISION;
+    gaugeView.scaleDivisionColor =  color;
+    gaugeView.scaleSubdivisions = SCALE_DIVISION;
+    gaugeView.scaleStartAngle = SCALE_START_ANGLE;
+    gaugeView.scaleEndAngle = SCALE_END_ANGLE;
+    gaugeView.innerBackgroundStyle = WMGaugeViewInnerBackgroundStyleFlat;
+    gaugeView.showInnerBackground = NO;
+    gaugeView.showScaleShadow = YES;
+    gaugeView.showScale = YES;
+    gaugeView.scaleFont = [UIFont fontWithName:@"AvenirNext-Bold" size:0.07];
+    gaugeView.scalesubdivisionsAligment = WMGaugeViewSubdivisionsAlignmentCenter;
+    gaugeView.needleStyle = WMGaugeViewNeedleStyleFlatThin;
+    gaugeView.needleWidth = 0.012;
+    gaugeView.needleHeight = 0.4;
+    gaugeView.needleScrewStyle = WMGaugeViewNeedleScrewStylePlain;
+    gaugeView.needleScrewRadius = 0.05;
+    gaugeView.maxValue = [self.selectedSensor.s_sensor_type.st_reading_max integerValue] ? [self.selectedSensor.s_sensor_type.st_reading_max integerValue] : 100;
+    gaugeView.value = 50;
+    gaugeView.backgroundColor = [UIColor clearColor];
 }
+
+// ReloadGaugeViews
+- (void)reloadGaugeViews
+{
+    NSInteger range = [self.selectedSensor.s_sensor_type.st_reading_max floatValue] - [self.selectedSensor.s_sensor_type.st_reading_min floatValue];
+    SensorReading * sr = [self.recentReadings objectAtIndex:0];
+    float currentReading = [sr.sr_reading floatValue];
+    float avgReading = [[self.lineGraph calculatePointValueAverage] floatValue];
+    float minReading = [[self.lineGraph calculatePointValueAverage] floatValue];
+    float maxReading = [[self.lineGraph calculateMinimumPointValue] floatValue];
+    
+    [self reloadSingleGaugeView:self.currentGaugeView Label:self.currentLabel Range:range Reading:currentReading];
+    [self reloadSingleGaugeView:self.averageGaugeView Label:self.averageLabel Range:range Reading:avgReading];
+    [self reloadSingleGaugeView:self.minGaugeView Label:self.minLabel Range:range Reading:minReading];
+    [self reloadSingleGaugeView:self.maxGaugeView Label:self.maxLabel Range:range Reading:maxReading];
+}
+
+- (void)reloadSingleGaugeView:(WMGaugeView*)gaugeView Label:(UILabel*)label Range:(NSInteger)range Reading:(float)reading
+{
+    gaugeView.maxValue = (range == 0 ? 100 : 10.0 * floor((range/10.0)+0.5));
+    [gaugeView setValue:reading animated:YES duration:3];
+    label.text = [NSString stringWithFormat:@"%.04f %@", reading, self.selectedSensor.s_unit];
+    [label setTextAlignment:NSTextAlignmentCenter];
+    [label setTextColor:[UIColor darkGrayColor]];
+}
+
 
 - (void)reloadData
 {
@@ -100,34 +144,17 @@
         if (index == self.recentReadings.count-1)
         {
             self.lineGraph.animationGraphEntranceTime = isNewSensor ? 1.5 : 0;
-            circularViewAnimatingTime = 0.5;
             [self.lineGraph reloadGraph];
             if (isNewSensor)
             {
                 isNewSensor = NO;
             }
             // Graphs
-            [self performSelector:@selector(reloadCircularGraph) withObject:nil afterDelay:0.1];
+            [self performSelector:@selector(reloadGaugeViews) withObject:nil afterDelay:0.1];
         }
     }];
 }
 
-- (void)reloadCircularGraph
-{
-    [maxBarView updatePercentage:[[self.lineGraph calculateMaximumPointValue] floatValue]/[self.selectedSensor.s_sensor_type.st_reading_max floatValue] * 100 Reading:[[self.lineGraph calculateMaximumPointValue] floatValue] Unit:maxBarView.unit];
-    maxBarView.animatingTime = circularViewAnimatingTime;
-    
-    [minBarView updatePercentage:[[self.lineGraph calculateMinimumPointValue] floatValue]/[self.selectedSensor.s_sensor_type.st_reading_max floatValue] * 100 Reading:[[self.lineGraph calculateMinimumPointValue] floatValue] Unit:minBarView.unit];
-    minBarView.animatingTime = circularViewAnimatingTime;
-    
-    [avgBarView updatePercentage:[[self.lineGraph calculatePointValueAverage] floatValue]/[self.selectedSensor.s_sensor_type.st_reading_max floatValue] * 100 Reading:[[self.lineGraph calculatePointValueAverage] floatValue] Unit:avgBarView.unit];
-    avgBarView.animatingTime = circularViewAnimatingTime;
-    
-    [currentBarView updatePercentage:[[self.lineOneData lastObject] floatValue]/[self.selectedSensor.s_sensor_type.st_reading_max floatValue] * 100 Reading:[[self.lineOneData lastObject] floatValue] Unit:currentBarView.unit];
-    currentBarView.animatingTime = circularViewAnimatingTime;
-    
-    [self reloadCircularViews];
-}
 
 #pragma mark - Line Graph
 
