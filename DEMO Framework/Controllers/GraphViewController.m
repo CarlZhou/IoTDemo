@@ -137,7 +137,7 @@
     self.lineGraph.dataSource = self;
     self.lineGraph.delegate = self;
     self.lineGraph.backgroundColor = [UIColor whiteColor];
-    self.lineGraph.enableBezierCurve = YES;
+    self.lineGraph.enableBezierCurve = NO;
     self.lineGraph.enablePopUpReport = YES;
     self.lineGraph.enableTouchReport = YES;
     self.lineGraph.enableXAxisLabel = YES;
