@@ -136,7 +136,17 @@
     self.gaugeView.scaleSubdivisions = 10;
     NSInteger range = [self.selectedSensor.s_sensor_type.st_reading_max floatValue] - [self.selectedSensor.s_sensor_type.st_reading_min floatValue];
     self.gaugeView.maxValue = range == 0 ? 100 : 10.0 * floor((range/10.0)+0.5);
-    [self.gaugeView setValue:[self.selectedSensor.s_last_reading.sr_reading floatValue] animated:YES duration:3];
+    
+    if (self.sensorReadings.count > 0)
+    {
+        SensorReading *reading = [[self.sensorReadings objectAtIndex:0] objectAtIndex:0];
+        [self.gaugeView setValue:[reading.sr_reading floatValue] animated:YES duration:3];
+    }
+    else
+    {
+        [self.gaugeView setValue:[self.selectedSensor.s_last_reading.sr_reading floatValue] animated:YES duration:3];
+    }
+    
     self.valueLabel.text = [NSString stringWithFormat:@"%@ %@", self.selectedSensor.s_last_reading.sr_reading ? self.selectedSensor.s_last_reading.sr_reading : @0, self.selectedSensor.s_unit];
 }
 
