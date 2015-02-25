@@ -12,6 +12,7 @@
 
 @property (nonatomic, strong) NSNumber * c_id;
 @property (nonatomic, strong) NSDate * c_last_updated;
+@property (nonatomic, strong) NSString * c_serial_num;
 @property (nonatomic, strong) NSString * c_name;
 @property (nonatomic, strong) NSNumber * c_x_coordinate;
 @property (nonatomic, strong) NSNumber * c_y_coordinate;

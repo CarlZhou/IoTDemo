@@ -12,6 +12,7 @@
 #import "SensorReading.h"
 #import "SensorType.h"
 #import "SensorTypeCategory.h"
+#import "Controller.h"
 #import "Constants.h"
 #import "WMGaugeView.h"
 #import "APIManager.h"
@@ -174,7 +175,7 @@
             break;
         case 5:
             cell.textLabel.text = @"Serial Number";
-            cell.detailTextLabel.text = [NSString stringWithFormat:@"%@", self.selectedSensor.s_serial_num];
+            cell.detailTextLabel.text = [NSString stringWithFormat:@"%@", self.selectedSensor.s_controller.c_serial_num];
             break;
         case 6:
             cell.textLabel.text = @"Sensor Type Catagory";

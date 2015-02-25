@@ -34,6 +34,7 @@
     Controller *entity = [[Controller alloc] init];
     entity.c_id = [DataUtils numberFromString:[data objectForKey:@"id"]];
     entity.c_name = [data objectForKey:@"name"];
+    entity.c_serial_num = [data objectForKey:@"serial_num"];
     entity.c_x_coordinate = [DataUtils numberFromString:[data objectForKey:@"x_coordinate"]];
     entity.c_y_coordinate = [DataUtils numberFromString:[data objectForKey:@"y_coordinate"]];
     entity.c_last_updated = [DataUtils dateFromSQLDateString:[data objectForKey:@"last_updated"]];
@@ -61,7 +62,6 @@
     entity.s_unit = [data objectForKey:@"unit"];
     entity.s_status = [DataUtils numberFromString:[data objectForKey:@"status"]];
     entity.s_channel = [DataUtils numberFromString:[data objectForKey:@"channel"]];
-    entity.s_serial_num = [data objectForKey:@"serial_num"];
     entity.s_last_updated = [DataUtils dateFromSQLDateString:[data objectForKey:@"last_updated"]];
     entity.s_controller_id = [DataUtils numberFromString:[data objectForKey:@"controller_id"]];
     entity.s_sensor_type_id = [DataUtils numberFromString:[data objectForKey:@"sensor_type_id"]];

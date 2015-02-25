@@ -19,7 +19,6 @@
 @property (nonatomic, strong) NSDate * s_last_updated;
 @property (nonatomic, strong) NSString * s_name;
 @property (nonatomic, strong) NSNumber * s_sensor_type_id;
-@property (nonatomic, strong) NSString * s_serial_num;
 @property (nonatomic, strong) NSNumber * s_status;
 @property (nonatomic, strong) NSString * s_unit;
 @property (nonatomic, strong) Controller *s_controller;
