@@ -141,13 +141,13 @@
     {
         SensorReading *reading = [[self.sensorReadings objectAtIndex:0] objectAtIndex:0];
         [self.gaugeView setValue:[reading.sr_reading floatValue] animated:YES duration:3];
+        self.valueLabel.text = [NSString stringWithFormat:@"%@ %@", reading.sr_reading ? reading.sr_reading : @0, self.selectedSensor.s_unit];
     }
     else
     {
         [self.gaugeView setValue:[self.selectedSensor.s_last_reading.sr_reading floatValue] animated:YES duration:3];
+        self.valueLabel.text = [NSString stringWithFormat:@"%@ %@", self.selectedSensor.s_last_reading.sr_reading ? self.selectedSensor.s_last_reading.sr_reading : @0, self.selectedSensor.s_unit];
     }
-    
-    self.valueLabel.text = [NSString stringWithFormat:@"%@ %@", self.selectedSensor.s_last_reading.sr_reading ? self.selectedSensor.s_last_reading.sr_reading : @0, self.selectedSensor.s_unit];
 }
 
 #pragma mark - Table View
