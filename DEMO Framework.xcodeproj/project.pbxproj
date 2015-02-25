@@ -11,7 +11,6 @@
 		3C4FBCBD1A94FD450060440B /* CircularBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C4FBCBC1A94FD450060440B /* CircularBarView.m */; };
 		B042EC111A93891D00C2E6D9 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B042EC101A93891D00C2E6D9 /* main.m */; };
 		B042EC141A93891D00C2E6D9 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B042EC131A93891D00C2E6D9 /* AppDelegate.m */; };
-		B042EC171A93891D00C2E6D9 /* DEMO_Framework.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B042EC151A93891D00C2E6D9 /* DEMO_Framework.xcdatamodeld */; };
 		B042EC201A93891E00C2E6D9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B042EC1E1A93891E00C2E6D9 /* Main.storyboard */; };
 		B042EC221A93891E00C2E6D9 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B042EC211A93891E00C2E6D9 /* Images.xcassets */; };
 		B042EC251A93891E00C2E6D9 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = B042EC231A93891E00C2E6D9 /* LaunchScreen.xib */; };
@@ -23,6 +22,7 @@
 		B042EC7F1A939D0A00C2E6D9 /* DataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B042EC7E1A939D0A00C2E6D9 /* DataManager.m */; };
 		B042EC821A939D2100C2E6D9 /* APIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B042EC811A939D2100C2E6D9 /* APIManager.m */; };
 		B0CDE4171A94EB7700C8F60E /* NSDate+PrettyDate.m in Sources */ = {isa = PBXBuildFile; fileRef = B0CDE4161A94EB7700C8F60E /* NSDate+PrettyDate.m */; };
+		C32488201A9E47D90079A753 /* ParseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C324881F1A9E47D90079A753 /* ParseManager.m */; };
 		C35C09AE1A9BDA1800531562 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = C35C09AD1A9BDA1800531562 /* MBProgressHUD.m */; };
 		C38091B11A963F3E00BFB7C1 /* BEMCircle.m in Sources */ = {isa = PBXBuildFile; fileRef = C38091AA1A963F3E00BFB7C1 /* BEMCircle.m */; };
 		C38091B21A963F3E00BFB7C1 /* BEMLine.m in Sources */ = {isa = PBXBuildFile; fileRef = C38091AC1A963F3E00BFB7C1 /* BEMLine.m */; };
@@ -67,7 +67,6 @@
 		B042EC101A93891D00C2E6D9 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		B042EC121A93891D00C2E6D9 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		B042EC131A93891D00C2E6D9 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		B042EC161A93891D00C2E6D9 /* DEMO_Framework.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DEMO_Framework.xcdatamodel; sourceTree = "<group>"; };
 		B042EC1F1A93891E00C2E6D9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		B042EC211A93891E00C2E6D9 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		B042EC241A93891E00C2E6D9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
@@ -87,6 +86,8 @@
 		B042EC811A939D2100C2E6D9 /* APIManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = APIManager.m; sourceTree = "<group>"; };
 		B0CDE4151A94EB7700C8F60E /* NSDate+PrettyDate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+PrettyDate.h"; sourceTree = "<group>"; };
 		B0CDE4161A94EB7700C8F60E /* NSDate+PrettyDate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+PrettyDate.m"; sourceTree = "<group>"; };
+		C324881E1A9E47D90079A753 /* ParseManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParseManager.h; sourceTree = "<group>"; };
+		C324881F1A9E47D90079A753 /* ParseManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ParseManager.m; sourceTree = "<group>"; };
 		C35C09AC1A9BDA1800531562 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
 		C35C09AD1A9BDA1800531562 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
 		C38091A91A963F3E00BFB7C1 /* BEMCircle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BEMCircle.h; sourceTree = "<group>"; };
@@ -186,7 +187,6 @@
 				B042EC1E1A93891E00C2E6D9 /* Main.storyboard */,
 				B042EC211A93891E00C2E6D9 /* Images.xcassets */,
 				B042EC231A93891E00C2E6D9 /* LaunchScreen.xib */,
-				B042EC151A93891D00C2E6D9 /* DEMO_Framework.xcdatamodeld */,
 				B042EC0E1A93891D00C2E6D9 /* Supporting Files */,
 			);
 			path = "DEMO Framework";
@@ -234,6 +234,8 @@
 		B042EC751A939AFD00C2E6D9 /* Managers */ = {
 			isa = PBXGroup;
 			children = (
+				C324881E1A9E47D90079A753 /* ParseManager.h */,
+				C324881F1A9E47D90079A753 /* ParseManager.m */,
 				B042EC7D1A939D0A00C2E6D9 /* DataManager.h */,
 				B042EC7E1A939D0A00C2E6D9 /* DataManager.m */,
 				B042EC801A939D2100C2E6D9 /* APIManager.h */,
@@ -471,8 +473,8 @@
 				C35C09AE1A9BDA1800531562 /* MBProgressHUD.m in Sources */,
 				C3EA39531A97B2A1007849B4 /* AFHTTPRequestOperation.m in Sources */,
 				C3EA395A1A97B2A1007849B4 /* AFURLResponseSerialization.m in Sources */,
+				C32488201A9E47D90079A753 /* ParseManager.m in Sources */,
 				C38091B41A963F3E00BFB7C1 /* BEMSimpleLineGraphView.m in Sources */,
-				B042EC171A93891D00C2E6D9 /* DEMO_Framework.xcdatamodeld in Sources */,
 				C3EA396B1A97CE13007849B4 /* DataUtils.m in Sources */,
 				C3EA392E1A977E18007849B4 /* Controller.m in Sources */,
 				B042EC3E1A938BC300C2E6D9 /* SensorTableViewCell.m in Sources */,
@@ -709,19 +711,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCVersionGroup section */
-		B042EC151A93891D00C2E6D9 /* DEMO_Framework.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				B042EC161A93891D00C2E6D9 /* DEMO_Framework.xcdatamodel */,
-			);
-			currentVersion = B042EC161A93891D00C2E6D9 /* DEMO_Framework.xcdatamodel */;
-			path = DEMO_Framework.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
-/* End XCVersionGroup section */
 	};
 	rootObject = B042EC031A93891D00C2E6D9 /* Project object */;
 }
