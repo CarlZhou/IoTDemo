@@ -19,11 +19,11 @@
 + (instancetype)sharedManager;
 
 // Sensor
-- (void)createNewSensorsWithData:(NSArray *)sensorData completion:(void(^)())completion;
+- (void)createNewSensorsWithData:(NSArray *)sensorData Completion:(void(^)())completion;
 - (Sensor *)createNewSensorWithData:(NSDictionary *)data Controller:(Controller *)controller SensorType:(SensorType *)type LastReading:(SensorReading *)reading;
 
 // Sensor Readings
-- (void)createNewSensorReadingsWithData:(NSArray *)sensorReadingsData completion:(void(^)())completion;
+- (void)createNewSensorReadingsWithData:(NSArray *)sensorReadingsData Completion:(void(^)())completion;
 - (SensorReading *)createNewSensorReadingWithData:(NSDictionary *)data;
 
 // Controller

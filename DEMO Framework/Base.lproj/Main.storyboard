@@ -57,7 +57,7 @@
                     <navigationItem key="navigationItem" id="mOI-FS-AaM">
                         <nil key="title"/>
                         <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="Kp7-j4-MWw">
-                            <rect key="frame" x="177" y="7" width="350" height="31"/>
+                            <rect key="frame" x="176.5" y="6.5" width="350" height="31"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <segments>
                                 <segment title="Details"/>

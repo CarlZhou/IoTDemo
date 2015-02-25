@@ -104,7 +104,7 @@
 
 - (void)updateSensorsInfomation
 {
-    [[APIManager sharedManager] getSensors:nil Details:true LastReading:true Limit:10 Skip:0 success:^(NSArray *sensors) {
+    [[APIManager sharedManager] getSensors:nil Details:true LastReading:true Limit:10 Skip:0 Success:^(NSArray *sensors) {
         self.sensors = sensors.mutableCopy;
         if (self.selectedSensorIndexPath)
         {
@@ -112,7 +112,7 @@
                 self.selectedSensor = [self.sensors objectAtIndex:self.selectedSensorIndexPath.row];
         }
         [[NSNotificationCenter defaultCenter] postNotificationName:SENSOR_DATA_UPDATED object:nil];
-    } failure:^(AFHTTPRequestOperation *operation) {
+    } Failure:^(NSError *error) {
         
     }];
 }
@@ -132,7 +132,7 @@
 {
     if (self.selectedSensor)
     {
-        [[APIManager sharedManager] getSensorReadingsForSensors:@[self.selectedSensor.s_id] Limit:10 Skip:0 success:^(NSArray *sensors, NSArray *readings){
+        [[APIManager sharedManager] getSensorReadingsForSensors:@[self.selectedSensor.s_id] Limit:10 Skip:0 Success:^(NSArray *sensors, NSArray *readings){
             
             self.sensorReadings = [readings mutableCopy];
             if (completion)
@@ -144,8 +144,8 @@
                 [[NSNotificationCenter defaultCenter] postNotificationName:SENSOR_READINGS_DATA_UPDATED object:nil];
             }
             
-        }failure:^(AFHTTPRequestOperation *operation){
-            
+        }Failure:^(NSError *error){
+            [[NSNotificationCenter defaultCenter] postNotificationName:SENSOR_READINGS_DATA_UPDATED object:nil];
         }];
     }
 }

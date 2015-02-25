@@ -41,7 +41,7 @@
 }
 
 #pragma mark - Sensor
-- (void)createNewSensorsWithData:(NSArray *)sensorData completion:(void(^)())completion
+- (void)createNewSensorsWithData:(NSArray *)sensorData Completion:(void(^)())completion
 {
     [sensorData enumerateObjectsUsingBlock:^(NSDictionary *data, NSUInteger index, BOOL *stop){
         [self createNewSensorWithData:data Controller:nil SensorType:nil LastReading:nil];
@@ -97,7 +97,7 @@
 }
 
 #pragma mark - Sensor Reading
-- (void)createNewSensorReadingsWithData:(NSArray *)sensorReadingsData completion:(void(^)())completion
+- (void)createNewSensorReadingsWithData:(NSArray *)sensorReadingsData Completion:(void(^)())completion
 {
     [sensorReadingsData enumerateObjectsUsingBlock:^(NSDictionary *data, NSUInteger index, BOOL *stop){
         NSArray *sensorReadings = data[@"readings"];
