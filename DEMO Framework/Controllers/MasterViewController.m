@@ -38,6 +38,10 @@
     self.rightViewController = (RightViewController *)[[self.splitViewController.viewControllers lastObject] topViewController];
     [self.tableView registerNib:[UINib nibWithNibName:@"SensorTableViewCell" bundle:nil] forCellReuseIdentifier:@"SensorCell"];
     
+    [self.navigationController.navigationBar
+     setTitleTextAttributes:@{ NSForegroundColorAttributeName : RGB(110, 120, 127),
+                               NSFontAttributeName: [UIFont fontWithName:@"AvenirNext-DemiBold" size:20.0]}];
+    
     
     [[DataManager sharedManager] updateSensorsInfomation];
     [[DataManager sharedManager] startToUpdateSensorsInfoWithTimeInterval:[[DataManager sharedManager].sensorUpdatingFrequency integerValue]];
