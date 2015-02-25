@@ -102,7 +102,6 @@
 - (void)createNewSensorReadingsWithData:(NSArray *)sensorReadingsData completion:(void(^)())completion
 {
     [sensorReadingsData enumerateObjectsUsingBlock:^(NSDictionary *data, NSUInteger index, BOOL *stop){
-//        Sensor *sensor = [self createNewSensorWithData:data[@"sensor"] Controller:nil SensorType:nil LastReading:nil];
         NSArray *sensorReadings = data[@"readings"];
         [sensorReadings enumerateObjectsUsingBlock:^(NSDictionary *readingData, NSUInteger index2, BOOL *stop2){
             [self createNewSensorReadingWithData:data];

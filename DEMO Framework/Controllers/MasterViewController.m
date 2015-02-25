@@ -76,8 +76,6 @@
     NSManagedObject *object = [[self sensors] objectAtIndex:indexPath.row];
     RightViewController *controller = self.rightViewController;
     [controller setDetailItem:object];
-//    controller.navigationItem.leftBarButtonItem = self.splitViewController.displayModeButtonItem;
-//    controller.navigationItem.leftItemsSupplementBackButton = YES;
 }
 
 #pragma mark - Table View
@@ -103,6 +101,5 @@
 {
     return 100.0f;
 }
-#pragma mark - Fetched results controller
 
 @end

@@ -144,6 +144,7 @@
         SensorReading *reading = [self.recentReadings objectAtIndex:indexPath.row];
         cell.textLabel.text = [NSString stringWithFormat:@"%@ %@", reading.sr_reading, self.selectedSensor.s_unit];
         cell.detailTextLabel.text = [NSString stringWithFormat:@"%@", reading.sr_read_time];
+        NSLog(@"TIME: %@", reading.sr_read_time);
         
         return cell;
     }

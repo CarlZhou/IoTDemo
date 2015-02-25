@@ -23,12 +23,9 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
-    self.splitViewController = (UISplitViewController *)self.window.rootViewController;
-//    UINavigationController *navigationController = [self.splitViewController.viewControllers lastObject];
-//    navigationController.topViewController.navigationItem.leftBarButtonItem = self.splitViewController.displayModeButtonItem;
-    self.splitViewController.delegate = self;
 
+    self.splitViewController = (UISplitViewController *)self.window.rootViewController;
+    self.splitViewController.delegate = self;
     [self enforceLaunchScreen];
     
     return YES;

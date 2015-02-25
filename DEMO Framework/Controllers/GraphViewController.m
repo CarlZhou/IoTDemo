@@ -142,10 +142,7 @@
     self.lineGraph.enableTouchReport = YES;
     self.lineGraph.enableXAxisLabel = YES;
     self.lineGraph.enableYAxisLabel = YES;
-    //self.lineGraph.enableReferenceAxisFrame = YES;
     self.lineGraph.enableReferenceYAxisLines = YES;
-    //self.lineGraph.enableReferenceXAxisLines = YES;
-    //    self.lineGraph.autoScaleYAxis = NO;
     self.lineGraph.alwaysDisplayDots = YES;
     self.lineGraph.colorPoint = graphPointColor;
     self.lineGraph.colorBackgroundXaxis = [UIColor whiteColor];
