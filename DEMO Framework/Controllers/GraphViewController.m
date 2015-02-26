@@ -50,6 +50,9 @@
 
 // Toggles
 @property (strong, nonatomic) IBOutlet UIView *togglesContainer;
+@property (strong, nonatomic) IBOutlet UILabel *dataPointsLabel;
+@property (strong, nonatomic) IBOutlet UIStepper *dataPointsStepper;
+@property (strong, nonatomic) IBOutlet UIButton *dataPointsResetButton;
 
 @end
 
@@ -63,6 +66,9 @@
     self.recentReadings = [NSMutableArray array];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateWithNewData) name:SENSOR_READINGS_DATA_UPDATED object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(selectedNewSensor) name:DID_SELECT_NEW_SENSOR object:nil];
+    
+    // Hidden
+    self.dataPointsResetButton.layer.cornerRadius = 5.0f;
 }
 
 // Hidden
@@ -252,6 +258,17 @@
     {
         [[DataManager sharedManager] stopUpdateSensorReadingsInfo];
     }
+}
+
+- (IBAction)dataPointsStepperValueChanged:(UIStepper *)sender {
+    self.dataPointsLabel.text = [NSString stringWithFormat:@"%d", (int)sender.value];
+    [DataManager sharedManager].numberOfReadingPoints = [NSNumber numberWithDouble:sender.value];
+}
+
+- (IBAction)resetButtonPressed:(id)sender {
+    self.dataPointsLabel.text = [NSString stringWithFormat:@"%d", 10];
+    [DataManager sharedManager].numberOfReadingPoints = [NSNumber numberWithDouble:10.0];
+    self.dataPointsStepper.value = 10;
 }
 
 @end

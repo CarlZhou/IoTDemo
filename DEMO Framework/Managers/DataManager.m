@@ -132,7 +132,7 @@
 {
     if (self.selectedSensor)
     {
-        [[APIManager sharedManager] getSensorReadingsForSensors:@[self.selectedSensor.s_id] Limit:10 Skip:0 Success:^(NSArray *sensors, NSArray *readings){
+        [[APIManager sharedManager] getSensorReadingsForSensors:@[self.selectedSensor.s_id] Limit:self.numberOfReadingPoints ? [self.numberOfReadingPoints integerValue]: 10 Skip:0 Success:^(NSArray *sensors, NSArray *readings){
             
             self.sensorReadings = [readings mutableCopy];
             if (completion)

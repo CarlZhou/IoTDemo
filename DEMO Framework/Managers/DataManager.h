@@ -30,6 +30,9 @@
 @property (nonatomic, strong) NSNumber *sensorUpdatingFrequency;
 @property (nonatomic, strong) NSNumber *sensorReadingUpdatingFrequency;
 
+// DataPoints
+@property (nonatomic, strong) NSNumber *numberOfReadingPoints;
+
 - (void)updateSensorsInfomation;
 - (void)startToUpdateSensorsInfoWithTimeInterval:(NSTimeInterval)interval;
 - (void)updateSensorReadingsInfomationWithCompletion:(void(^)())completion;
