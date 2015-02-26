@@ -280,6 +280,9 @@
 @property (strong, nonatomic) UIColor *colorBackgroundPopUplabel;
 
 
+@property (nonatomic)           BOOL turnOnMeasureLines;
+
+
 @end
 
 

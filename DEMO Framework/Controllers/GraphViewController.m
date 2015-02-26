@@ -40,6 +40,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *minLabel;
 @property (weak, nonatomic) IBOutlet UILabel *maxLabel;
 
+@property (strong, nonatomic) IBOutlet UILabel *xAxisUnitLabel;
+@property (strong, nonatomic) IBOutlet UILabel *yAxisUnitLabel;
 
 // Line Graph
 @property (strong, nonatomic) IBOutlet BEMSimpleLineGraphView *lineGraph;
@@ -136,6 +138,10 @@
 {
     [self.lineOneData removeAllObjects];
     [self.lineOneDataDetail removeAllObjects];
+    
+    self.xAxisUnitLabel.text = [NSString stringWithFormat:@"Time (hh:mm:ss)"];
+    self.yAxisUnitLabel.text = [NSString stringWithFormat:@"%@", self.selectedSensor.s_unit];
+    
     self.recentReadings = [[[self.recentReadings reverseObjectEnumerator] allObjects] mutableCopy];
     [self.recentReadings  enumerateObjectsUsingBlock:^(SensorReading *reading, NSUInteger index, BOOL *stop){
         [self.lineOneData addObject:reading.sr_reading];
@@ -178,6 +184,7 @@
     self.lineGraph.colorBottom = graphBottomColor;
     self.lineGraph.colorLine = graphLineColor;
     self.lineGraph.clipsToBounds = NO;
+    self.lineGraph.turnOnMeasureLines = YES;
     
     self.lineOneData = [NSMutableArray arrayWithArray:@[@60, @50, @30, @40, @80]];
     self.lineOneDataDetail = [NSMutableArray arrayWithArray:@[@"Mon",@"Tue", @"Wed", @"Thu", @"Fri"]];
@@ -216,5 +223,14 @@
 {
     return 11;
 }
+
+#pragma mark - Measurement lines
+- (IBAction)measurementLinesToggleChanged:(UISwitch *)sender
+{
+    self.lineGraph.turnOnMeasureLines = sender.isOn;
+    [self.lineGraph reloadGraph];
+    [self.lineGraph calculatePointValueAverage];
+}
+
 
 @end

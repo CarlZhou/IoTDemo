@@ -246,7 +246,7 @@
             break;
         case 3:
             cell.textLabel.text = @"Status";
-            cell.detailTextLabel.text = [NSString stringWithFormat:@"%@", self.selectedSensor.s_status == [NSNumber numberWithInt:0] ? @"OFF" : @"ON"];
+            cell.detailTextLabel.text = [NSString stringWithFormat:@"%@", self.selectedSensor.s_status == [NSNumber numberWithInt:0] ? @"Off" : @"On"];
             break;
         case 4:
             cell.textLabel.text = @"Channel";

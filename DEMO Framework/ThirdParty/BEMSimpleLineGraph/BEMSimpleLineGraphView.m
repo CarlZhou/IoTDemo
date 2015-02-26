@@ -8,6 +8,7 @@
 //
 
 #import "BEMSimpleLineGraphView.h"
+#import "constants.h"
 
 #if !__has_feature(objc_arc)
 // Add the -fobjc-arc flag to enable ARC for only these files, as described in the ARC documentation: http://clang.llvm.org/docs/AutomaticReferenceCounting.html
@@ -19,6 +20,8 @@
 
 #pragma mark - Modified Here
 #define MODIFIED_OFFSET 28
+#define MODIFIED_LINE_OFFSET 36
+#define MODIFIED_X_LABEL_OFFSET 33
 
 typedef NS_ENUM(NSInteger, BEMInternalTags)
 {
@@ -100,6 +103,14 @@ typedef NS_ENUM(NSInteger, BEMInternalTags)
 
 /// Determines the smallest Y-axis value from all the points
 - (CGFloat)minValue;
+
+#pragma mark - Modified here
+@property (strong, nonatomic) UIView *avgLineView;
+@property (strong, nonatomic) UILabel *avgLabel;
+@property (strong, nonatomic) UIView *minLineView;
+@property (strong, nonatomic) UILabel *minLabel;
+@property (strong, nonatomic) UIView *maxLineView;
+@property (strong, nonatomic) UILabel *maxLabel;
 
 @end
 
@@ -443,7 +454,8 @@ typedef NS_ENUM(NSInteger, BEMInternalTags)
             [subview removeFromSuperview];
     }
     
-    BEMLine *line = [[BEMLine alloc] initWithFrame:CGRectMake(self.YAxisLabelXOffset, 0, self.frame.size.width - self.YAxisLabelXOffset, self.frame.size.height)];
+#pragma mark - Modified Line Offset
+    BEMLine *line = [[BEMLine alloc] initWithFrame:CGRectMake(self.YAxisLabelXOffset, 0, self.frame.size.width - self.YAxisLabelXOffset, self.frame.size.height-MODIFIED_LINE_OFFSET)];
     line.opaque = NO;
     line.alpha = 1;
     line.backgroundColor = [UIColor clearColor];
@@ -611,7 +623,7 @@ typedef NS_ENUM(NSInteger, BEMInternalTags)
                 CGRect rect = labelXAxis.frame;
                 rect.size = lRect.size;
                 labelXAxis.frame = rect;
-                [labelXAxis setCenter:CGPointMake(((self.viewForBaselineLayout.frame.size.width - self.YAxisLabelXOffset) / (numberOfPoints-1)) * (i*numberOfGaps - 1 - offset) + self.YAxisLabelXOffset, self.frame.size.height - lRect.size.height/2)];
+                [labelXAxis setCenter:CGPointMake(((self.viewForBaselineLayout.frame.size.width - self.YAxisLabelXOffset) / (numberOfPoints-1)) * (i*numberOfGaps - 1 - offset) + self.YAxisLabelXOffset, self.frame.size.height - lRect.size.height/2 - MODIFIED_X_LABEL_OFFSET)];
                 
                 NSNumber *xAxisLabelCoordinate = [NSNumber numberWithFloat:labelXAxis.center.x-self.YAxisLabelXOffset];
                 [xAxisLabelPoints addObject:xAxisLabelCoordinate];
@@ -634,7 +646,8 @@ typedef NS_ENUM(NSInteger, BEMInternalTags)
             }];
             
             for (UILabel *l in overlapLabels) {
-                [l removeFromSuperview];
+                if (![l isEqual:self.avgLabel])
+                    [l removeFromSuperview];
             }
         }
     }
@@ -753,7 +766,8 @@ typedef NS_ENUM(NSInteger, BEMInternalTags)
     }];
     
     for (UILabel *label in overlapLabels) {
-        [label removeFromSuperview];
+        if (![label isEqual:self.avgLabel])
+            [label removeFromSuperview];
     }
     
 }
@@ -857,7 +871,12 @@ typedef NS_ENUM(NSInteger, BEMInternalTags)
 
 - (void)reloadGraph {
     for (UIView *subviews in self.subviews) {
-        [subviews removeFromSuperview];
+        if (![subviews isEqual:self.avgLineView] && ![subviews isEqual:self.avgLabel] &&
+            ![subviews isEqual:self.minLineView] && ![subviews isEqual:self.minLabel] &&
+            ![subviews isEqual:self.maxLineView] && ![subviews isEqual:self.minLabel])
+        {
+            [subviews removeFromSuperview];
+        }
     }
 
     [self setNeedsLayout];
@@ -868,6 +887,48 @@ typedef NS_ENUM(NSInteger, BEMInternalTags)
 - (NSNumber *)calculatePointValueAverage {
     NSExpression *expression = [NSExpression expressionForFunction:@"average:" arguments:@[[NSExpression expressionForConstantValue:dataPoints]]];
     NSNumber *value = [expression expressionValueWithObject:nil context:nil];
+    
+#pragma mark - Modified here
+    if (self.turnOnMeasureLines)
+    {
+        // Avg Line
+        if (!self.avgLineView)
+        {
+            self.avgLineView = [[UIView alloc] initWithFrame:CGRectMake(self.YAxisLabelXOffset, [self yPositionForDotValue:[value floatValue]], self.frame.size.width - self.YAxisLabelXOffset, 1)];
+            self.avgLineView.backgroundColor = customBlue;
+            [self addSubview:self.avgLineView];
+            [self bringSubviewToFront:self.avgLineView];
+        }
+        else
+        {
+            [self.avgLineView setFrame:CGRectMake(self.YAxisLabelXOffset, [self yPositionForDotValue:[value floatValue]], self.frame.size.width - self.YAxisLabelXOffset, 1)];
+            [self addSubview:self.avgLineView];
+            [self bringSubviewToFront:self.avgLineView];
+        }
+        
+        if (!self.avgLabel)
+        {
+            self.avgLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.frame.size.width+5, [self yPositionForDotValue:[value floatValue]]-10, 40, 20)];
+            self.avgLabel.text = @"Avg";
+            self.avgLabel.textColor = customBlue;
+            self.avgLabel.font = [UIFont fontWithName:@"AvenirNext-Bold" size:12.0f];
+            [self addSubview:self.avgLabel];
+            [self bringSubviewToFront:self.avgLabel];
+        }
+        else
+        {
+            [self.avgLabel setFrame:CGRectMake(self.frame.size.width+5, [self yPositionForDotValue:[value floatValue]]-10, 40, 20)];
+            [self addSubview:self.avgLabel];
+            [self bringSubviewToFront:self.avgLabel];
+        }
+    }
+    else
+    {
+        if (self.avgLineView)
+            [self.avgLineView removeFromSuperview];
+        if (self.avgLabel)
+            [self.avgLabel removeFromSuperview];
+    }
     
     return value;
 }
@@ -904,6 +965,50 @@ typedef NS_ENUM(NSInteger, BEMInternalTags)
     if (dataPoints.count > 0) {
         NSExpression *expression = [NSExpression expressionForFunction:@"min:" arguments:@[[NSExpression expressionForConstantValue:dataPoints]]];
         NSNumber *value = [expression expressionValueWithObject:nil context:nil];
+        
+#pragma mark - Modified here
+        
+        if (self.turnOnMeasureLines)
+        {
+            // Min Line
+            if (!self.minLineView)
+            {
+                self.minLineView = [[UIView alloc] initWithFrame:CGRectMake(self.YAxisLabelXOffset, [self yPositionForDotValue:[value floatValue]], self.frame.size.width - self.YAxisLabelXOffset, 1)];
+                self.minLineView.backgroundColor = customRed;
+                [self addSubview:self.minLineView];
+                [self bringSubviewToFront:self.minLineView];
+            }
+            else
+            {
+                [self.minLineView setFrame:CGRectMake(self.YAxisLabelXOffset, [self yPositionForDotValue:[value floatValue]], self.frame.size.width - self.YAxisLabelXOffset, 1)];
+                [self addSubview:self.minLineView];
+                [self bringSubviewToFront:self.minLineView];
+            }
+            
+            if (!self.minLabel)
+            {
+                self.minLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.frame.size.width+5, [self yPositionForDotValue:[value floatValue]]-10, 40, 20)];
+                self.minLabel.text = @"Min";
+                self.minLabel.textColor = customRed;
+                self.minLabel.font = [UIFont fontWithName:@"AvenirNext-Bold" size:12.0f];
+                [self addSubview:self.minLabel];
+                [self bringSubviewToFront:self.minLabel];
+            }
+            else
+            {
+                [self.minLabel setFrame:CGRectMake(self.frame.size.width+5, [self yPositionForDotValue:[value floatValue]]-10, 40, 20)];
+                [self addSubview:self.minLabel];
+                [self bringSubviewToFront:self.minLabel];
+            }
+        }
+        else
+        {
+            if (self.minLineView)
+                [self.minLineView removeFromSuperview];
+            if (self.minLabel)
+                [self.minLabel removeFromSuperview];
+        }
+        
         return value;
     } else return @0;
 }
@@ -911,6 +1016,48 @@ typedef NS_ENUM(NSInteger, BEMInternalTags)
 - (NSNumber *)calculateMaximumPointValue {
     NSExpression *expression = [NSExpression expressionForFunction:@"max:" arguments:@[[NSExpression expressionForConstantValue:dataPoints]]];
     NSNumber *value = [expression expressionValueWithObject:nil context:nil];
+    
+#pragma mark - Modified here
+    if (self.turnOnMeasureLines)
+    {
+        // Max Line
+        if (!self.maxLineView)
+        {
+            self.maxLineView = [[UIView alloc] initWithFrame:CGRectMake(self.YAxisLabelXOffset, [self yPositionForDotValue:[value floatValue]], self.frame.size.width - self.YAxisLabelXOffset, 1)];
+            self.maxLineView.backgroundColor = customGreen;
+            [self addSubview:self.maxLineView];
+            [self bringSubviewToFront:self.maxLineView];
+        }
+        else
+        {
+            [self.maxLineView setFrame:CGRectMake(self.YAxisLabelXOffset, [self yPositionForDotValue:[value floatValue]], self.frame.size.width - self.YAxisLabelXOffset, 1)];
+            [self addSubview:self.maxLineView];
+            [self bringSubviewToFront:self.maxLineView];
+        }
+        
+        if (!self.maxLabel)
+        {
+            self.maxLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.frame.size.width+5, [self yPositionForDotValue:[value floatValue]]-10, 40, 20)];
+            self.maxLabel.text = @"Max";
+            self.maxLabel.textColor = customGreen;
+            self.maxLabel.font = [UIFont fontWithName:@"AvenirNext-Bold" size:12.0f];
+            [self addSubview:self.maxLabel];
+            [self bringSubviewToFront:self.maxLabel];
+        }
+        else
+        {
+            [self.maxLabel setFrame:CGRectMake(self.frame.size.width+5, [self yPositionForDotValue:[value floatValue]]-10, 40, 20)];
+            [self addSubview:self.maxLabel];
+            [self bringSubviewToFront:self.maxLabel];
+        }
+    }
+    else
+    {
+        if (self.maxLineView)
+            [self.maxLineView removeFromSuperview];
+        if (self.maxLabel)
+            [self.maxLabel removeFromSuperview];
+    }
     
     return value;
 }
