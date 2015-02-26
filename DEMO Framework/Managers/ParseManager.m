@@ -12,6 +12,7 @@
 #import "SensorTypeCategory.h"
 #import "SensorReading.h"
 #import "Controller.h"
+#import "Location.h"
 #import "DataUtils.h"
 #include <stdlib.h>
 #import "APIManager.h"
@@ -28,8 +29,20 @@
     return sharedMyManager;
 }
 
+#pragma mark - Location
+- (Location *)createNewLocationWithData:(NSDictionary *)data
+{
+    Location *entity = [[Location alloc] init];
+    entity.l_id = [DataUtils numberFromString:[data objectForKey:@"id"]];
+    entity.l_name = [data objectForKey:@"name"];
+    entity.l_description = [data objectForKey:@"description"];
+    entity.l_last_updated = [DataUtils dateFromSQLDateString:[data objectForKey:@"last_updated"]];
+    return entity;
+}
+
+
 #pragma mark - Controller
-- (Controller *)createNewControllerWithData:(NSDictionary *)data
+- (Controller *)createNewControllerWithData:(NSDictionary *)data Location:(Location *)location
 {
     Controller *entity = [[Controller alloc] init];
     entity.c_id = [DataUtils numberFromString:[data objectForKey:@"id"]];
@@ -38,6 +51,7 @@
     entity.c_x_coordinate = [DataUtils numberFromString:[data objectForKey:@"x_coordinate"]];
     entity.c_y_coordinate = [DataUtils numberFromString:[data objectForKey:@"y_coordinate"]];
     entity.c_last_updated = [DataUtils dateFromSQLDateString:[data objectForKey:@"last_updated"]];
+    entity.c_location = location;
     return entity;
 }
 
@@ -127,13 +141,15 @@
 {
     NSMutableArray *sensors = [NSMutableArray array];
     [responseObjectSensors enumerateObjectsUsingBlock:^(NSDictionary *data, NSUInteger index, BOOL *stop){
+        Location *location = nil;
         Controller *controller = nil;
         SensorTypeCategory *sensorTypeCategory = nil;
         SensorType *sensorType = nil;
         SensorReading *lastReading = nil;
         Sensor *sensor = nil;
         if (showDetails) {
-            controller = [[ParseManager sharedManager] createNewControllerWithData:data[@"controller"]];
+            location = [[ParseManager sharedManager] createNewLocationWithData:data[@"controller"][@"location"]];
+            controller = [[ParseManager sharedManager] createNewControllerWithData:data[@"controller"] Location:location];
             sensorTypeCategory = [[ParseManager sharedManager] createNewSensorTypeCategoryWithData:data[@"sensor_type"][@"sensor_type_category"]];
             sensorType = [[ParseManager sharedManager] createNewSensorTypeWithData:data[@"sensor_type"] STC:sensorTypeCategory];
         }

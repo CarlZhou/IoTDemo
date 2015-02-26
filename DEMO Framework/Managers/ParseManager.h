@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
+@class Location;
 @class Controller;
 @class Sensor;
 @class SensorReading;
@@ -26,8 +27,11 @@
 - (void)createNewSensorReadingsWithData:(NSArray *)sensorReadingsData Completion:(void(^)())completion;
 - (SensorReading *)createNewSensorReadingWithData:(NSDictionary *)data;
 
+// Location
+- (Location *)createNewLocationWithData:(NSDictionary *)data;
+
 // Controller
-- (Controller *)createNewControllerWithData:(NSDictionary *)data;
+- (Controller *)createNewControllerWithData:(NSDictionary *)data Location:(Location *)location;
 
 // Sensor Type
 - (SensorType *)createNewSensorTypeWithData:(NSDictionary *)data STC:(SensorTypeCategory *)stc;

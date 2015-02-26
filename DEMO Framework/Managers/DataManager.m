@@ -12,6 +12,7 @@
 #import "SensorTypeCategory.h"
 #import "SensorReading.h"
 #import "Controller.h"
+#import "Location.h"
 #import "DataUtils.h"
 #include <stdlib.h>
 #import "APIManager.h"
@@ -34,6 +35,14 @@
 #pragma mark - Test
 - (NSArray *)addMockupData
 {
+    NSDictionary *mockLocation = @{
+                                     @"id" : @"1",
+                                     @"name" : @"location1",
+                                     @"description" : @"1st floor",
+                                     @"last_updated" : @"2015-02-20 16:58:20.8250000"
+                                     };
+    Location *location = [[ParseManager sharedManager] createNewLocationWithData:mockLocation];
+    
     NSDictionary *mockController = @{
                                  @"id" : @"1",
                                  @"name" : @"controller1",
@@ -41,7 +50,7 @@
                                  @"y_coordinate" : @"20",
                                  @"last_updated" : @"2015-02-20 16:58:20.8250000"
                                  };
-    Controller *controller = [[ParseManager sharedManager] createNewControllerWithData:mockController];
+    Controller *controller = [[ParseManager sharedManager] createNewControllerWithData:mockController Location:location];
     
     NSDictionary *mockSTC = @{
                               @"id" : @"1",
