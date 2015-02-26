@@ -87,6 +87,7 @@
     gaugeView.scaleDivisions = SCALE_DIVISION;
     gaugeView.scaleDivisionColor =  color;
     gaugeView.scaleSubdivisions = SCALE_DIVISION;
+    gaugeView.scaleSubDivisionColor = color;
     gaugeView.scaleStartAngle = SCALE_START_ANGLE;
     gaugeView.scaleEndAngle = SCALE_END_ANGLE;
     gaugeView.innerBackgroundStyle = WMGaugeViewInnerBackgroundStyleFlat;
@@ -109,22 +110,22 @@
 - (void)reloadGaugeViews
 {
     NSInteger range = [self.selectedSensor.s_sensor_type.st_reading_max floatValue] - [self.selectedSensor.s_sensor_type.st_reading_min floatValue];
-    SensorReading * sr = [self.recentReadings objectAtIndex:0];
-    float currentReading = [sr.sr_reading floatValue];
+    NSNumber *reading = [self.lineOneData lastObject];
+    float currentReading = [reading floatValue];
     float avgReading = [[self.lineGraph calculatePointValueAverage] floatValue];
-    float minReading = [[self.lineGraph calculatePointValueAverage] floatValue];
-    float maxReading = [[self.lineGraph calculateMinimumPointValue] floatValue];
+    float minReading = [[self.lineGraph calculateMinimumPointValue] floatValue];
+    float maxReading = [[self.lineGraph calculateMaximumPointValue] floatValue];
     
     [self reloadSingleGaugeView:self.currentGaugeView Label:self.currentLabel Range:range Reading:currentReading];
     [self reloadSingleGaugeView:self.averageGaugeView Label:self.averageLabel Range:range Reading:avgReading];
-    [self reloadSingleGaugeView:self.minGaugeView Label:self.minLabel Range:range Reading:minReading];
     [self reloadSingleGaugeView:self.maxGaugeView Label:self.maxLabel Range:range Reading:maxReading];
+    [self reloadSingleGaugeView:self.minGaugeView Label:self.minLabel Range:range Reading:minReading];
 }
 
 - (void)reloadSingleGaugeView:(WMGaugeView*)gaugeView Label:(UILabel*)label Range:(NSInteger)range Reading:(float)reading
 {
     gaugeView.maxValue = (range == 0 ? 100 : 10.0 * floor((range/10.0)+0.5));
-    [gaugeView setValue:reading animated:YES duration:3];
+    [gaugeView setValue:reading animated:YES duration:1];
     label.text = [NSString stringWithFormat:@"%.04f %@", reading, self.selectedSensor.s_unit];
     [label setTextAlignment:NSTextAlignmentCenter];
     [label setTextColor:[UIColor darkGrayColor]];
