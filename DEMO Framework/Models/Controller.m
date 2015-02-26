@@ -7,6 +7,7 @@
 //
 
 #import "Controller.h"
+#import "Location.h"
 
 
 @implementation Controller

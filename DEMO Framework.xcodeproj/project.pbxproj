@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		3C4FBCB91A94F96C0060440B /* GraphViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C4FBCB71A94F96C0060440B /* GraphViewController.m */; };
 		3C4FBCBD1A94FD450060440B /* CircularBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C4FBCBC1A94FD450060440B /* CircularBarView.m */; };
+		3CBF10A41A9F93D500E47EBE /* Location.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CBF10A31A9F93D500E47EBE /* Location.m */; };
 		B042EC111A93891D00C2E6D9 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B042EC101A93891D00C2E6D9 /* main.m */; };
 		B042EC141A93891D00C2E6D9 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B042EC131A93891D00C2E6D9 /* AppDelegate.m */; };
 		B042EC201A93891E00C2E6D9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B042EC1E1A93891E00C2E6D9 /* Main.storyboard */; };
@@ -64,6 +65,8 @@
 		3C4FBCB71A94F96C0060440B /* GraphViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GraphViewController.m; sourceTree = "<group>"; };
 		3C4FBCBB1A94FD450060440B /* CircularBarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircularBarView.h; sourceTree = "<group>"; };
 		3C4FBCBC1A94FD450060440B /* CircularBarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CircularBarView.m; sourceTree = "<group>"; };
+		3CBF10A21A9F937F00E47EBE /* Location.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Location.h; sourceTree = "<group>"; };
+		3CBF10A31A9F93D500E47EBE /* Location.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Location.m; sourceTree = "<group>"; };
 		B042EC0B1A93891D00C2E6D9 /* DEMO Framework.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "DEMO Framework.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B042EC0F1A93891D00C2E6D9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B042EC101A93891D00C2E6D9 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -287,6 +290,8 @@
 				C3EA395D1A97B67E007849B4 /* SensorReading.m */,
 				C3EA39621A97C2C3007849B4 /* Sensor.h */,
 				C3EA39631A97C2C3007849B4 /* Sensor.m */,
+				3CBF10A21A9F937F00E47EBE /* Location.h */,
+				3CBF10A31A9F93D500E47EBE /* Location.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -506,6 +511,7 @@
 				C38091B11A963F3E00BFB7C1 /* BEMCircle.m in Sources */,
 				B042EC111A93891D00C2E6D9 /* main.m in Sources */,
 				C38091B21A963F3E00BFB7C1 /* BEMLine.m in Sources */,
+				3CBF10A41A9F93D500E47EBE /* Location.m in Sources */,
 				C38091B71A968C3F00BFB7C1 /* DetailsViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

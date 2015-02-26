@@ -2,7 +2,7 @@
 //  constants.h
 //  DEMO Framework
 //
-//  Created by Sybase on 2015-02-19.
+//  Created by tracyshi on 2015-02-19.
 //  Copyright (c) 2015 SAP Canada. All rights reserved.
 //
 

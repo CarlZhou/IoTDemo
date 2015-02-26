@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
+@class Location;
+
 @interface Controller : NSObject
 
 @property (nonatomic, strong) NSNumber * c_id;
@@ -16,5 +18,6 @@
 @property (nonatomic, strong) NSString * c_name;
 @property (nonatomic, strong) NSNumber * c_x_coordinate;
 @property (nonatomic, strong) NSNumber * c_y_coordinate;
+@property (nonatomic, strong) Location *c_location;
 
 @end
