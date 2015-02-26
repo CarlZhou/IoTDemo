@@ -19,4 +19,7 @@
 - (void)reloadGaugeViews;
 - (void)reloadData;
 
+// Hidden
+- (void)showToggles;
+
 @end

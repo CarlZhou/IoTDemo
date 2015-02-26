@@ -61,6 +61,15 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     [self configureView];
+    
+    
+    UIBarButtonItem *hiddenButton = [[UIBarButtonItem alloc] initWithTitle:@"    " style:UIBarButtonItemStylePlain target:self action:@selector(showToggles)];
+    self.navigationItem.rightBarButtonItem = hiddenButton;
+}
+
+- (void)showToggles
+{
+    [self.graphViewController showToggles];
 }
 
 - (IBAction)segControllValueChanged:(UISegmentedControl *)sender

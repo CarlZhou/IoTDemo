@@ -156,13 +156,18 @@
 
 - (void)startToUpdateSensorReadingsInfoWithTimeInterval:(NSTimeInterval)interval
 {
+    [self stopUpdateSensorReadingsInfo];
+    
+    self.sensorReadingsInfoUpdateTimer = [NSTimer scheduledTimerWithTimeInterval:interval target:self selector:@selector(updateSensorReadingsInfoHelper) userInfo:nil repeats:YES];
+}
+
+- (void)stopUpdateSensorReadingsInfo
+{
     if (self.sensorReadingsInfoUpdateTimer)
     {
         [self.sensorReadingsInfoUpdateTimer invalidate];
         self.sensorReadingsInfoUpdateTimer = nil;
     }
-    
-    self.sensorReadingsInfoUpdateTimer = [NSTimer scheduledTimerWithTimeInterval:interval target:self selector:@selector(updateSensorReadingsInfoHelper) userInfo:nil repeats:YES];
 }
 
 @end

@@ -34,5 +34,6 @@
 - (void)startToUpdateSensorsInfoWithTimeInterval:(NSTimeInterval)interval;
 - (void)updateSensorReadingsInfomationWithCompletion:(void(^)())completion;
 - (void)startToUpdateSensorReadingsInfoWithTimeInterval:(NSTimeInterval)interval;
+- (void)stopUpdateSensorReadingsInfo;
 
 @end

@@ -48,6 +48,9 @@
 @property (strong, nonatomic) NSMutableArray *lineOneData;
 @property (strong, nonatomic) NSMutableArray *lineOneDataDetail;
 
+// Toggles
+@property (strong, nonatomic) IBOutlet UIView *togglesContainer;
+
 @end
 
 @implementation GraphViewController
@@ -61,6 +64,13 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateWithNewData) name:SENSOR_READINGS_DATA_UPDATED object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(selectedNewSensor) name:DID_SELECT_NEW_SENSOR object:nil];
 }
+
+// Hidden
+- (void)showToggles
+{
+    [self.togglesContainer setHidden:!self.togglesContainer.isHidden];
+}
+// Hidden
 
 - (void)selectedNewSensor
 {
@@ -232,5 +242,16 @@
     [self.lineGraph calculatePointValueAverage];
 }
 
+- (IBAction)autoRefreshToggled:(UISwitch *)sender
+{
+    if (sender.isOn)
+    {
+        [[DataManager sharedManager] startToUpdateSensorReadingsInfoWithTimeInterval:[[DataManager sharedManager].sensorReadingUpdatingFrequency integerValue]];
+    }
+    else
+    {
+        [[DataManager sharedManager] stopUpdateSensorReadingsInfo];
+    }
+}
 
 @end
