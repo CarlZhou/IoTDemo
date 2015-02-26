@@ -241,37 +241,37 @@
             cell.detailTextLabel.text = [NSString stringWithFormat:@"%@", self.selectedSensor.s_name];
             break;
         case 2:
-            cell.textLabel.text = @"Unit";
-            cell.detailTextLabel.text = [NSString stringWithFormat:@"%@", self.selectedSensor.s_unit];
-            break;
-        case 3:
             cell.textLabel.text = @"Status";
             cell.detailTextLabel.text = [NSString stringWithFormat:@"%@", self.selectedSensor.s_status == [NSNumber numberWithInt:0] ? @"Off" : @"On"];
             break;
-        case 4:
+        case 3:
             cell.textLabel.text = @"Channel";
             cell.detailTextLabel.text = [NSString stringWithFormat:@"%@", self.selectedSensor.s_channel];
             break;
-        case 5:
-            cell.textLabel.text = @"Serial Number";
-            cell.detailTextLabel.text = [NSString stringWithFormat:@"%@", self.selectedSensor.s_controller.c_serial_num];
-            break;
-        case 6:
-            cell.textLabel.text = @"Sensor Type Catagory";
-            cell.detailTextLabel.text = [NSString stringWithFormat:@"%@", self.selectedSensor.s_sensor_type.st_sensor_type_category.stc_name];
-            break;
-        case 7:
-            cell.textLabel.text = @"Type Name";
+        case 4:
+            cell.textLabel.text = @"Sensor Type";
             cell.detailTextLabel.text = [NSString stringWithFormat:@"%@", self.selectedSensor.s_sensor_type.st_name];
             break;
-        case 8:
-            cell.textLabel.text = @"Type Description";
-            cell.detailTextLabel.text = [NSString stringWithFormat:@"%@", self.selectedSensor.s_sensor_type.st_type_description];
-            break;
-        case 9:
+        case 5:
             cell.textLabel.text = @"Model Number";
             cell.detailTextLabel.text = [NSString stringWithFormat:@"%@", self.selectedSensor.s_sensor_type.st_model_num];
             break;
+        case 6:
+            cell.textLabel.text = @"Type Catagory";
+            cell.detailTextLabel.text = [NSString stringWithFormat:@"%@", self.selectedSensor.s_sensor_type.st_sensor_type_category.stc_name];
+            break;
+        case 7:
+            cell.textLabel.text = @"Controller";
+            cell.detailTextLabel.text = [NSString stringWithFormat:@"%@", self.selectedSensor.s_controller.c_name];
+            break;
+        case 8:
+            cell.textLabel.text = @"Serial Number";
+            cell.detailTextLabel.text = [NSString stringWithFormat:@"%@", self.selectedSensor.s_controller.c_serial_num];
+            break;
+//        case 8:
+//            cell.textLabel.text = @"Location";
+//            cell.detailTextLabel.text = [NSString stringWithFormat:@"%@", self.selectedSensor.s_sensor_type.st_type_description];
+//            break;
             
         default:
             break;
