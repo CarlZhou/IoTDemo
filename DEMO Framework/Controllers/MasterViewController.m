@@ -71,6 +71,9 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+    [self configureCell:cell atIndexPath:indexPath];
+    
     if (selectedIndexPath != indexPath)
     {
         selectedIndexPath = indexPath;

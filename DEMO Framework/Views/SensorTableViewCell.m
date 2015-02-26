@@ -12,6 +12,7 @@
 #import "SensorType.h"
 #import "SensorTypeCategory.h"
 #import "NSDate+PrettyDate.h"
+#import "constants.h"
 
 @implementation SensorTableViewCell
 
@@ -37,6 +38,15 @@
     self.stvc_secondaryUnitLabel.text = [NSString stringWithFormat:@"%.04f %@", currentReading, sensor.s_unit];
     self.stvc_timeLabel.text = [sensor.s_last_reading.sr_read_time prettyDate];
     [self.stvc_progressView setProgress:currentReading/maxReading animated:YES];
+    
+    if (sensor)
+    {
+        if (sensor.s_status == [NSNumber numberWithInt:0]) {
+            [self.sensorStatusBar setBackgroundColor:customRed];
+        } else {
+            [self.sensorStatusBar setBackgroundColor:customGreen];
+        }
+    }
 }
 
 @end

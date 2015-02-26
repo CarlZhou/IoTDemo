@@ -17,8 +17,10 @@
 @property (weak, nonatomic) IBOutlet UILabel *stvc_primaryUnitLabel;
 @property (weak, nonatomic) IBOutlet UILabel *stvc_secondaryUnitLabel;
 @property (weak, nonatomic) IBOutlet UIProgressView *stvc_progressView;
+@property (weak, nonatomic) IBOutlet UIView *sensorStatusBar;
 
 @property (strong, nonatomic) Sensor *stvc_sensor;
+@property (strong, nonatomic) NSNumber *sensorStatus;
 
 - (void)setCellWithSensor:(Sensor *)sensor;
 
