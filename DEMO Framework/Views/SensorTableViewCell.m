@@ -41,7 +41,7 @@
     
     if (sensor)
     {
-        if (sensor.s_status == [NSNumber numberWithInt:0]) {
+        if ([sensor.s_status integerValue] == 0) {
             [self.sensorStatusBar setBackgroundColor:customRed];
         } else {
             [self.sensorStatusBar setBackgroundColor:customGreen];
