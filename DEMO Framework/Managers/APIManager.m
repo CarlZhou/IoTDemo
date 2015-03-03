@@ -10,9 +10,9 @@
 #import "DataManager.h"
 #import "ParseManager.h"
 
-#define BASE_URL @"https://xshackerlounge.us1.hana.ondemand.com/DemoFramework"
+#define BASE_URL @"https://xshackerlounge.us1.hana.ondemand.com/IoTFramework"
 #define API_PATH(path) [BASE_URL stringByAppendingString:path]
-#define GET_SENSOR_PATH API_PATH(@"/getsensor.xsjs")
+#define GET_SENSOR_PATH API_PATH(@"/sensors.xsjs")
 #define GET_SENSOR_READING_PATH API_PATH(@"/sensor_readings.xsjs")
 
 @implementation APIManager
