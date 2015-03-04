@@ -9,9 +9,10 @@
 #import "MasterViewController.h"
 #import "RightViewController.h"
 #import "SensorTableViewCell.h"
-#import "APIManager.h"
 #import "Sensor.h"
+#import "APIManager.h"
 #import "DataManager.h"
+#import "WebSocketManager.h"
 #import "constants.h"
 
 @interface MasterViewController ()
@@ -32,8 +33,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
+    [[WebSocketManager sharedManager] connectWebSocket];
     
+    // Do any additional setup after loading the view, typically from a nib.
     self.sensors = [NSMutableArray array];
     self.rightViewController = (RightViewController *)[[self.splitViewController.viewControllers lastObject] topViewController];
     [self.tableView registerNib:[UINib nibWithNibName:@"SensorTableViewCell" bundle:nil] forCellReuseIdentifier:@"SensorCell"];
@@ -41,7 +43,6 @@
     [self.navigationController.navigationBar
      setTitleTextAttributes:@{ NSForegroundColorAttributeName : RGB(110, 120, 127),
                                NSFontAttributeName: [UIFont fontWithName:@"AvenirNext-DemiBold" size:20.0]}];
-    
     
     [[DataManager sharedManager] updateSensorsInfomation];
     [[DataManager sharedManager] startToUpdateSensorsInfoWithTimeInterval:[[DataManager sharedManager].sensorUpdatingFrequency integerValue]];
@@ -80,9 +81,11 @@
         [DataManager sharedManager].selectedSensorIndexPath = selectedIndexPath;
         [[NSNotificationCenter defaultCenter] postNotificationName:DID_SELECT_NEW_SENSOR object:nil];
     }
-    NSManagedObject *object = [[self sensors] objectAtIndex:indexPath.row];
+    Sensor *sensor = [[self sensors] objectAtIndex:indexPath.row];
+    NSLog(@"current selected sensor: %@", sensor.s_id);
+    [[WebSocketManager sharedManager] subscribeSensor:sensor.s_id];
     RightViewController *controller = self.rightViewController;
-    [controller setDetailItem:object];
+    [controller setDetailItem:sensor];
 }
 
 #pragma mark - Table View
