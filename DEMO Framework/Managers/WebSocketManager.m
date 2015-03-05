@@ -6,8 +6,10 @@
 //  Copyright (c) 2015 SAP Canada. All rights reserved.
 //
 
+#import "DataManager.h"
+#import "ParseManager.h"
 #import "WebSocketManager.h"
-#include "SRWebSocket.h"
+#import "SRWebSocket.h"
 
 #define WEBSOCKET_URL @"wss://iotsocketadapterhackerlounge.us1.hana.ondemand.com/iotframeworksocketadapter/WebSocket"
 
@@ -55,13 +57,26 @@
 }
 
 - (void)webSocket:(SRWebSocket *)webSocket didCloseWithCode:(NSInteger)code reason:(NSString *)reason wasClean:(BOOL)wasClean {
-    NSLog(@"WebSocket closed with code:%d, with reason:%@", code, reason);
+    NSLog(@"WebSocket closed with code:%ld, with reason:%@", (long)code, reason);
     srWebSocket = nil;
     [self connectWebSocket];
 }
 
 - (void)webSocket:(SRWebSocket *)webSocket didReceiveMessage:(id)message {
     NSLog(@"Received \"%@\"", message);
+//    id json = [NSJSONSerialization JSONObjectWithData:[message dataUsingEncoding:NSUTF8StringEncoding] options:0 error:nil];
+//    if (json && json[@"sensor_id"])
+//    {
+//        [self addNewReadings:message[@"readings"]];
+//    }
+}
+
+- (void)addNewReadings:(NSArray*)readings {
+    [readings enumerateObjectsUsingBlock:^(NSDictionary *data, NSUInteger index, BOOL *stop){
+        SensorReading *sensorReading = [[ParseManager sharedManager] createNewSensorReadingWithData:data];
+        NSLog(@"new reading: %@", sensorReading);
+        [[DataManager sharedManager].sensorReadings addObject:sensorReading];
+    }];
 }
 
 - (void)subscribeSensor:(NSNumber *)sensorId {

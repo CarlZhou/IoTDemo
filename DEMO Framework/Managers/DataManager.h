@@ -7,10 +7,11 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "SRWebSocket.h"
 
 @class Sensor;
 
-@interface DataManager : NSObject
+@interface DataManager : NSObject <SRWebSocketDelegate>
 
 + (instancetype)sharedManager;
 
