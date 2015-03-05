@@ -13,5 +13,6 @@
 + (instancetype)sharedManager;
 - (void)connectWebSocket;
 - (void)subscribeSensor:(NSNumber *)sensorId;
+- (BOOL)isSocketOpen;
 
 @end

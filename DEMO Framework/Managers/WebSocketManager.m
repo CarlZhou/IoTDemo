@@ -51,13 +51,13 @@
 - (void)webSocket:(SRWebSocket *)webSocket didFailWithError:(NSError *)error {
     NSLog(@":( Websocket Failed With Error %@", error);
     srWebSocket = nil;
-//    [self connectWebSocket];
+    [self connectWebSocket];
 }
 
 - (void)webSocket:(SRWebSocket *)webSocket didCloseWithCode:(NSInteger)code reason:(NSString *)reason wasClean:(BOOL)wasClean {
     NSLog(@"WebSocket closed with code:%d, with reason:%@", code, reason);
     srWebSocket = nil;
-//    [self connectWebSocket];
+    [self connectWebSocket];
 }
 
 - (void)webSocket:(SRWebSocket *)webSocket didReceiveMessage:(id)message {
@@ -68,8 +68,8 @@
     [srWebSocket send:[NSString stringWithFormat:@"{command:\"subscribe\",sensorId:%@}", sensorId]];   // test
 }
 
+- (BOOL)isSocketOpen{
+    return srWebSocket.readyState == SR_OPEN;
+}
+
 @end
-
-
-
-
