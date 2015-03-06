@@ -86,6 +86,8 @@
     [controller setDetailItem:sensor];
 }
 
+
+
 #pragma mark - Table View
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section

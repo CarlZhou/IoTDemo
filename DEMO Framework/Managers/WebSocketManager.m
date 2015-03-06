@@ -2,7 +2,7 @@
 //  WebSocketManager.m
 //  DEMO Framework
 //
-//  Created by Sybase on 2015-03-03.
+//  Created by tracyshi on 2015-03-05.
 //  Copyright (c) 2015 SAP Canada. All rights reserved.
 //
 
@@ -14,7 +14,7 @@
 #define WEBSOCKET_URL @"wss://iotsocketadapterhackerlounge.us1.hana.ondemand.com/iotframeworksocketadapter/WebSocket"
 
 @interface WebSocketManager() <SRWebSocketDelegate> {
-    
+    NSNumber *subscribedSensorId;
     SRWebSocket *srWebSocket;
 }
 
@@ -64,11 +64,12 @@
 
 - (void)webSocket:(SRWebSocket *)webSocket didReceiveMessage:(id)message {
     NSLog(@"Received \"%@\"", message);
-//    id json = [NSJSONSerialization JSONObjectWithData:[message dataUsingEncoding:NSUTF8StringEncoding] options:0 error:nil];
-//    if (json && json[@"sensor_id"])
-//    {
-//        [self addNewReadings:message[@"readings"]];
-//    }
+        id json = [NSJSONSerialization JSONObjectWithData:[message dataUsingEncoding:NSUTF8StringEncoding] options:0 error:nil];
+        if (json && json[@"sensor_id"]) // TODO: check if sensor_id equals subscribedSensorId
+        {
+            [self addNewReadings:message[@"readings"]];
+            [[DataManager sharedManager] updateSensorReadings];
+        }
 }
 
 - (void)addNewReadings:(NSArray*)readings {
@@ -80,6 +81,7 @@
 }
 
 - (void)subscribeSensor:(NSNumber *)sensorId {
+    subscribedSensorId = sensorId;
     [srWebSocket send:[NSString stringWithFormat:@"{command:\"subscribe\",sensorId:%@}", sensorId]];   // test
 }
 

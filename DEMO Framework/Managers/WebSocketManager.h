@@ -2,7 +2,7 @@
 //  WebSocketManager.h
 //  DEMO Framework
 //
-//  Created by tracyshi on 2015-03-03.
+//  Created by tracyshi on 2015-03-05.
 //  Copyright (c) 2015 SAP Canada. All rights reserved.
 //
 
@@ -14,6 +14,5 @@
 + (instancetype)sharedManager;
 - (void)connectWebSocket;
 - (void)subscribeSensor:(NSNumber *)sensorId;
-- (BOOL)isSocketOpen;
 
 @end

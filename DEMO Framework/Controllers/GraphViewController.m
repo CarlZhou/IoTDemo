@@ -83,13 +83,6 @@
     isNewSensor = YES;
 }
 
-- (void)updateWithNewData
-{
-    self.recentReadings = [DataManager sharedManager].sensorReadings;
-    [self reloadData];
-}
-
-
 #pragma mark - Gauge Views
 
 - (void)initGaugeViews
@@ -147,35 +140,6 @@
     label.text = [NSString stringWithFormat:@"%.04f %@", reading, self.selectedSensor.s_unit];
     [label setTextAlignment:NSTextAlignmentCenter];
     [label setTextColor:[UIColor darkGrayColor]];
-}
-
-
-- (void)reloadData
-{
-    [self.lineOneData removeAllObjects];
-    [self.lineOneDataDetail removeAllObjects];
-    
-    self.xAxisUnitLabel.text = [NSString stringWithFormat:@"Time (hh:mm:ss)"];
-    self.yAxisUnitLabel.text = [NSString stringWithFormat:@"%@", self.selectedSensor.s_unit];
-    
-    self.recentReadings = [[[self.recentReadings reverseObjectEnumerator] allObjects] mutableCopy];
-    [self.recentReadings  enumerateObjectsUsingBlock:^(SensorReading *reading, NSUInteger index, BOOL *stop){
-        [self.lineOneData addObject:reading.sr_reading];
-        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-        [formatter setDateFormat:@"HH:mm:ss"];
-        [self.lineOneDataDetail addObject:[formatter stringFromDate:reading.sr_read_time]];
-        if (index == self.recentReadings.count-1)
-        {
-            self.lineGraph.animationGraphEntranceTime = isNewSensor ? 1.5 : 0;
-            [self.lineGraph reloadGraph];
-            if (isNewSensor)
-            {
-                isNewSensor = NO;
-            }
-            // Graphs
-            [self performSelector:@selector(reloadGaugeViews) withObject:nil afterDelay:0.1];
-        }
-    }];
 }
 
 
@@ -269,6 +233,43 @@
     self.dataPointsLabel.text = [NSString stringWithFormat:@"%d", 10];
     [DataManager sharedManager].numberOfReadingPoints = [NSNumber numberWithDouble:10.0];
     self.dataPointsStepper.value = 10;
+}
+
+
+#pragma mark - Reload Data
+
+- (void)updateWithNewData
+{
+    self.recentReadings = [DataManager sharedManager].sensorReadings;
+    [self reloadData];
+}
+
+- (void)reloadData
+{
+    [self.lineOneData removeAllObjects];
+    [self.lineOneDataDetail removeAllObjects];
+    
+    self.xAxisUnitLabel.text = [NSString stringWithFormat:@"Time (hh:mm:ss)"];
+    self.yAxisUnitLabel.text = [NSString stringWithFormat:@"%@", self.selectedSensor.s_unit];
+    
+    self.recentReadings = [[[self.recentReadings reverseObjectEnumerator] allObjects] mutableCopy];
+    [self.recentReadings  enumerateObjectsUsingBlock:^(SensorReading *reading, NSUInteger index, BOOL *stop){
+        [self.lineOneData addObject:reading.sr_reading];
+        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+        [formatter setDateFormat:@"HH:mm:ss"];
+        [self.lineOneDataDetail addObject:[formatter stringFromDate:reading.sr_read_time]];
+        if (index == self.recentReadings.count-1)
+        {
+            self.lineGraph.animationGraphEntranceTime = isNewSensor ? 1.5 : 0;
+            [self.lineGraph reloadGraph];
+            if (isNewSensor)
+            {
+                isNewSensor = NO;
+            }
+            // Graphs
+            [self performSelector:@selector(reloadGaugeViews) withObject:nil afterDelay:0.1];
+        }
+    }];
 }
 
 @end

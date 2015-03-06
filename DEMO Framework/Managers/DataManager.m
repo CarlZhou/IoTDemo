@@ -115,9 +115,9 @@
 - (void)subscribeSelectedSensor
 {
     if ([WebSocketManager sharedManager].isSocketOpen)
-        {
-            [[WebSocketManager sharedManager] subscribeSensor:self.selectedSensor.s_id];
-        }
+    {
+        [[WebSocketManager sharedManager] subscribeSensor:self.selectedSensor.s_id];
+    }
     else
     {
         [[WebSocketManager sharedManager] addObserver:self forKeyPath:@"isSocketOpen" options:NSKeyValueObservingOptionNew context:nil];
@@ -160,6 +160,11 @@
     self.sensorsInfoUpdateTimer = [NSTimer scheduledTimerWithTimeInterval:interval target:self selector:@selector(updateSensorsInfomation) userInfo:nil repeats:YES];
 }
 
+- (void)updateSensorReadings
+{
+    [[NSNotificationCenter defaultCenter] postNotificationName:SENSOR_READINGS_DATA_UPDATED object:nil];
+}
+
 - (void)updateSensorReadingsInfomationWithCompletion:(void(^)())completion
 {
     if (self.selectedSensor)
@@ -186,6 +191,7 @@
     [self updateSensorReadingsInfomationWithCompletion:nil];
 }
 
+// TODO: remove start/stop update readings with time interval
 - (void)startToUpdateSensorReadingsInfoWithTimeInterval:(NSTimeInterval)interval
 {
     [self stopUpdateSensorReadingsInfo];

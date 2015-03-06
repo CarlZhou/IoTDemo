@@ -37,6 +37,7 @@
 - (void)subscribeSelectedSensor;
 - (void)updateSensorsInfomation;
 - (void)startToUpdateSensorsInfoWithTimeInterval:(NSTimeInterval)interval;
+- (void)updateSensorReadings;
 - (void)updateSensorReadingsInfomationWithCompletion:(void(^)())completion;
 - (void)startToUpdateSensorReadingsInfoWithTimeInterval:(NSTimeInterval)interval;
 - (void)stopUpdateSensorReadingsInfo;
