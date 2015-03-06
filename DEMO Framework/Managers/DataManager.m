@@ -221,5 +221,9 @@
     }
 }
 
+- (void)webSocket:(SRWebSocket *)webSocket didReceiveMessage:(id)message
+{
+    
+}
 
 @end
