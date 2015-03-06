@@ -112,7 +112,7 @@
     
 }
 
-#pragma mark - Communicate with WebSocket Manager
+#pragma mark - Update Sensor Reading Through WebSocket
 
 - (void)subscribeSelectedSensor
 {
@@ -138,19 +138,19 @@
 
 - (void)updateSensorReadings:(NSArray*)newReadings
 {
-    [newReadings enumerateObjectsUsingBlock:^(NSDictionary *data, NSUInteger index, BOOL *stop){
-        SensorReading *sensorReading = [[ParseManager sharedManager] createNewSensorReadingWithTimeInterval:data];
-        NSLog(@"new reading: %@", sensorReading);
-        [self.sensorReadings addObject:sensorReading];
+    [newReadings enumerateObjectsUsingBlock:^(SensorReading *reading, NSUInteger index, BOOL *stop){
+        NSLog(@"new reading: %@", reading);
+        [self.sensorReadings insertObject:reading atIndex:0];
     }];
     int numReadingsLimit = self.numberOfReadingPoints ? [self.numberOfReadingPoints integerValue]: 10;
     while ([self.sensorReadings count] > numReadingsLimit) {
-        [self.sensorReadings removeObjectAtIndex:0];
+        [self.sensorReadings removeObjectAtIndex:numReadingsLimit-1];
     }
     [[NSNotificationCenter defaultCenter] postNotificationName:SENSOR_READINGS_DATA_UPDATED object:nil];
 }
 
-#pragma mark - call API to fetch sensor and readings
+
+#pragma mark - Update Sensor and Sensor Readings through API call
 
 - (void)updateSensorsInfomation
 {

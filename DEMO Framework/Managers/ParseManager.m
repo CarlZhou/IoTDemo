@@ -139,9 +139,9 @@
 - (SensorReading *)createNewSensorReadingWithTimeInterval:(NSDictionary *)data
 {
     SensorReading *entity = [[SensorReading alloc] init];
-    entity.sr_reading = [DataUtils numberFromString:[data objectForKey:@"reading"]];
-    NSNumber *readTime = [DataUtils numberFromString:[data objectForKey:@"read_time"]];
-    entity.sr_read_time = [NSDate dateWithTimeIntervalSince1970:[readTime doubleValue]];
+    entity.sr_reading = [data objectForKey:@"reading"];
+//    NSLog(@"%f", [[data objectForKey:@"read_time"] doubleValue]);
+    entity.sr_read_time = [NSDate dateWithTimeIntervalSince1970:[[data objectForKey:@"read_time"] doubleValue]/1000.0f];
     entity.sr_last_updated = [DataUtils dateFromSQLDateString:[data objectForKey:@"last_updated"]];
     entity.sr_sensor_id = [DataUtils numberFromString:[data objectForKey:@"sensor_id"]];
     return entity;
@@ -197,5 +197,16 @@
         completion(nil, nil);
 }
 
+- (void)parseSensorReadingsDataFromWebSocket:(NSArray *)sensorReadingsData Completion:(void(^)(NSArray *readings))completion
+{
+    NSMutableArray *readings = [NSMutableArray array];
+    [sensorReadingsData enumerateObjectsUsingBlock:^(NSDictionary *data, NSUInteger index, BOOL *stop){
+        SensorReading *sensorReading = [[ParseManager sharedManager] createNewSensorReadingWithTimeInterval:data];
+        [readings addObject:sensorReading];
+        if (completion) {
+            completion(readings);
+        }
+    }];
+}
 
 @end

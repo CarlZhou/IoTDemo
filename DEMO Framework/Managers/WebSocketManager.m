@@ -40,7 +40,7 @@
     srWebSocket = nil;
     srWebSocket = [[SRWebSocket alloc] initWithURL:[NSURL URLWithString:WEBSOCKET_URL]];
     srWebSocket.delegate = self;
-    
+    self.isSocketOpen = false;
     [srWebSocket open];
 }
 
@@ -49,17 +49,20 @@
 
 - (void)webSocketDidOpen:(SRWebSocket *)webSocket {
     srWebSocket = webSocket;
+    self.isSocketOpen = true;
 }
 
 - (void)webSocket:(SRWebSocket *)webSocket didFailWithError:(NSError *)error {
     NSLog(@":( Websocket Failed With Error %@", error);
     srWebSocket = nil;
+    self.isSocketOpen = false;
     [self connectWebSocket];
 }
 
 - (void)webSocket:(SRWebSocket *)webSocket didCloseWithCode:(NSInteger)code reason:(NSString *)reason wasClean:(BOOL)wasClean {
     NSLog(@"WebSocket closed with code:%ld, with reason:%@", (long)code, reason);
     srWebSocket = nil;
+    self.isSocketOpen = false;
     [self connectWebSocket];
 }
 
@@ -68,30 +71,17 @@
         id json = [NSJSONSerialization JSONObjectWithData:[message dataUsingEncoding:NSUTF8StringEncoding] options:0 error:nil];
     if (json && json[@"sensor_id"]) // TODO: check if sensor_id equals subscribedSensorId
         {
-            NSNumber *sensorId = json[@"sensor_id"];
-            if ([sensorId isEqualToNumber:subscribedSensorId]) {
-                [[ParseManager sharedManager] parseSensorReadingsData:json[@"readings"] Completion:^(NSArray *sensors, NSArray *readings) {
+            if ([json[@"sensor_id"] isEqualToNumber:subscribedSensorId]) {
+                [[ParseManager sharedManager] parseSensorReadingsDataFromWebSocket:json[@"readings"] Completion:^(NSArray *readings) {
                     [[DataManager sharedManager] updateSensorReadings:readings];
                 }];
             }
         }
 }
 
-- (void)addNewReadings:(NSArray*)readings {
-    [readings enumerateObjectsUsingBlock:^(NSDictionary *data, NSUInteger index, BOOL *stop){
-        SensorReading *sensorReading = [[ParseManager sharedManager] createNewSensorReadingWithTimeInterval:data];
-        NSLog(@"new reading: %@", sensorReading);
-        [[DataManager sharedManager].sensorReadings addObject:sensorReading];
-    }];
-}
-
 - (void)subscribeSensor:(NSNumber *)sensorId {
     subscribedSensorId = sensorId;
     [srWebSocket send:[NSString stringWithFormat:@"{command:\"subscribe\",sensorId:%@}", sensorId]];   // test
-}
-
-- (BOOL)isSocketOpen{
-    return srWebSocket.readyState == SR_OPEN;
 }
 
 @end

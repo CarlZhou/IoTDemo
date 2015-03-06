@@ -46,7 +46,7 @@
         [DataManager sharedManager].selectedSensor = self.detailItem;
         self.detailsViewController.selectedSensor = self.detailItem;
         self.graphViewController.selectedSensor = self.detailItem;
-        [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+//        [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         // Subscribe sensor to WebSocket
         [[DataManager sharedManager] subscribeSelectedSensor];
         
@@ -65,7 +65,6 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     [self configureView];
-    
     
     UIBarButtonItem *hiddenButton = [[UIBarButtonItem alloc] initWithTitle:@"    " style:UIBarButtonItemStylePlain target:self action:@selector(showToggles)];
     self.navigationItem.rightBarButtonItem = hiddenButton;
