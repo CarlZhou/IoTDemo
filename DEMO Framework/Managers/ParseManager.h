@@ -25,7 +25,8 @@
 
 // Sensor Readings
 - (void)createNewSensorReadingsWithData:(NSArray *)sensorReadingsData Completion:(void(^)())completion;
-- (SensorReading *)createNewSensorReadingWithData:(NSDictionary *)data;
+- (SensorReading *)createNewSensorReadingWithDateString:(NSDictionary *)data;
+- (SensorReading *)createNewSensorReadingWithTimeInterval:(NSDictionary *)data;
 
 // Location
 - (Location *)createNewLocationWithData:(NSDictionary *)data;

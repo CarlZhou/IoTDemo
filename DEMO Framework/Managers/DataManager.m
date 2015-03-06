@@ -77,7 +77,7 @@
                                      @"last_updated" : @"2015-02-20 16:58:20.8250000",
                                      @"sensor_id" : @"1"
                                      };
-    SensorReading *reading = [[ParseManager sharedManager] createNewSensorReadingWithData:mockReading];
+    SensorReading *reading = [[ParseManager sharedManager] createNewSensorReadingWithDateString:mockReading];
     
     NSDictionary *mockSensor = @{
                                  @"id" : @"1",
@@ -112,6 +112,8 @@
     
 }
 
+#pragma mark - Communicate with WebSocket Manager
+
 - (void)subscribeSelectedSensor
 {
     if ([WebSocketManager sharedManager].isSocketOpen)
@@ -133,6 +135,22 @@
         [self subscribeSelectedSensor];
     }
 }
+
+- (void)updateSensorReadings:(NSArray*)newReadings
+{
+    [newReadings enumerateObjectsUsingBlock:^(NSDictionary *data, NSUInteger index, BOOL *stop){
+        SensorReading *sensorReading = [[ParseManager sharedManager] createNewSensorReadingWithTimeInterval:data];
+        NSLog(@"new reading: %@", sensorReading);
+        [self.sensorReadings addObject:sensorReading];
+    }];
+    int numReadingsLimit = self.numberOfReadingPoints ? [self.numberOfReadingPoints integerValue]: 10;
+    while ([self.sensorReadings count] > numReadingsLimit) {
+        [self.sensorReadings removeObjectAtIndex:0];
+    }
+    [[NSNotificationCenter defaultCenter] postNotificationName:SENSOR_READINGS_DATA_UPDATED object:nil];
+}
+
+#pragma mark - call API to fetch sensor and readings
 
 - (void)updateSensorsInfomation
 {
@@ -160,10 +178,6 @@
     self.sensorsInfoUpdateTimer = [NSTimer scheduledTimerWithTimeInterval:interval target:self selector:@selector(updateSensorsInfomation) userInfo:nil repeats:YES];
 }
 
-- (void)updateSensorReadings
-{
-    [[NSNotificationCenter defaultCenter] postNotificationName:SENSOR_READINGS_DATA_UPDATED object:nil];
-}
 
 - (void)updateSensorReadingsInfomationWithCompletion:(void(^)())completion
 {
@@ -191,7 +205,6 @@
     [self updateSensorReadingsInfomationWithCompletion:nil];
 }
 
-// TODO: remove start/stop update readings with time interval
 - (void)startToUpdateSensorReadingsInfoWithTimeInterval:(NSTimeInterval)interval
 {
     [self stopUpdateSensorReadingsInfo];
@@ -207,5 +220,6 @@
         self.sensorReadingsInfoUpdateTimer = nil;
     }
 }
+
 
 @end

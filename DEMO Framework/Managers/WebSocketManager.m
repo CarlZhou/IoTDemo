@@ -10,6 +10,7 @@
 #import "ParseManager.h"
 #import "WebSocketManager.h"
 #import "SRWebSocket.h"
+#import "DataUtils.h"
 
 #define WEBSOCKET_URL @"wss://iotsocketadapterhackerlounge.us1.hana.ondemand.com/iotframeworksocketadapter/WebSocket"
 
@@ -65,16 +66,20 @@
 - (void)webSocket:(SRWebSocket *)webSocket didReceiveMessage:(id)message {
     NSLog(@"Received \"%@\"", message);
         id json = [NSJSONSerialization JSONObjectWithData:[message dataUsingEncoding:NSUTF8StringEncoding] options:0 error:nil];
-        if (json && json[@"sensor_id"]) // TODO: check if sensor_id equals subscribedSensorId
+    if (json && json[@"sensor_id"]) // TODO: check if sensor_id equals subscribedSensorId
         {
-            [self addNewReadings:message[@"readings"]];
-            [[DataManager sharedManager] updateSensorReadings];
+            NSNumber *sensorId = json[@"sensor_id"];
+            if ([sensorId isEqualToNumber:subscribedSensorId]) {
+                [[ParseManager sharedManager] parseSensorReadingsData:json[@"readings"] Completion:^(NSArray *sensors, NSArray *readings) {
+                    [[DataManager sharedManager] updateSensorReadings:readings];
+                }];
+            }
         }
 }
 
 - (void)addNewReadings:(NSArray*)readings {
     [readings enumerateObjectsUsingBlock:^(NSDictionary *data, NSUInteger index, BOOL *stop){
-        SensorReading *sensorReading = [[ParseManager sharedManager] createNewSensorReadingWithData:data];
+        SensorReading *sensorReading = [[ParseManager sharedManager] createNewSensorReadingWithTimeInterval:data];
         NSLog(@"new reading: %@", sensorReading);
         [[DataManager sharedManager].sensorReadings addObject:sensorReading];
     }];

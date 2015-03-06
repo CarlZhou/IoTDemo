@@ -47,15 +47,17 @@
         self.detailsViewController.selectedSensor = self.detailItem;
         self.graphViewController.selectedSensor = self.detailItem;
         [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        // Subscribe sensor to WebSocket
         [[DataManager sharedManager] subscribeSelectedSensor];
-        // TODO: remove below
-        [[DataManager sharedManager] updateSensorReadingsInfomationWithCompletion:^(){
-            self.graphViewController.recentReadings = [DataManager sharedManager].sensorReadings;
-            [self.detailsViewController updateWithNewData];
-            [self.graphViewController reloadData];
-            [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
-            [[DataManager sharedManager] startToUpdateSensorReadingsInfoWithTimeInterval:[[DataManager sharedManager].sensorReadingUpdatingFrequency integerValue]];
-        }];
+        
+        // Below is for pulling data from API
+//        [[DataManager sharedManager] updateSensorReadingsInfomationWithCompletion:^(){
+//            self.graphViewController.recentReadings = [DataManager sharedManager].sensorReadings;
+//            [self.detailsViewController updateWithNewData];
+//            [self.graphViewController reloadData];
+//            [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+//            [[DataManager sharedManager] startToUpdateSensorReadingsInfoWithTimeInterval:[[DataManager sharedManager].sensorReadingUpdatingFrequency integerValue]];
+//        }];
     }
 }
 

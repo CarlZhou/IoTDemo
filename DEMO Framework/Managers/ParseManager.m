@@ -116,7 +116,7 @@
     [sensorReadingsData enumerateObjectsUsingBlock:^(NSDictionary *data, NSUInteger index, BOOL *stop){
         NSArray *sensorReadings = data[@"readings"];
         [sensorReadings enumerateObjectsUsingBlock:^(NSDictionary *readingData, NSUInteger index2, BOOL *stop2){
-            [self createNewSensorReadingWithData:data];
+            [self createNewSensorReadingWithDateString:data];
         }];
         if (index == sensorReadingsData.count-1)
         {
@@ -126,11 +126,22 @@
     }];
 }
 
-- (SensorReading *)createNewSensorReadingWithData:(NSDictionary *)data
+- (SensorReading *)createNewSensorReadingWithDateString:(NSDictionary *)data
 {
     SensorReading *entity = [[SensorReading alloc] init];
     entity.sr_reading = [DataUtils numberFromString:[data objectForKey:@"reading"]];
     entity.sr_read_time = [DataUtils dateFromSQLDateString:[data objectForKey:@"read_time"]];
+    entity.sr_last_updated = [DataUtils dateFromSQLDateString:[data objectForKey:@"last_updated"]];
+    entity.sr_sensor_id = [DataUtils numberFromString:[data objectForKey:@"sensor_id"]];
+    return entity;
+}
+
+- (SensorReading *)createNewSensorReadingWithTimeInterval:(NSDictionary *)data
+{
+    SensorReading *entity = [[SensorReading alloc] init];
+    entity.sr_reading = [DataUtils numberFromString:[data objectForKey:@"reading"]];
+    NSNumber *readTime = [DataUtils numberFromString:[data objectForKey:@"read_time"]];
+    entity.sr_read_time = [NSDate dateWithTimeIntervalSince1970:[readTime doubleValue]];
     entity.sr_last_updated = [DataUtils dateFromSQLDateString:[data objectForKey:@"last_updated"]];
     entity.sr_sensor_id = [DataUtils numberFromString:[data objectForKey:@"sensor_id"]];
     return entity;
@@ -155,7 +166,7 @@
         }
         if (showLastReading) {
             if (![data[@"last_reading"][@"id"] isKindOfClass:[NSNull class]]) {
-                lastReading = [[ParseManager sharedManager] createNewSensorReadingWithData:data[@"last_reading"][@"sensor_reading"]];
+                lastReading = [[ParseManager sharedManager] createNewSensorReadingWithDateString:data[@"last_reading"][@"sensor_reading"]];
             }
         }
         sensor = [[ParseManager sharedManager] createNewSensorWithData:data Controller:controller SensorType:sensorType LastReading:lastReading];
@@ -174,7 +185,7 @@
         [sensors addObject:sensor];
         NSArray *sensorReadings = data[@"readings"];
         [sensorReadings enumerateObjectsUsingBlock:^(NSDictionary *readingData, NSUInteger index2, BOOL *stop2){
-            [readings addObject:[[ParseManager sharedManager] createNewSensorReadingWithData:readingData]];
+            [readings addObject:[[ParseManager sharedManager] createNewSensorReadingWithDateString:readingData]];
         }];
         if (index == sensorReadingsData.count-1)
         {
@@ -185,5 +196,6 @@
     if (sensorReadingsData.count == 0 && completion)
         completion(nil, nil);
 }
+
 
 @end
