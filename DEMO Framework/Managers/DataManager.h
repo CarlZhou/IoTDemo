@@ -34,6 +34,7 @@
 // DataPoints
 @property (nonatomic, strong) NSNumber *numberOfReadingPoints;
 
+- (void)subscribeSelectedSensor;
 - (void)updateSensorsInfomation;
 - (void)startToUpdateSensorsInfoWithTimeInterval:(NSTimeInterval)interval;
 - (void)updateSensorReadingsInfomationWithCompletion:(void(^)())completion;

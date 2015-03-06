@@ -82,13 +82,11 @@
         [[NSNotificationCenter defaultCenter] postNotificationName:DID_SELECT_NEW_SENSOR object:nil];
     }
     Sensor *sensor = [[self sensors] objectAtIndex:indexPath.row];
-    NSLog(@"current selected sensor: %@", sensor.s_id);
-    if ([[WebSocketManager sharedManager] isSocketOpen]) {
-        [[WebSocketManager sharedManager] subscribeSensor:sensor.s_id];
-    }
     RightViewController *controller = self.rightViewController;
     [controller setDetailItem:sensor];
 }
+
+
 
 #pragma mark - Table View
 

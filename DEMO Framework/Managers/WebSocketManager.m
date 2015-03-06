@@ -2,7 +2,7 @@
 //  WebSocketManager.m
 //  DEMO Framework
 //
-//  Created by Sybase on 2015-03-03.
+//  Created by tracyshi on 2015-03-05.
 //  Copyright (c) 2015 SAP Canada. All rights reserved.
 //
 
@@ -64,11 +64,6 @@
 
 - (void)webSocket:(SRWebSocket *)webSocket didReceiveMessage:(id)message {
     NSLog(@"Received \"%@\"", message);
-//    id json = [NSJSONSerialization JSONObjectWithData:[message dataUsingEncoding:NSUTF8StringEncoding] options:0 error:nil];
-//    if (json && json[@"sensor_id"])
-//    {
-//        [self addNewReadings:message[@"readings"]];
-//    }
 }
 
 - (void)addNewReadings:(NSArray*)readings {

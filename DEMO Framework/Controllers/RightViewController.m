@@ -47,6 +47,7 @@
         self.detailsViewController.selectedSensor = self.detailItem;
         self.graphViewController.selectedSensor = self.detailItem;
         [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        [[DataManager sharedManager] subscribeSelectedSensor];
         [[DataManager sharedManager] updateSensorReadingsInfomationWithCompletion:^(){
             self.graphViewController.recentReadings = [DataManager sharedManager].sensorReadings;
             [self.detailsViewController updateWithNewData];
@@ -99,6 +100,5 @@
         self.detailsViewController = (DetailsViewController *) [segue destinationViewController];
     }
 }
-
 
 @end
