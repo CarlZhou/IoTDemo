@@ -160,6 +160,11 @@
     self.sensorsInfoUpdateTimer = [NSTimer scheduledTimerWithTimeInterval:interval target:self selector:@selector(updateSensorsInfomation) userInfo:nil repeats:YES];
 }
 
+- (void)updateSensorReadings
+{
+    [[NSNotificationCenter defaultCenter] postNotificationName:SENSOR_READINGS_DATA_UPDATED object:nil];
+}
+
 - (void)updateSensorReadingsInfomationWithCompletion:(void(^)())completion
 {
     if (self.selectedSensor)
@@ -186,6 +191,7 @@
     [self updateSensorReadingsInfomationWithCompletion:nil];
 }
 
+// TODO: remove start/stop update readings with time interval
 - (void)startToUpdateSensorReadingsInfoWithTimeInterval:(NSTimeInterval)interval
 {
     [self stopUpdateSensorReadingsInfo];
