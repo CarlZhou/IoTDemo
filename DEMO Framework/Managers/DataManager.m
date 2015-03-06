@@ -18,6 +18,7 @@
 #import "APIManager.h"
 #import "constants.h"
 #import "ParseManager.h"
+#import "WebSocketManager.h"
 
 @implementation DataManager
 
@@ -109,6 +110,28 @@
 - (void)clearMockupData
 {
     
+}
+
+- (void)subscribeSelectedSensor
+{
+    if ([WebSocketManager sharedManager].isSocketOpen)
+        {
+            [[WebSocketManager sharedManager] subscribeSensor:self.selectedSensor.s_id];
+        }
+    else
+    {
+        [[WebSocketManager sharedManager] addObserver:self forKeyPath:@"isSocketOpen" options:NSKeyValueObservingOptionNew context:nil];
+    }
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+{
+    if ([object isKindOfClass:[WebSocketManager class]] && [keyPath isEqualToString:@"isSocketOpen"]
+        && [WebSocketManager sharedManager].isSocketOpen)
+    {
+        [[WebSocketManager sharedManager] removeObserver:self forKeyPath:@"isSocketOpen"];
+        [self subscribeSelectedSensor];
+    }
 }
 
 - (void)updateSensorsInfomation
