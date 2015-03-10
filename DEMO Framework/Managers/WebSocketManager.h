@@ -10,9 +10,7 @@
 
 @interface WebSocketManager : NSObject
 
-@property (nonatomic) BOOL isSocketOpen;
 + (instancetype)sharedManager;
-- (void)connectWebSocket;
-- (void)subscribeSensor:(NSNumber *)sensorId;
+- (void)openWebSocketOnSensor:(NSNumber *)sensorId;
 
 @end

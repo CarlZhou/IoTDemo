@@ -114,27 +114,36 @@
 
 #pragma mark - Update Sensor Reading Through WebSocket
 
+//- (void)subscribeSelectedSensor
+//{
+//    if ([WebSocketManager sharedManager].isSocketOpen)
+//    {
+//        [[WebSocketManager sharedManager] subscribeSensor:self.selectedSensor.s_id];
+//    }
+//    else
+//    {
+//        [[WebSocketManager sharedManager] addObserver:self forKeyPath:@"isSocketOpen" options:NSKeyValueObservingOptionNew context:nil];
+//    }
+//}
+
 - (void)subscribeSelectedSensor
 {
-    if ([WebSocketManager sharedManager].isSocketOpen)
+    NSNumber *selectedSensorId = self.selectedSensor.s_id;
+    if (![self.subscribedSensors containsObject:selectedSensorId])
     {
-        [[WebSocketManager sharedManager] subscribeSensor:self.selectedSensor.s_id];
-    }
-    else
-    {
-        [[WebSocketManager sharedManager] addObserver:self forKeyPath:@"isSocketOpen" options:NSKeyValueObservingOptionNew context:nil];
+        [[WebSocketManager sharedManager] openWebSocketOnSensor:selectedSensorId];
     }
 }
 
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
-{
-    if ([object isKindOfClass:[WebSocketManager class]] && [keyPath isEqualToString:@"isSocketOpen"]
-        && [WebSocketManager sharedManager].isSocketOpen)
-    {
-        [[WebSocketManager sharedManager] removeObserver:self forKeyPath:@"isSocketOpen"];
-        [self subscribeSelectedSensor];
-    }
-}
+//- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+//{
+//    if ([object isKindOfClass:[WebSocketManager class]] && [keyPath isEqualToString:@"isSocketOpen"]
+//        && [WebSocketManager sharedManager].isSocketOpen)
+//    {
+//        [[WebSocketManager sharedManager] removeObserver:self forKeyPath:@"isSocketOpen"];
+//        [self subscribeSelectedSensor];
+//    }
+//}
 
 - (void)updateSensorReadings:(NSArray*)newReadings
 {

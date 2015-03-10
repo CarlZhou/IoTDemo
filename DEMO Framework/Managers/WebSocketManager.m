@@ -6,19 +6,18 @@
 //  Copyright (c) 2015 SAP Canada. All rights reserved.
 //
 
-#import "DataManager.h"
-#import "ParseManager.h"
 #import "WebSocketManager.h"
 #import "SRWebSocket.h"
+#import "WebSocketClient.h"
+#import "DataManager.h"
+#import "ParseManager.h"
 #import "DataUtils.h"
 
 #define WEBSOCKET_URL @"wss://iotsocketadapterhackerlounge.us1.hana.ondemand.com/iotframeworksocketadapter/WebSocket"
 
-@interface WebSocketManager() <SRWebSocketDelegate> {
-    NSNumber *subscribedSensorId;
-    SRWebSocket *srWebSocket;
+@interface WebSocketManager()  <SRWebSocketDelegate> {
+    NSMutableArray *webSocketClients;
 }
-
 @end
 
 @implementation WebSocketManager
@@ -33,55 +32,45 @@
     return sharedMyManager;
 }
 
-#pragma mark - Connection
-
-- (void)connectWebSocket {
-    srWebSocket.delegate = nil;
-    srWebSocket = nil;
-    srWebSocket = [[SRWebSocket alloc] initWithURL:[NSURL URLWithString:WEBSOCKET_URL]];
-    srWebSocket.delegate = self;
-    self.isSocketOpen = false;
-    [srWebSocket open];
+- (void)openWebSocketOnSensor:(NSNumber *)sensorId
+{
+    WebSocketClient *webSocket = [[WebSocketClient alloc] initWithURL:[NSURL URLWithString:WEBSOCKET_URL] sensorId:sensorId];
+    webSocket.delegate = self;
+    [webSocketClients addObject:webSocket];
 }
 
+#pragma mark - web socket delegate
 
-#pragma mark - SRWebSocket delegate
-
-- (void)webSocketDidOpen:(SRWebSocket *)webSocket {
-    srWebSocket = webSocket;
-    self.isSocketOpen = true;
+- (void)webSocketDidOpen:(WebSocketClient *)webSocket
+{
+    [webSocket subscribeSensor];
 }
 
-- (void)webSocket:(SRWebSocket *)webSocket didFailWithError:(NSError *)error {
+- (void)webSocket:(WebSocketClient *)webSocket didFailWithError:(NSError *)error
+{
     NSLog(@":( Websocket Failed With Error %@", error);
-    srWebSocket = nil;
-    self.isSocketOpen = false;
-    [self connectWebSocket];
+    NSNumber *failedSensorId = webSocket.subscribedSensorId;
+    [webSocketClients removeObject:webSocket];
+    [self openWebSocketOnSensor:failedSensorId];// attempt to reconnect the sensor to the websocket
 }
 
-- (void)webSocket:(SRWebSocket *)webSocket didCloseWithCode:(NSInteger)code reason:(NSString *)reason wasClean:(BOOL)wasClean {
+- (void)webSocket:(WebSocketClient *)webSocket didCloseWithCode:(NSInteger)code reason:(NSString *)reason wasClean:(BOOL)wasClean
+{
     NSLog(@"WebSocket closed with code:%ld, with reason:%@", (long)code, reason);
-    srWebSocket = nil;
-    self.isSocketOpen = false;
-    [self connectWebSocket];
+    NSNumber *failedSensorId = webSocket.subscribedSensorId;
+    [webSocketClients removeObject:webSocket];
+    [self openWebSocketOnSensor:failedSensorId];// attempt to reconnect the sensor to the websocket
 }
 
-- (void)webSocket:(SRWebSocket *)webSocket didReceiveMessage:(id)message {
+- (void)webSocket:(WebSocketClient *)webSocket didReceiveMessage:(id)message
+{
     NSLog(@"Received \"%@\"", message);
-        id json = [NSJSONSerialization JSONObjectWithData:[message dataUsingEncoding:NSUTF8StringEncoding] options:0 error:nil];
-    if (json && json[@"sensor_id"]) // TODO: check if sensor_id equals subscribedSensorId
-        {
-            if ([json[@"sensor_id"] isEqualToNumber:subscribedSensorId]) {
-                [[ParseManager sharedManager] parseSensorReadingsDataFromWebSocket:json[@"readings"] Completion:^(NSArray *readings) {
-                    [[DataManager sharedManager] updateSensorReadings:readings];
-                }];
-            }
-        }
-}
-
-- (void)subscribeSensor:(NSNumber *)sensorId {
-    subscribedSensorId = sensorId;
-    [srWebSocket send:[NSString stringWithFormat:@"{command:\"subscribe\",sensorId:%@}", sensorId]];   // test
+    id json = [NSJSONSerialization JSONObjectWithData:[message dataUsingEncoding:NSUTF8StringEncoding] options:0 error:nil];
+    if (json && json[@"sensor_id"] && [json[@"sensor_id"] isEqualToNumber:webSocket.subscribedSensorId]) {
+        [[ParseManager sharedManager] parseSensorReadingsDataFromWebSocket:json[@"readings"]Completion:^(NSArray *readings) {
+            [[DataManager sharedManager] updateSensorReadings:readings];
+        }];
+    }
 }
 
 @end

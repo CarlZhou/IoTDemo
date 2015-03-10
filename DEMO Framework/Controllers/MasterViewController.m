@@ -33,7 +33,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [[WebSocketManager sharedManager] connectWebSocket];
+//    [[WebSocketManager sharedManager] connectWebSocket];
     
     // Do any additional setup after loading the view, typically from a nib.
     self.sensors = [NSMutableArray array];

@@ -68,6 +68,7 @@
     launchScreen = [nibViews objectAtIndex:0];
     [self.splitViewController.view addSubview:launchScreen];
     
+//    [self dismissLaunchScreen];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dismissLaunchScreen) name:SENSOR_DATA_UPDATED object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showErrorScreen) name:SENSOR_DATA_UPDATED_FAILED object:nil];
 }

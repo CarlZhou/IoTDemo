@@ -20,11 +20,12 @@
 - (void)clearMockupData;
 
 // Data
-@property (nonatomic, strong) NSMutableArray *sensors;
-@property (nonatomic, strong) NSTimer *sensorsInfoUpdateTimer;
 @property (nonatomic, strong) Sensor *selectedSensor;
 @property (nonatomic, strong) NSIndexPath *selectedSensorIndexPath;
+@property (nonatomic, strong) NSMutableArray *subscribedSensors;
+@property (nonatomic, strong) NSMutableArray *sensors;
 @property (nonatomic, strong) NSMutableArray *sensorReadings;
+@property (nonatomic, strong) NSTimer *sensorsInfoUpdateTimer;
 @property (nonatomic, strong) NSTimer *sensorReadingsInfoUpdateTimer;
 
 // User Defaults
