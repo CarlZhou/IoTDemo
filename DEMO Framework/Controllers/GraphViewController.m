@@ -240,7 +240,7 @@
 
 - (void)updateWithNewData
 {
-    self.recentReadings = [DataManager sharedManager].sensorReadings;
+    self.recentReadings = [DataManager sharedManager].recentReadingsOfSelectedSensor;
     [self reloadData];
 }
 

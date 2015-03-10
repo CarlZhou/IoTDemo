@@ -63,8 +63,8 @@
 
 - (void)updateWithNewData
 {
-    self.recentReadings = [DataManager sharedManager].sensorReadings;
-    [self filterReadingsIntoSections:[DataManager sharedManager].sensorReadings];
+    self.recentReadings = [DataManager sharedManager].recentReadingsOfSelectedSensor;
+    [self filterReadingsIntoSections:self.recentReadings];
     self.selectedSensor = [DataManager sharedManager].selectedSensor;
     [self reloadViews];
 }

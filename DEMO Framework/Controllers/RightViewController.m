@@ -32,6 +32,7 @@
 {
     if (_detailItem != newDetailItem)
     {
+        
         _detailItem = newDetailItem;
             
         // Update the view.
@@ -43,17 +44,17 @@
     // Update the user interface for the detail item.
     if (self.detailItem)
     {
+//        [[DataManager sharedManager] unsubscribeSelectedSensor];
         [DataManager sharedManager].selectedSensor = self.detailItem;
         self.detailsViewController.selectedSensor = self.detailItem;
         self.graphViewController.selectedSensor = self.detailItem;
 //        [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-        // Subscribe sensor to WebSocket
-        
+
         [[DataManager sharedManager] subscribeSelectedSensor];
 
         // Below is for pulling data from API
 //        [[DataManager sharedManager] updateSensorReadingsInfomationWithCompletion:^(){
-//            self.graphViewController.recentReadings = [DataManager sharedManager].sensorReadings;
+//            self.graphViewController.recentReadings = [DataManager sharedManager].recentReadingsOfSelectedSensor;
 //            [self.detailsViewController updateWithNewData];
 //            [self.graphViewController reloadData];
 //            [MBProgressHUD hideAllHUDsForView:self.view animated:YES];

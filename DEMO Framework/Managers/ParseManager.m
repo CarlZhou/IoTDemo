@@ -197,11 +197,12 @@
         completion(nil, nil);
 }
 
-- (void)parseSensorReadingsDataFromWebSocket:(NSArray *)sensorReadingsData Completion:(void(^)(NSArray *readings))completion
+- (void)parseSensorReadingsDataFromWebSocket:(NSArray *)sensorReadingsData forSensor:(NSNumber *)sensorId Completion:(void(^)(NSArray *readings))completion
 {
     NSMutableArray *readings = [NSMutableArray array];
     [sensorReadingsData enumerateObjectsUsingBlock:^(NSDictionary *data, NSUInteger index, BOOL *stop){
         SensorReading *sensorReading = [[ParseManager sharedManager] createNewSensorReadingWithTimeInterval:data];
+        sensorReading.sr_sensor_id = sensorId;
         [readings addObject:sensorReading];
         if (completion) {
             completion(readings);

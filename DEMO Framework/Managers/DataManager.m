@@ -20,6 +20,11 @@
 #import "ParseManager.h"
 #import "WebSocketManager.h"
 
+@interface DataManager() {
+    NSMutableArray *subscribedSensors;
+}
+@end
+
 @implementation DataManager
 
 + (instancetype)sharedManager {
@@ -114,47 +119,33 @@
 
 #pragma mark - Update Sensor Reading Through WebSocket
 
-//- (void)subscribeSelectedSensor
-//{
-//    if ([WebSocketManager sharedManager].isSocketOpen)
-//    {
-//        [[WebSocketManager sharedManager] subscribeSensor:self.selectedSensor.s_id];
-//    }
-//    else
-//    {
-//        [[WebSocketManager sharedManager] addObserver:self forKeyPath:@"isSocketOpen" options:NSKeyValueObservingOptionNew context:nil];
-//    }
-//}
-
 - (void)subscribeSelectedSensor
 {
-    NSNumber *selectedSensorId = self.selectedSensor.s_id;
-    if (![self.subscribedSensors containsObject:selectedSensorId])
-    {
-        [[WebSocketManager sharedManager] openWebSocketOnSensor:selectedSensorId];
-    }
+    NSLog(@"selected sensor id: %@", self.selectedSensor.s_id);
+    [[WebSocketManager sharedManager] openWebSocketForSensor:self.selectedSensor.s_id];
 }
 
-//- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
-//{
-//    if ([object isKindOfClass:[WebSocketManager class]] && [keyPath isEqualToString:@"isSocketOpen"]
-//        && [WebSocketManager sharedManager].isSocketOpen)
-//    {
-//        [[WebSocketManager sharedManager] removeObserver:self forKeyPath:@"isSocketOpen"];
-//        [self subscribeSelectedSensor];
-//    }
-//}
+- (void)unsubscribeSelectedSensor
+{
+    NSLog(@"selected sensor id: %@", self.selectedSensor.s_id);
+    [[WebSocketManager sharedManager] closeWebSocketForSensor:self.selectedSensor.s_id];
+}
 
 - (void)updateSensorReadings:(NSArray*)newReadings
 {
     [newReadings enumerateObjectsUsingBlock:^(SensorReading *reading, NSUInteger index, BOOL *stop){
-        NSLog(@"new reading: %@", reading);
         [self.sensorReadings insertObject:reading atIndex:0];
     }];
-    int numReadingsLimit = self.numberOfReadingPoints ? [self.numberOfReadingPoints integerValue]: 10;
-    while ([self.sensorReadings count] > numReadingsLimit) {
-        [self.sensorReadings removeObjectAtIndex:numReadingsLimit-1];
+    // filter sensorReadings to get recent readings of the selected sensor
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"sr_sensor_id == %@",self.selectedSensor.s_id];
+    NSMutableArray *recentReading = [[self.sensorReadings filteredArrayUsingPredicate:predicate] mutableCopy];
+    
+    int limit = self.numberOfReadingPoints ? [self.numberOfReadingPoints integerValue]: 10;
+    while ([recentReading count] > limit)
+    {
+        [recentReading removeObjectAtIndex:limit];
     }
+    self.recentReadingsOfSelectedSensor = recentReading;
     [[NSNotificationCenter defaultCenter] postNotificationName:SENSOR_READINGS_DATA_UPDATED object:nil];
 }
 
@@ -228,11 +219,6 @@
         [self.sensorReadingsInfoUpdateTimer invalidate];
         self.sensorReadingsInfoUpdateTimer = nil;
     }
-}
-
-- (void)webSocket:(SRWebSocket *)webSocket didReceiveMessage:(id)message
-{
-    
 }
 
 @end

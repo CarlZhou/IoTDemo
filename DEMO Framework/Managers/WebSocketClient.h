@@ -14,5 +14,6 @@
 @property (nonatomic,strong) NSNumber *subscribedSensorId;
 - (instancetype)initWithURL:(NSURL *)url sensorId:(NSNumber *)sensorId;
 - (void)subscribeSensor;
+- (void)closeConnnection;
 
 @end

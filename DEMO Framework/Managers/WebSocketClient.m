@@ -27,4 +27,9 @@
     [self send:[NSString stringWithFormat:@"{command:\"subscribe\",sensorId:%@}", self.subscribedSensorId]];
 }
 
+- (void)closeConnnection
+{
+    [self close];
+}
+
 @end
