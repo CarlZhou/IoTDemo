@@ -13,6 +13,7 @@
 #import "DataManager.h"
 #import "Sensor.h"
 #import "MBProgressHUD.h"
+#import "constants.h"
 
 @interface RightViewController ()
 
@@ -48,8 +49,8 @@
         [DataManager sharedManager].selectedSensor = self.detailItem;
         self.detailsViewController.selectedSensor = self.detailItem;
         self.graphViewController.selectedSensor = self.detailItem;
-//        [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-
+        
+        [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         [[DataManager sharedManager] subscribeSelectedSensor];
 
         // Below is for pulling data from API
@@ -70,6 +71,12 @@
     
     UIBarButtonItem *hiddenButton = [[UIBarButtonItem alloc] initWithTitle:@"    " style:UIBarButtonItemStylePlain target:self action:@selector(showToggles)];
     self.navigationItem.rightBarButtonItem = hiddenButton;
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(hideProgressHUD) name:SENSOR_READINGS_DATA_UPDATED object:nil];
+}
+
+- (void)hideProgressHUD
+{
+    [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
 }
 
 - (void)showToggles
