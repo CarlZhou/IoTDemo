@@ -885,6 +885,8 @@ typedef NS_ENUM(NSInteger, BEMInternalTags)
 #pragma mark - Calculations
 
 - (NSNumber *)calculatePointValueAverage {
+    if (dataPoints.count == 0) return @0;
+    
     NSExpression *expression = [NSExpression expressionForFunction:@"average:" arguments:@[[NSExpression expressionForConstantValue:dataPoints]]];
     NSNumber *value = [expression expressionValueWithObject:nil context:nil];
     
@@ -962,58 +964,59 @@ typedef NS_ENUM(NSInteger, BEMInternalTags)
 }
 
 - (NSNumber *)calculateMinimumPointValue {
-    if (dataPoints.count > 0) {
-        NSExpression *expression = [NSExpression expressionForFunction:@"min:" arguments:@[[NSExpression expressionForConstantValue:dataPoints]]];
-        NSNumber *value = [expression expressionValueWithObject:nil context:nil];
+    if (dataPoints.count == 0) return @0;
+    
+    NSExpression *expression = [NSExpression expressionForFunction:@"min:" arguments:@[[NSExpression expressionForConstantValue:dataPoints]]];
+    NSNumber *value = [expression expressionValueWithObject:nil context:nil];
         
 #pragma mark - Modified here
         
-        if (self.turnOnMeasureLines)
+    if (self.turnOnMeasureLines)
+    {
+        // Min Line
+        if (!self.minLineView)
         {
-            // Min Line
-            if (!self.minLineView)
-            {
-                self.minLineView = [[UIView alloc] initWithFrame:CGRectMake(self.YAxisLabelXOffset, [self yPositionForDotValue:[value floatValue]], self.frame.size.width - self.YAxisLabelXOffset, 1)];
-                self.minLineView.backgroundColor = customRed;
-                [self addSubview:self.minLineView];
-                [self bringSubviewToFront:self.minLineView];
-            }
-            else
-            {
-                [self.minLineView setFrame:CGRectMake(self.YAxisLabelXOffset, [self yPositionForDotValue:[value floatValue]], self.frame.size.width - self.YAxisLabelXOffset, 1)];
-                [self addSubview:self.minLineView];
-                [self bringSubviewToFront:self.minLineView];
-            }
-            
-            if (!self.minLabel)
-            {
-                self.minLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.frame.size.width+5, [self yPositionForDotValue:[value floatValue]]-10, 40, 20)];
-                self.minLabel.text = @"Min";
-                self.minLabel.textColor = customRed;
-                self.minLabel.font = [UIFont fontWithName:@"AvenirNext-Bold" size:12.0f];
-                [self addSubview:self.minLabel];
-                [self bringSubviewToFront:self.minLabel];
-            }
-            else
-            {
-                [self.minLabel setFrame:CGRectMake(self.frame.size.width+5, [self yPositionForDotValue:[value floatValue]]-10, 40, 20)];
-                [self addSubview:self.minLabel];
-                [self bringSubviewToFront:self.minLabel];
-            }
+            self.minLineView = [[UIView alloc] initWithFrame:CGRectMake(self.YAxisLabelXOffset, [self yPositionForDotValue:[value floatValue]], self.frame.size.width - self.YAxisLabelXOffset, 1)];
+            self.minLineView.backgroundColor = customRed;
+            [self addSubview:self.minLineView];
+            [self bringSubviewToFront:self.minLineView];
         }
         else
         {
-            if (self.minLineView)
-                [self.minLineView removeFromSuperview];
-            if (self.minLabel)
-                [self.minLabel removeFromSuperview];
+            [self.minLineView setFrame:CGRectMake(self.YAxisLabelXOffset, [self yPositionForDotValue:[value floatValue]], self.frame.size.width - self.YAxisLabelXOffset, 1)];
+            [self addSubview:self.minLineView];
+            [self bringSubviewToFront:self.minLineView];
         }
         
-        return value;
-    } else return @0;
+        if (!self.minLabel)
+        {
+            self.minLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.frame.size.width+5, [self yPositionForDotValue:[value floatValue]]-10, 40, 20)];
+            self.minLabel.text = @"Min";
+            self.minLabel.textColor = customRed;
+            self.minLabel.font = [UIFont fontWithName:@"AvenirNext-Bold" size:12.0f];
+            [self addSubview:self.minLabel];
+            [self bringSubviewToFront:self.minLabel];
+        }
+        else
+        {
+            [self.minLabel setFrame:CGRectMake(self.frame.size.width+5, [self yPositionForDotValue:[value floatValue]]-10, 40, 20)];
+            [self addSubview:self.minLabel];
+            [self bringSubviewToFront:self.minLabel];
+        }
+    }
+    else
+    {
+        if (self.minLineView)
+            [self.minLineView removeFromSuperview];
+        if (self.minLabel)
+            [self.minLabel removeFromSuperview];
+    }
+    return value;
 }
 
 - (NSNumber *)calculateMaximumPointValue {
+    if (dataPoints.count == 0) return @0;
+    
     NSExpression *expression = [NSExpression expressionForFunction:@"max:" arguments:@[[NSExpression expressionForConstantValue:dataPoints]]];
     NSNumber *value = [expression expressionValueWithObject:nil context:nil];
     
