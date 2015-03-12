@@ -13,10 +13,9 @@
 @interface GraphViewController : UIViewController
 
 @property (nonatomic, strong) Sensor *selectedSensor;
-
 @property (nonatomic, strong) NSMutableArray *recentReadings;
+@property (nonatomic) BOOL graphAnimation;
 
-- (void)reloadGaugeViews;
 - (void)updateWithNewData;
 
 // Hidden

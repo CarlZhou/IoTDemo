@@ -93,7 +93,8 @@
             break;
         case 1:
             [self.view bringSubviewToFront:self.graphContainer];
-            [self.graphViewController reloadGaugeViews];
+            self.graphViewController.graphAnimation = true;
+            [self.graphViewController updateWithNewData];
             break;
         default:
             break;

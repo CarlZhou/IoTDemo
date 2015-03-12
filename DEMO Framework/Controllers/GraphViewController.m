@@ -23,7 +23,6 @@
 
 @interface GraphViewController ()<BEMSimpleLineGraphDataSource, BEMSimpleLineGraphDelegate>
 {    
-    BOOL isNewSensor;
     double circularViewAnimatingTime;
 }
 @property (weak, nonatomic) IBOutlet UIView *currentViewContainer;
@@ -81,7 +80,7 @@
 
 - (void)didSelectNewSensor
 {
-    isNewSensor = YES;
+    self.graphAnimation = YES;
 }
 
 #pragma mark - Gauge Views
@@ -167,8 +166,8 @@
     self.lineGraph.clipsToBounds = NO;
     self.lineGraph.turnOnMeasureLines = YES;
     
-    self.lineOneData = [NSMutableArray arrayWithArray:@[@60, @50, @30, @40, @80]];
-    self.lineOneDataDetail = [NSMutableArray arrayWithArray:@[@"Mon",@"Tue", @"Wed", @"Thu", @"Fri"]];
+    self.lineOneData = [NSMutableArray arrayWithArray:@[@60,@30]];
+    self.lineOneDataDetail = [NSMutableArray arrayWithArray:@[@"Mon",@"Tue"]];
     // Line Graph End
 }
 
@@ -242,10 +241,15 @@
 - (void)updateWithNewData
 {
     self.recentReadings = [[DataManager sharedManager] getRecentReadingsOfSensor:self.selectedSensor.s_id];
-    [self reloadData];
+    [self reloadViews];
 }
 
-- (void)reloadData
+- (void)reloadViews
+{
+    [self reloadGraphView]; // gauge views reloading are triggered in reloadGraphView
+}
+
+- (void)reloadGraphView
 {
     [self.lineOneData removeAllObjects];
     [self.lineOneDataDetail removeAllObjects];
@@ -261,16 +265,24 @@
         [self.lineOneDataDetail addObject:[formatter stringFromDate:reading.sr_read_time]];
         if (index == self.recentReadings.count-1)
         {
-            self.lineGraph.animationGraphEntranceTime = isNewSensor ? 1.5 : 0;
+            self.lineGraph.turnOnMeasureLines = YES;
+            self.lineGraph.animationGraphEntranceTime = self.graphAnimation ? 1.5 : 0;
             [self.lineGraph reloadGraph];
-            if (isNewSensor)
+            if (self.graphAnimation)
             {
-                isNewSensor = NO;
+                self.graphAnimation = NO;
             }
             // Graphs
             [self performSelector:@selector(reloadGaugeViews) withObject:nil afterDelay:0.1];
         }
     }];
+    
+    if (self.recentReadings.count == 0)
+    {
+        self.lineGraph.turnOnMeasureLines = NO;
+        [self.lineGraph reloadGraph];
+        [self performSelector:@selector(reloadGaugeViews) withObject:nil afterDelay:0.1];
+    }
 }
 
 @end
