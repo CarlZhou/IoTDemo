@@ -121,11 +121,19 @@
 - (void)reloadGaugeViews
 {
     NSInteger range = [self.selectedSensor.s_sensor_type.st_reading_max floatValue] - [self.selectedSensor.s_sensor_type.st_reading_min floatValue];
-    NSNumber *reading = [self.lineOneData lastObject];
-    float currentReading = [reading floatValue];
-    float avgReading = [[self.lineGraph calculatePointValueAverage] floatValue];
-    float minReading = [[self.lineGraph calculateMinimumPointValue] floatValue];
-    float maxReading = [[self.lineGraph calculateMaximumPointValue] floatValue];
+    float currentReading = 0;
+    float avgReading = 0;
+    float minReading = 0;
+    float maxReading = 0;
+    
+    if (self.recentReadings.count > 0)
+    {
+        NSNumber *reading = [self.lineOneData lastObject];
+        currentReading = [reading floatValue];
+        avgReading = [[self.lineGraph calculatePointValueAverage] floatValue];
+        minReading = [[self.lineGraph calculateMinimumPointValue] floatValue];
+        maxReading = [[self.lineGraph calculateMaximumPointValue] floatValue];
+    }
     
     [self reloadSingleGaugeView:self.currentGaugeView Label:self.currentLabel Range:range Reading:currentReading];
     [self reloadSingleGaugeView:self.averageGaugeView Label:self.averageLabel Range:range Reading:avgReading];
@@ -141,7 +149,6 @@
     [label setTextAlignment:NSTextAlignmentCenter];
     [label setTextColor:[UIColor darkGrayColor]];
 }
-
 
 #pragma mark - Line Graph
 
@@ -166,8 +173,8 @@
     self.lineGraph.clipsToBounds = NO;
     self.lineGraph.turnOnMeasureLines = YES;
     
-    self.lineOneData = [NSMutableArray arrayWithArray:@[@60,@30]];
-    self.lineOneDataDetail = [NSMutableArray arrayWithArray:@[@"Mon",@"Tue"]];
+    self.lineOneData = [NSMutableArray array];
+    self.lineOneDataDetail = [NSMutableArray array];
     // Line Graph End
 }
 
@@ -189,6 +196,7 @@
 
 - (CGFloat)lineGraph:(BEMSimpleLineGraphView *)graph valueForPointAtIndex:(NSInteger)index
 {
+//    self.lineOneData = [[DataManager sharedManager] getRecentReadingsOfSensor:self.selectedSensor.s_id];
     NSNumber *number = [self.lineOneData objectAtIndex:index];
     return [number doubleValue]; // The value of the point on the Y-Axis for the index.
 }
@@ -241,11 +249,6 @@
 - (void)updateWithNewData
 {
     self.recentReadings = [[DataManager sharedManager] getRecentReadingsOfSensor:self.selectedSensor.s_id];
-    [self reloadViews];
-}
-
-- (void)reloadViews
-{
     [self reloadGraphView]; // gauge views reloading are triggered in reloadGraphView
 }
 
@@ -276,7 +279,6 @@
             [self performSelector:@selector(reloadGaugeViews) withObject:nil afterDelay:0.1];
         }
     }];
-    
     if (self.recentReadings.count == 0)
     {
         self.lineGraph.turnOnMeasureLines = NO;

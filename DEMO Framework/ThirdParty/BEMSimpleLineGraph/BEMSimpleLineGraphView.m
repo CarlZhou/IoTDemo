@@ -886,7 +886,6 @@ typedef NS_ENUM(NSInteger, BEMInternalTags)
 
 - (NSNumber *)calculatePointValueAverage {
     if (dataPoints.count == 0) return @0;
-    
     NSExpression *expression = [NSExpression expressionForFunction:@"average:" arguments:@[[NSExpression expressionForConstantValue:dataPoints]]];
     NSNumber *value = [expression expressionValueWithObject:nil context:nil];
     
