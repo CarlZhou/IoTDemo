@@ -33,9 +33,7 @@
 {
     if (_detailItem != newDetailItem)
     {
-        
         _detailItem = newDetailItem;
-            
         // Update the view.
         [self configureView];
     }
@@ -45,7 +43,7 @@
     // Update the user interface for the detail item.
     if (self.detailItem)
     {
-//        [[DataManager sharedManager] unsubscribeSelectedSensor];
+        [[DataManager sharedManager] unsubscribeSelectedSensor];
         [DataManager sharedManager].selectedSensor = self.detailItem;
         self.detailsViewController.selectedSensor = self.detailItem;
         self.graphViewController.selectedSensor = self.detailItem;

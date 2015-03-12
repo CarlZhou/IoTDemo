@@ -29,7 +29,6 @@
 		B042EC7F1A939D0A00C2E6D9 /* DataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B042EC7E1A939D0A00C2E6D9 /* DataManager.m */; };
 		B042EC821A939D2100C2E6D9 /* APIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B042EC811A939D2100C2E6D9 /* APIManager.m */; };
 		B0CDE4171A94EB7700C8F60E /* NSDate+PrettyDate.m in Sources */ = {isa = PBXBuildFile; fileRef = B0CDE4161A94EB7700C8F60E /* NSDate+PrettyDate.m */; };
-		B27201441AADF0D40073835D /* WebSocketClient.m in Sources */ = {isa = PBXBuildFile; fileRef = B27201431AADF0D40073835D /* WebSocketClient.m */; };
 		C32488201A9E47D90079A753 /* ParseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C324881F1A9E47D90079A753 /* ParseManager.m */; };
 		C32488221A9E4F7D0079A753 /* ErrorScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = C32488211A9E4F7D0079A753 /* ErrorScreen.xib */; };
 		C32488241A9E51630079A753 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = C32488231A9E51630079A753 /* Settings.bundle */; };
@@ -107,8 +106,6 @@
 		B042EC811A939D2100C2E6D9 /* APIManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = APIManager.m; sourceTree = "<group>"; };
 		B0CDE4151A94EB7700C8F60E /* NSDate+PrettyDate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+PrettyDate.h"; sourceTree = "<group>"; };
 		B0CDE4161A94EB7700C8F60E /* NSDate+PrettyDate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+PrettyDate.m"; sourceTree = "<group>"; };
-		B27201421AADF0D40073835D /* WebSocketClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebSocketClient.h; sourceTree = "<group>"; };
-		B27201431AADF0D40073835D /* WebSocketClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebSocketClient.m; sourceTree = "<group>"; };
 		C324881E1A9E47D90079A753 /* ParseManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParseManager.h; sourceTree = "<group>"; };
 		C324881F1A9E47D90079A753 /* ParseManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ParseManager.m; sourceTree = "<group>"; };
 		C32488211A9E4F7D0079A753 /* ErrorScreen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ErrorScreen.xib; sourceTree = "<group>"; };
@@ -295,8 +292,6 @@
 				B042EC811A939D2100C2E6D9 /* APIManager.m */,
 				3C8C39F41AA67AC2001B52C6 /* WebSocketManager.h */,
 				3C8C39F51AA67AC2001B52C6 /* WebSocketManager.m */,
-				B27201421AADF0D40073835D /* WebSocketClient.h */,
-				B27201431AADF0D40073835D /* WebSocketClient.m */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -558,7 +553,6 @@
 				B042EC141A93891D00C2E6D9 /* AppDelegate.m in Sources */,
 				B042EC821A939D2100C2E6D9 /* APIManager.m in Sources */,
 				C38091B11A963F3E00BFB7C1 /* BEMCircle.m in Sources */,
-				B27201441AADF0D40073835D /* WebSocketClient.m in Sources */,
 				B042EC111A93891D00C2E6D9 /* main.m in Sources */,
 				C38091B21A963F3E00BFB7C1 /* BEMLine.m in Sources */,
 				3C8C39EA1AA67890001B52C6 /* SRWebSocket.m in Sources */,

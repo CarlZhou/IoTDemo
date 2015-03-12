@@ -122,13 +122,13 @@
 - (void)subscribeSelectedSensor
 {
     NSLog(@"selected sensor id: %@", self.selectedSensor.s_id);
-    [[WebSocketManager sharedManager] openWebSocketForSensor:self.selectedSensor.s_id];
+    [[WebSocketManager sharedManager] subscribeSensor:self.selectedSensor.s_id];
 }
 
 - (void)unsubscribeSelectedSensor
 {
     NSLog(@"selected sensor id: %@", self.selectedSensor.s_id);
-    [[WebSocketManager sharedManager] closeWebSocketForSensor:self.selectedSensor.s_id];
+    [[WebSocketManager sharedManager] unsubscribeSensor:self.selectedSensor.s_id];
 }
 
 - (void)updateSensorReadings:(NSArray*)newReadings

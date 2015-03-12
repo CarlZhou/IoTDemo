@@ -11,7 +11,10 @@
 @interface WebSocketManager : NSObject
 
 + (instancetype)sharedManager;
-- (void)openWebSocketForSensor:(NSNumber *)sensorId;
-- (void)closeWebSocketForSensor:(NSNumber *)sensorId;
+
+- (void)createWebSocketConnection;
+- (void)closeWebSocketConnection;
+- (void)subscribeSensor:(NSNumber*)sensorId;
+- (void)unsubscribeSensor:(NSNumber*)sensorId;
 
 @end

@@ -8,7 +8,6 @@
 
 #import "WebSocketManager.h"
 #import "SRWebSocket.h"
-#import "WebSocketClient.h"
 #import "DataManager.h"
 #import "ParseManager.h"
 #import "DataUtils.h"
@@ -16,10 +15,10 @@
 #define WEBSOCKET_URL @"wss://iotsocketadapterhackerlounge.us1.hana.ondemand.com/iotframeworksocketadapter/WebSocket"
 
 @interface WebSocketManager()  <SRWebSocketDelegate> {
-    
+    SRWebSocket *webSocketClient;
 }
-
-@property (strong, nonatomic) NSMutableDictionary *webSocketClients;
+@property (nonatomic,strong) NSMutableArray *subscriberBuffer;
+@property (nonatomic,strong) NSMutableArray *subscribedSensorIds;
 
 @end
 
@@ -31,56 +30,103 @@
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         sharedMyManager = [[self alloc] init];
-        sharedMyManager.webSocketClients = [NSMutableDictionary dictionary];
     });
     return sharedMyManager;
 }
 
-- (void)openWebSocketForSensor:(NSNumber *)sensorId
+- (instancetype)init
 {
-    if (![self.webSocketClients objectForKey:sensorId]) {
-        WebSocketClient *webSocket = [[WebSocketClient alloc] initWithURL:[NSURL URLWithString:WEBSOCKET_URL] sensorId:sensorId];
-        webSocket.delegate = self;
-        [self.webSocketClients setObject:webSocket forKey:sensorId];
+    self = [super init];
+    if (self)
+    {
+        self.subscribedSensorIds = [NSMutableArray array];
+        self.subscriberBuffer = [NSMutableArray array];
+    }
+    return self;
+}
+
+- (void)createWebSocketConnection
+{
+    webSocketClient = [[SRWebSocket alloc] initWithURL:[NSURL URLWithString:WEBSOCKET_URL]];
+    webSocketClient.delegate = self;
+    [webSocketClient open];
+}
+
+- (void)closeWebSocketConnection
+{
+    webSocketClient.delegate = nil;
+    [webSocketClient close];
+}
+
+- (void)subscribeSensor:(NSNumber*)sensorId
+{
+    if (webSocketClient == nil) {
+        [self createWebSocketConnection];
+    }
+    
+    if ([self isSocketOpen])
+    {
+        [webSocketClient send:[NSString stringWithFormat:@"{command:\"subscribe\",sensorId:%@}", sensorId]];
+        [self.subscribedSensorIds addObject:sensorId];
+    }
+    else
+    {
+        [self.subscriberBuffer addObject:sensorId];
     }
 }
 
-- (void)closeWebSocketForSensor:(NSNumber *)sensorId
+- (void)unsubscribeSensor:(NSNumber*)sensorId
 {
-    if ([self.webSocketClients objectForKey:sensorId]) {
-        [[self.webSocketClients objectForKey:sensorId] closeConnnection];
-        [self.webSocketClients removeObjectForKey:sensorId];
+    if ([self isSocketOpen]) {
+        [webSocketClient send:[NSString stringWithFormat:@"{command:\"unsubscribe\",sensorId:%@}", sensorId]];
+        [self.subscribedSensorIds removeObject:sensorId];
     }
+    else
+    {
+        [self.subscriberBuffer removeObject:sensorId];
+    }
+}
+
+- (BOOL)isSocketOpen
+{
+    return webSocketClient.readyState == SR_OPEN;
 }
 
 #pragma mark - web socket delegate
 
-- (void)webSocketDidOpen:(WebSocketClient *)webSocket
+- (void)webSocketDidOpen:(SRWebSocket *)webSocket
 {
-    [webSocket subscribeSensor];
+//    [self.subscriberBuffer enumerateObjectsUsingBlock:^(NSNumber *sensorId, NSUInteger index, BOOL *stop){
+//        [self subscribeSensor:sensorId];
+//        [self.subscriberBuffer removeObject:sensorId];
+//    }];
+    
+    for (int i = 0; i < [self.subscriberBuffer count]; i++)
+    {
+        NSNumber *sensorId = [self.subscriberBuffer objectAtIndex:i];
+        [self subscribeSensor:sensorId];
+        [self.subscriberBuffer removeObject:sensorId];
+    }
 }
 
-- (void)webSocket:(WebSocketClient *)webSocket didFailWithError:(NSError *)error
+- (void)webSocket:(SRWebSocket *)webSocket didFailWithError:(NSError *)error
 {
     NSLog(@":( Websocket Failed With Error %@", error);
-    NSNumber *sensorId = webSocket.subscribedSensorId;
-    [self.webSocketClients removeObjectForKey:sensorId];
-    [self openWebSocketForSensor:sensorId];// attempt to reconnect the sensor to the websocket
+    [self createWebSocketConnection];// attempt to reconnect the sensor to the websocket
 }
 
-- (void)webSocket:(WebSocketClient *)webSocket didCloseWithCode:(NSInteger)code reason:(NSString *)reason wasClean:(BOOL)wasClean
+- (void)webSocket:(SRWebSocket *)webSocket didCloseWithCode:(NSInteger)code reason:(NSString *)reason wasClean:(BOOL)wasClean
 {
     NSLog(@"WebSocket closed with code:%ld, with reason:%@", (long)code, reason);
-    NSNumber *sensorId = webSocket.subscribedSensorId;
-    [self.webSocketClients removeObjectForKey:sensorId];
-    [self openWebSocketForSensor:sensorId]; // attempt to reconnect the sensor to the websocket
+    [self createWebSocketConnection];// attempt to reconnect the sensor to the websocket
 }
 
-- (void)webSocket:(WebSocketClient *)webSocket didReceiveMessage:(id)message
+- (void)webSocket:(SRWebSocket *)webSocket didReceiveMessage:(id)message
 {
     NSLog(@"Received \"%@\"", message);
     id json = [NSJSONSerialization JSONObjectWithData:[message dataUsingEncoding:NSUTF8StringEncoding] options:0 error:nil];
-    if (json && json[@"sensor_id"] && [json[@"sensor_id"] isEqualToNumber:webSocket.subscribedSensorId]) {
+    if (json && json[@"sensor_id"])
+    {
         [[ParseManager sharedManager] parseSensorReadingsDataFromWebSocket:json[@"readings"] forSensor:json[@"sensor_id"] Completion:^(NSArray *readings) {
             [[DataManager sharedManager] updateSensorReadings:readings];
         }];

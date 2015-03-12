@@ -11,6 +11,7 @@
 #import "MasterViewController.h"
 #import "DataManager.h"
 #import "APIManager.h"
+#import "WebSocketManager.h"
 #import "Constants.h"
 
 @interface AppDelegate () <UISplitViewControllerDelegate>
@@ -68,7 +69,6 @@
     launchScreen = [nibViews objectAtIndex:0];
     [self.splitViewController.view addSubview:launchScreen];
     
-//    [self dismissLaunchScreen];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dismissLaunchScreen) name:SENSOR_DATA_UPDATED object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showErrorScreen) name:SENSOR_DATA_UPDATED_FAILED object:nil];
 }
@@ -100,6 +100,7 @@
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {
+    [[WebSocketManager sharedManager] closeWebSocketConnection];
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application {
@@ -113,6 +114,7 @@
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {
+    [[WebSocketManager sharedManager] closeWebSocketConnection];
 }
 
 #pragma mark - Split view
