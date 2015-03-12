@@ -47,9 +47,12 @@
         [DataManager sharedManager].selectedSensor = self.detailItem;
         self.detailsViewController.selectedSensor = self.detailItem;
         self.graphViewController.selectedSensor = self.detailItem;
-        
+
         [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        [self.detailsViewController updateWithNewData];
+        [self.graphViewController updateWithNewData];
         [[DataManager sharedManager] subscribeSelectedSensor];
+        [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
 
         // Below is for pulling data from API
 //        [[DataManager sharedManager] updateSensorReadingsInfomationWithCompletion:^(){

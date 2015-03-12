@@ -17,7 +17,7 @@
 @property (nonatomic, strong) NSMutableArray *recentReadings;
 
 - (void)reloadGaugeViews;
-- (void)reloadData;
+- (void)updateWithNewData;
 
 // Hidden
 - (void)showToggles;

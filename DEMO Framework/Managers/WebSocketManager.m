@@ -96,17 +96,12 @@
 
 - (void)webSocketDidOpen:(SRWebSocket *)webSocket
 {
-//    [self.subscriberBuffer enumerateObjectsUsingBlock:^(NSNumber *sensorId, NSUInteger index, BOOL *stop){
-//        [self subscribeSensor:sensorId];
-//        [self.subscriberBuffer removeObject:sensorId];
-//    }];
-    
     for (int i = 0; i < [self.subscriberBuffer count]; i++)
     {
         NSNumber *sensorId = [self.subscriberBuffer objectAtIndex:i];
         [self subscribeSensor:sensorId];
-        [self.subscriberBuffer removeObject:sensorId];
     }
+    [self.subscriberBuffer removeAllObjects];
 }
 
 - (void)webSocket:(SRWebSocket *)webSocket didFailWithError:(NSError *)error

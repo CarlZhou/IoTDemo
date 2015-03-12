@@ -136,6 +136,12 @@
     [newReadings enumerateObjectsUsingBlock:^(SensorReading *reading, NSUInteger index, BOOL *stop){
         [self.sensorReadings insertObject:reading atIndex:0];
     }];
+    [self getRecentReadingsOfSensor:self.selectedSensor.s_id];
+    [[NSNotificationCenter defaultCenter] postNotificationName:SENSOR_READINGS_DATA_UPDATED object:nil];
+}
+
+- (NSMutableArray*)getRecentReadingsOfSensor:(NSNumber*)sensorId
+{
     // filter sensorReadings to get recent readings of the selected sensor
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"sr_sensor_id == %@",self.selectedSensor.s_id];
     NSMutableArray *recentReading = [[self.sensorReadings filteredArrayUsingPredicate:predicate] mutableCopy];
@@ -146,9 +152,8 @@
         [recentReading removeObjectAtIndex:limit];
     }
     self.recentReadingsOfSelectedSensor = recentReading;
-    [[NSNotificationCenter defaultCenter] postNotificationName:SENSOR_READINGS_DATA_UPDATED object:nil];
+    return self.recentReadingsOfSelectedSensor;
 }
-
 
 #pragma mark - Update Sensor and Sensor Readings through API call
 

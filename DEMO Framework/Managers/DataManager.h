@@ -37,9 +37,13 @@
 
 - (void)subscribeSelectedSensor;
 - (void)unsubscribeSelectedSensor;
+- (NSMutableArray*)getRecentReadingsOfSensor:(NSNumber*)sensorId;
+- (void)updateSensorReadings:(NSArray*)newReadings;
 - (void)updateSensorsInfomation;
 - (void)startToUpdateSensorsInfoWithTimeInterval:(NSTimeInterval)interval;
-- (void)updateSensorReadings:(NSArray*)newReadings;
+
+// Methods for pulling readings from API with time interval
+// Not used when using WebSocket
 - (void)updateSensorReadingsInfomationWithCompletion:(void(^)())completion;
 - (void)startToUpdateSensorReadingsInfoWithTimeInterval:(NSTimeInterval)interval;
 - (void)stopUpdateSensorReadingsInfo;

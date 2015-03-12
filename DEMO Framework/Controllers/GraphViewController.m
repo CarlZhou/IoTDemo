@@ -15,6 +15,7 @@
 #import "SensorType.h"
 #import "DataManager.h"
 #import "WMGaugeView.h"
+#import "MBProgressHUD.h"
 
 #define SCALE_DIVISION 10
 #define SCALE_START_ANGLE 30
@@ -65,7 +66,7 @@
     [self initGaugeViews];
     self.recentReadings = [NSMutableArray array];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateWithNewData) name:SENSOR_READINGS_DATA_UPDATED object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(selectedNewSensor) name:DID_SELECT_NEW_SENSOR object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didSelectNewSensor) name:DID_SELECT_NEW_SENSOR object:nil];
     
     // Hidden
     self.dataPointsResetButton.layer.cornerRadius = 5.0f;
@@ -78,7 +79,7 @@
 }
 // Hidden
 
-- (void)selectedNewSensor
+- (void)didSelectNewSensor
 {
     isNewSensor = YES;
 }
@@ -240,7 +241,7 @@
 
 - (void)updateWithNewData
 {
-    self.recentReadings = [DataManager sharedManager].recentReadingsOfSelectedSensor;
+    self.recentReadings = [[DataManager sharedManager] getRecentReadingsOfSensor:self.selectedSensor.s_id];
     [self reloadData];
 }
 

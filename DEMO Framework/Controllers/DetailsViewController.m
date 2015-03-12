@@ -19,6 +19,7 @@
 #import "APIManager.h"
 #import "DataManager.h"
 #import "DataUtils.h"
+#import "MBProgressHUD.h"
 
 #define DISPLAYED_PROPERTIES_NUM 10
 
@@ -63,15 +64,17 @@
 
 - (void)updateWithNewData
 {
-    self.recentReadings = [DataManager sharedManager].recentReadingsOfSelectedSensor;
+    self.recentReadings = [[DataManager sharedManager] getRecentReadingsOfSensor:self.selectedSensor.s_id];
     [self filterReadingsIntoSections:self.recentReadings];
-    self.selectedSensor = [DataManager sharedManager].selectedSensor;
     [self reloadViews];
 }
 
 - (void)filterReadingsIntoSections:(NSMutableArray *)readings
 {
     [self.sensorReadings removeAllObjects];
+    
+    if ([readings count] == 0) return;
+    
     __block NSString *currentDate;
     __block NSMutableArray *currentSectionOfReadings;
     [readings enumerateObjectsUsingBlock:^(SensorReading *reading, NSUInteger index, BOOL *stop){
@@ -97,7 +100,6 @@
         if (index == readings.count-1)
         {
             [self.sensorReadings addObject:currentSectionOfReadings];
-            [self.recentReadingsTableview reloadData];
         }
     }];
 }
@@ -105,6 +107,7 @@
 - (void)reloadViews
 {
     [self.sensorPropertiesTableview reloadData];
+    [self.recentReadingsTableview reloadData];
     [self reloadGaugueView];
 }
 
@@ -142,12 +145,12 @@
     {
         SensorReading *reading = [[self.sensorReadings objectAtIndex:0] objectAtIndex:0];
         [self.gaugeView setValue:[reading.sr_reading floatValue] animated:YES duration:1.6];
-        self.valueLabel.text = [NSString stringWithFormat:@"%@ %@", reading.sr_reading ? reading.sr_reading : @0, self.selectedSensor.s_unit];
+        self.valueLabel.text = [NSString stringWithFormat:@"%.04f %@", reading.sr_reading ? [reading.sr_reading floatValue] : 0, self.selectedSensor.s_unit];
     }
     else
     {
         [self.gaugeView setValue:[self.selectedSensor.s_last_reading.sr_reading floatValue] animated:YES duration:3];
-        self.valueLabel.text = [NSString stringWithFormat:@"%@ %@", self.selectedSensor.s_last_reading.sr_reading ? self.selectedSensor.s_last_reading.sr_reading : @0, self.selectedSensor.s_unit];
+        self.valueLabel.text = [NSString stringWithFormat:@"%.04f %@", self.selectedSensor.s_last_reading.sr_reading ? [self.selectedSensor.s_last_reading.sr_reading floatValue] : 0, self.selectedSensor.s_unit];
     }
 }
 
@@ -222,7 +225,7 @@
         
         NSArray *data = [self.sensorReadings objectAtIndex:indexPath.section];
         SensorReading *reading = [data objectAtIndex:indexPath.row];
-        cell.textLabel.text = [NSString stringWithFormat:@"%@ %@", reading.sr_reading, self.selectedSensor.s_unit];
+        cell.textLabel.text = [NSString stringWithFormat:@"%.04f %@", [reading.sr_reading floatValue], self.selectedSensor.s_unit];
         cell.detailTextLabel.text = [DataUtils timeStringFromDate:reading.sr_read_time];
         
         return cell;
