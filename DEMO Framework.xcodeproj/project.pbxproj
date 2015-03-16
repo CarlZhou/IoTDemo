@@ -29,6 +29,9 @@
 		B042EC7F1A939D0A00C2E6D9 /* DataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B042EC7E1A939D0A00C2E6D9 /* DataManager.m */; };
 		B042EC821A939D2100C2E6D9 /* APIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B042EC811A939D2100C2E6D9 /* APIManager.m */; };
 		B0CDE4171A94EB7700C8F60E /* NSDate+PrettyDate.m in Sources */ = {isa = PBXBuildFile; fileRef = B0CDE4161A94EB7700C8F60E /* NSDate+PrettyDate.m */; };
+		B202FF0F1AB6948D0003F5B1 /* AlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = B202FF0E1AB6948D0003F5B1 /* AlertView.m */; };
+		B202FF111AB6949D0003F5B1 /* AlertView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B202FF101AB6949D0003F5B1 /* AlertView.xib */; };
+		B202FF141AB6A10E0003F5B1 /* Alert.m in Sources */ = {isa = PBXBuildFile; fileRef = B202FF131AB6A10E0003F5B1 /* Alert.m */; };
 		C32488201A9E47D90079A753 /* ParseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C324881F1A9E47D90079A753 /* ParseManager.m */; };
 		C32488221A9E4F7D0079A753 /* ErrorScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = C32488211A9E4F7D0079A753 /* ErrorScreen.xib */; };
 		C32488241A9E51630079A753 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = C32488231A9E51630079A753 /* Settings.bundle */; };
@@ -106,6 +109,11 @@
 		B042EC811A939D2100C2E6D9 /* APIManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = APIManager.m; sourceTree = "<group>"; };
 		B0CDE4151A94EB7700C8F60E /* NSDate+PrettyDate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+PrettyDate.h"; sourceTree = "<group>"; };
 		B0CDE4161A94EB7700C8F60E /* NSDate+PrettyDate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+PrettyDate.m"; sourceTree = "<group>"; };
+		B202FF0D1AB6948D0003F5B1 /* AlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlertView.h; sourceTree = "<group>"; };
+		B202FF0E1AB6948D0003F5B1 /* AlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlertView.m; sourceTree = "<group>"; };
+		B202FF101AB6949D0003F5B1 /* AlertView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AlertView.xib; sourceTree = "<group>"; };
+		B202FF121AB6A10E0003F5B1 /* Alert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Alert.h; sourceTree = "<group>"; };
+		B202FF131AB6A10E0003F5B1 /* Alert.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Alert.m; sourceTree = "<group>"; };
 		C324881E1A9E47D90079A753 /* ParseManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParseManager.h; sourceTree = "<group>"; };
 		C324881F1A9E47D90079A753 /* ParseManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ParseManager.m; sourceTree = "<group>"; };
 		C32488211A9E4F7D0079A753 /* ErrorScreen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ErrorScreen.xib; sourceTree = "<group>"; };
@@ -277,6 +285,9 @@
 				3C4FBCBB1A94FD450060440B /* CircularBarView.h */,
 				3C4FBCBC1A94FD450060440B /* CircularBarView.m */,
 				C32488211A9E4F7D0079A753 /* ErrorScreen.xib */,
+				B202FF0D1AB6948D0003F5B1 /* AlertView.h */,
+				B202FF0E1AB6948D0003F5B1 /* AlertView.m */,
+				B202FF101AB6949D0003F5B1 /* AlertView.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -335,6 +346,8 @@
 				C3EA39631A97C2C3007849B4 /* Sensor.m */,
 				3CBF10A21A9F937F00E47EBE /* Location.h */,
 				3CBF10A31A9F93D500E47EBE /* Location.m */,
+				B202FF121AB6A10E0003F5B1 /* Alert.h */,
+				B202FF131AB6A10E0003F5B1 /* Alert.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -500,6 +513,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B202FF111AB6949D0003F5B1 /* AlertView.xib in Resources */,
 				B042EC201A93891E00C2E6D9 /* Main.storyboard in Resources */,
 				B042EC3F1A938BC300C2E6D9 /* SensorTableViewCell.xib in Resources */,
 				B042EC251A93891E00C2E6D9 /* LaunchScreen.xib in Resources */,
@@ -528,6 +542,7 @@
 				3C4FBCBD1A94FD450060440B /* CircularBarView.m in Sources */,
 				C3EA39641A97C2C3007849B4 /* Sensor.m in Sources */,
 				C35C09AE1A9BDA1800531562 /* MBProgressHUD.m in Sources */,
+				B202FF0F1AB6948D0003F5B1 /* AlertView.m in Sources */,
 				C3EA39531A97B2A1007849B4 /* AFHTTPRequestOperation.m in Sources */,
 				C3EA395A1A97B2A1007849B4 /* AFURLResponseSerialization.m in Sources */,
 				C32488201A9E47D90079A753 /* ParseManager.m in Sources */,
@@ -556,6 +571,7 @@
 				B042EC111A93891D00C2E6D9 /* main.m in Sources */,
 				C38091B21A963F3E00BFB7C1 /* BEMLine.m in Sources */,
 				3C8C39EA1AA67890001B52C6 /* SRWebSocket.m in Sources */,
+				B202FF141AB6A10E0003F5B1 /* Alert.m in Sources */,
 				3CBF10A41A9F93D500E47EBE /* Location.m in Sources */,
 				C38091B71A968C3F00BFB7C1 /* DetailsViewController.m in Sources */,
 				3C8C39F61AA67AC2001B52C6 /* WebSocketManager.m in Sources */,

@@ -155,6 +155,7 @@
     return self.recentReadingsOfSelectedSensor;
 }
 
+
 #pragma mark - Update Sensor and Sensor Readings through API call
 
 - (void)updateSensorsInfomation

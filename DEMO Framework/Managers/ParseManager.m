@@ -13,6 +13,7 @@
 #import "SensorReading.h"
 #import "Controller.h"
 #import "Location.h"
+#import "Alert.h"
 #import "DataUtils.h"
 #include <stdlib.h>
 #import "APIManager.h"
@@ -147,6 +148,21 @@
     return entity;
 }
 
+#pragma mark - Alert
+- (Alert *)createNewAlertWithData:(NSDictionary *)data
+{
+    Alert *entity = [[Alert alloc] init];
+    entity.a_id = [DataUtils numberFromString:[data objectForKey:@"id"]];
+    entity.a_level = [data objectForKey:@"level"];
+    entity.a_message = [data objectForKey:@"message"];
+    entity.a_sensor_id = [DataUtils numberFromString:[data objectForKey:@"for_sensor_id"]];
+    entity.a_threshold_min = [DataUtils numberFromString:[data objectForKey:@"threshold_min"]];
+    entity.a_threshold_min = [DataUtils numberFromString:[data objectForKey:@"threshold_max"]];
+    entity.a_action_command = [data objectForKey:@"action_command"];
+    entity.a_action_body = [data objectForKey:@"action_body"];
+    return entity;
+}
+
 #pragma mark - Parse Data
 - (void)parseSensorsData:(NSArray *)responseObjectSensors Details:(BOOL)showDetails LastReading:(BOOL)showLastReading  Completion:(void(^)(NSArray *sensors))completion
 {
@@ -197,17 +213,28 @@
         completion(nil, nil);
 }
 
-- (void)parseSensorReadingsDataFromWebSocket:(NSArray *)sensorReadingsData forSensor:(NSNumber *)sensorId Completion:(void(^)(NSArray *readings))completion
+- (void)parseSensorReadingsDataFromWebSocket:(NSDictionary *)sensorReadingsData Completion:(void(^)(NSArray *sensorReadings))completion
 {
-    NSMutableArray *readings = [NSMutableArray array];
-    [sensorReadingsData enumerateObjectsUsingBlock:^(NSDictionary *data, NSUInteger index, BOOL *stop){
-        SensorReading *sensorReading = [[ParseManager sharedManager] createNewSensorReadingWithTimeInterval:data];
+    NSNumber *sensorId = sensorReadingsData[@"sensor_id"];
+    NSArray *readings = sensorReadingsData[@"readings"];
+    
+    NSMutableArray *sensorReadings = [NSMutableArray array];
+    [readings enumerateObjectsUsingBlock:^(NSDictionary *data, NSUInteger index, BOOL *stop){
+        SensorReading *sensorReading = [self createNewSensorReadingWithTimeInterval:data];
         sensorReading.sr_sensor_id = sensorId;
-        [readings addObject:sensorReading];
+        [sensorReadings addObject:sensorReading];
         if (completion) {
-            completion(readings);
+            completion(sensorReadings);
         }
     }];
+}
+
+- (void)parseAlertDataFromWebSocket:(NSDictionary *)alertData Completion:(void(^)(Alert *alert))completion
+{
+    Alert *alert = [self createNewAlertWithData:alertData];
+    if (completion) {
+        completion(alert);
+    }
 }
 
 @end

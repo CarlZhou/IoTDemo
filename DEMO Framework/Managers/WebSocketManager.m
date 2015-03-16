@@ -122,8 +122,14 @@
     id json = [NSJSONSerialization JSONObjectWithData:[message dataUsingEncoding:NSUTF8StringEncoding] options:0 error:nil];
     if (json && json[@"sensor_id"])
     {
-        [[ParseManager sharedManager] parseSensorReadingsDataFromWebSocket:json[@"readings"] forSensor:json[@"sensor_id"] Completion:^(NSArray *readings) {
+        [[ParseManager sharedManager] parseSensorReadingsDataFromWebSocket:json Completion:^(NSArray *readings) {
             [[DataManager sharedManager] updateSensorReadings:readings];
+        }];
+    }
+    else if (json && json[@"alert"])
+    {
+        [[ParseManager sharedManager] parseAlertDataFromWebSocket:json Completion:^(Alert *alert) {
+//            [[DataManager sharedManager] showAlert:readings];
         }];
     }
 }
