@@ -282,6 +282,7 @@
     if (self.recentReadings.count == 0)
     {
         self.lineGraph.turnOnMeasureLines = NO;
+        [self.lineGraph turnOffMeasureLines];
         [self.lineGraph reloadGraph];
         [self performSelector:@selector(reloadGaugeViews) withObject:nil afterDelay:0.1];
     }

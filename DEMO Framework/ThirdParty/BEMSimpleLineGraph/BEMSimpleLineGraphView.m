@@ -923,13 +923,6 @@ typedef NS_ENUM(NSInteger, BEMInternalTags)
             [self bringSubviewToFront:self.avgLabel];
         }
     }
-    else
-    {
-        if (self.avgLineView)
-            [self.avgLineView removeFromSuperview];
-        if (self.avgLabel)
-            [self.avgLabel removeFromSuperview];
-    }
     
     return value;
 }
@@ -1003,13 +996,7 @@ typedef NS_ENUM(NSInteger, BEMInternalTags)
             [self bringSubviewToFront:self.minLabel];
         }
     }
-    else
-    {
-        if (self.minLineView)
-            [self.minLineView removeFromSuperview];
-        if (self.minLabel)
-            [self.minLabel removeFromSuperview];
-    }
+
     return value;
 }
 
@@ -1053,17 +1040,32 @@ typedef NS_ENUM(NSInteger, BEMInternalTags)
             [self bringSubviewToFront:self.maxLabel];
         }
     }
-    else
-    {
-        if (self.maxLineView)
-            [self.maxLineView removeFromSuperview];
-        if (self.maxLabel)
-            [self.maxLabel removeFromSuperview];
-    }
     
     return value;
 }
 
+- (void)turnOffMeasureLines
+{
+    if (self.avgLineView)
+        [self.avgLineView removeFromSuperview];
+    if (self.avgLabel)
+        [self.avgLabel removeFromSuperview];
+    
+    if (self.minLineView)
+        [self.minLineView removeFromSuperview];
+    if (self.minLabel)
+        [self.minLabel removeFromSuperview];
+    
+    if (self.minLineView)
+        [self.minLineView removeFromSuperview];
+    if (self.minLabel)
+        [self.minLabel removeFromSuperview];
+    
+    if (self.maxLineView)
+        [self.maxLineView removeFromSuperview];
+    if (self.maxLabel)
+        [self.maxLabel removeFromSuperview];
+}
 
 #pragma mark - Values
 
