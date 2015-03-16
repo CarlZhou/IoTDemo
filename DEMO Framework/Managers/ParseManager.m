@@ -143,7 +143,7 @@
     entity.sr_reading = [data objectForKey:@"reading"];
 //    NSLog(@"%f", [[data objectForKey:@"read_time"] doubleValue]);
     entity.sr_read_time = [NSDate dateWithTimeIntervalSince1970:[[data objectForKey:@"read_time"] doubleValue]/1000.0f];
-    entity.sr_last_updated = [DataUtils dateFromSQLDateString:[data objectForKey:@"last_updated"]];
+    entity.sr_last_updated = [NSDate dateWithTimeIntervalSince1970:[[data objectForKey:@"last_updated"] doubleValue]/1000.0f];
     entity.sr_sensor_id = [DataUtils numberFromString:[data objectForKey:@"sensor_id"]];
     return entity;
 }
@@ -152,14 +152,17 @@
 - (Alert *)createNewAlertWithData:(NSDictionary *)data
 {
     Alert *entity = [[Alert alloc] init];
-    entity.a_id = [DataUtils numberFromString:[data objectForKey:@"id"]];
-    entity.a_level = [data objectForKey:@"level"];
+    entity.a_type = [data objectForKey:@"type"];
+    entity.a_id = [DataUtils numberFromString:[data objectForKey:@"alert_id"]];
+    entity.a_level = [DataUtils numberFromString:[data objectForKey:@"level"]];
     entity.a_message = [data objectForKey:@"message"];
     entity.a_sensor_id = [DataUtils numberFromString:[data objectForKey:@"for_sensor_id"]];
     entity.a_threshold_min = [DataUtils numberFromString:[data objectForKey:@"threshold_min"]];
-    entity.a_threshold_min = [DataUtils numberFromString:[data objectForKey:@"threshold_max"]];
+    entity.a_threshold_max = [DataUtils numberFromString:[data objectForKey:@"threshold_max"]];
     entity.a_action_command = [data objectForKey:@"action_command"];
     entity.a_action_body = [data objectForKey:@"action_body"];
+    entity.a_alert_status = [data objectForKey:@"alert_status"];
+    entity.a_last_updated = [NSDate dateWithTimeIntervalSince1970:[[data objectForKey:@"last_updated"] doubleValue]/1000.0f];
     return entity;
 }
 

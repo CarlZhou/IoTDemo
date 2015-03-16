@@ -128,8 +128,8 @@
     }
     else if (json && json[@"alert"])
     {
-        [[ParseManager sharedManager] parseAlertDataFromWebSocket:json Completion:^(Alert *alert) {
-//            [[DataManager sharedManager] showAlert:readings];
+        [[ParseManager sharedManager] parseAlertDataFromWebSocket:json[@"alert"] Completion:^(Alert *alert) {
+            [[DataManager sharedManager] updateAlert:alert];
         }];
     }
 }

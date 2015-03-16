@@ -13,12 +13,15 @@
 #import "SensorReading.h"
 #import "Controller.h"
 #import "Location.h"
+#import "Alert.h"
 #import "DataUtils.h"
 #include <stdlib.h>
 #import "APIManager.h"
 #import "constants.h"
 #import "ParseManager.h"
 #import "WebSocketManager.h"
+#import "RightViewController.h"
+#import "AppDelegate.h"
 
 @interface DataManager() {
     NSMutableArray *subscribedSensors;
@@ -155,6 +158,23 @@
     return self.recentReadingsOfSelectedSensor;
 }
 
+- (void)updateAlert:(Alert*)alert
+{
+    if ([alert.a_alert_status isEqualToString:@"alert"])
+    {
+        [[DataManager getRightViewController] showAlertView:alert.a_message];
+    }
+    else if ([alert.a_alert_status isEqualToString:@"normal"])
+    {
+        [[DataManager getRightViewController] dismissAlertView];
+    }
+}
+
++ (RightViewController *)getRightViewController
+{
+    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    return appDelegate.rightViewController;
+}
 
 #pragma mark - Update Sensor and Sensor Readings through API call
 

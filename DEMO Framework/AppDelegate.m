@@ -13,6 +13,7 @@
 #import "APIManager.h"
 #import "WebSocketManager.h"
 #import "Constants.h"
+#import "AlertView.h"
 
 @interface AppDelegate () <UISplitViewControllerDelegate>
 {
@@ -34,6 +35,9 @@
     [APIManager sharedManager].APIAuthorizationMethod = @"Basic";
     [APIManager sharedManager].APIAuthorizationAccount = @"I847885";
     [APIManager sharedManager].APIAuthorizationPassword = @"Black920417!";
+    
+    UINavigationController *rightNavVC = [self.splitViewController.viewControllers objectAtIndex:1];
+    self.rightViewController = [rightNavVC.viewControllers firstObject];
     
     [self readUpdatingFrequencyFromUserDefaults];
     [self enforceLaunchScreen];

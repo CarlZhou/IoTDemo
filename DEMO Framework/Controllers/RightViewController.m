@@ -14,8 +14,12 @@
 #import "Sensor.h"
 #import "MBProgressHUD.h"
 #import "constants.h"
+#import "AlertView.h"
+#import "AppDelegate.h"
 
-@interface RightViewController ()
+@interface RightViewController () {
+    AlertView *alertView;
+}
 
 @property (strong, nonatomic) IBOutlet UIView *detailsContainer;
 @property (strong, nonatomic) IBOutlet UIView *graphContainer;
@@ -65,24 +69,36 @@
     }
 }
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     [self configureView];
     
     UIBarButtonItem *hiddenButton = [[UIBarButtonItem alloc] initWithTitle:@"    " style:UIBarButtonItemStylePlain target:self action:@selector(showToggles)];
     self.navigationItem.rightBarButtonItem = hiddenButton;
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(hideProgressHUD) name:SENSOR_READINGS_DATA_UPDATED object:nil];
-}
-
-- (void)hideProgressHUD
-{
-    [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
 }
 
 - (void)showToggles
 {
     [self.graphViewController showToggles];
+}
+
+- (void)showAlertView:(NSString*)message
+{
+    NSArray* nibViews= [[NSBundle mainBundle] loadNibNamed:@"AlertView"
+                                                     owner:self
+                                                   options:nil];
+    alertView = [nibViews objectAtIndex:0];
+    [alertView setFrame:CGRectMake(350.0f, self.view.frame.size.height - 40.0f, self.view.frame.size.width - 65.0f, 35.0f)];
+    alertView.layer.cornerRadius = 5.0f;
+    alertView.alertMessageLabel.text = [NSString stringWithFormat:@"%@ !", message];
+    [self.splitViewController.view addSubview:alertView];
+}
+
+- (void)dismissAlertView
+{
+    [alertView removeFromSuperview];
 }
 
 - (IBAction)segControllValueChanged:(UISegmentedControl *)sender

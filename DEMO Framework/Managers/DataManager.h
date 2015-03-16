@@ -10,6 +10,8 @@
 #import "SRWebSocket.h"
 
 @class Sensor;
+@class Alert;
+@class RightViewController;
 
 @interface DataManager : NSObject
 
@@ -41,11 +43,14 @@
 - (void)updateSensorReadings:(NSArray*)newReadings;
 - (void)updateSensorsInfomation;
 - (void)startToUpdateSensorsInfoWithTimeInterval:(NSTimeInterval)interval;
+- (void)updateAlert:(Alert*)alert;
 
 // Methods for pulling readings from API with time interval
 // Not used when using WebSocket
 - (void)updateSensorReadingsInfomationWithCompletion:(void(^)())completion;
 - (void)startToUpdateSensorReadingsInfoWithTimeInterval:(NSTimeInterval)interval;
 - (void)stopUpdateSensorReadingsInfo;
+
++ (RightViewController *)getRightViewController;
 
 @end

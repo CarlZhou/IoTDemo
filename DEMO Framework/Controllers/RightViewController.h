@@ -13,5 +13,8 @@
 @property (strong, nonatomic) id detailItem;
 @property (weak, nonatomic) IBOutlet UILabel *detailDescriptionLabel;
 
+- (void)showAlertView:(NSString*)message;
+- (void)dismissAlertView;
+
 @end
 
