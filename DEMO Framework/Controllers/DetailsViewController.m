@@ -145,12 +145,12 @@
     {
         SensorReading *reading = [[self.sensorReadings objectAtIndex:0] objectAtIndex:0];
         [self.gaugeView setValue:[reading.sr_reading floatValue] animated:YES duration:1.6];
-        self.valueLabel.text = [NSString stringWithFormat:@"%.04f %@", reading.sr_reading ? [reading.sr_reading floatValue] : 0, self.selectedSensor.s_unit];
+        self.valueLabel.text = [NSString stringWithFormat:@"%.04f %@", reading.sr_reading ? [reading.sr_reading floatValue] : 0, self.selectedSensor.s_sensor_type.st_unit];
     }
     else
     {
         [self.gaugeView setValue:[self.selectedSensor.s_last_reading.sr_reading floatValue] animated:YES duration:3];
-        self.valueLabel.text = [NSString stringWithFormat:@"%.04f %@", self.selectedSensor.s_last_reading.sr_reading ? [self.selectedSensor.s_last_reading.sr_reading floatValue] : 0, self.selectedSensor.s_unit];
+        self.valueLabel.text = [NSString stringWithFormat:@"%.04f %@", self.selectedSensor.s_last_reading.sr_reading ? [self.selectedSensor.s_last_reading.sr_reading floatValue] : 0, self.selectedSensor.s_sensor_type.st_unit];
     }
 }
 
@@ -225,7 +225,7 @@
         
         NSArray *data = [self.sensorReadings objectAtIndex:indexPath.section];
         SensorReading *reading = [data objectAtIndex:indexPath.row];
-        cell.textLabel.text = [NSString stringWithFormat:@"%.04f %@", [reading.sr_reading floatValue], self.selectedSensor.s_unit];
+        cell.textLabel.text = [NSString stringWithFormat:@"%.04f %@", [reading.sr_reading floatValue], self.selectedSensor.s_sensor_type.st_unit];
         cell.detailTextLabel.text = [DataUtils timeStringFromDate:reading.sr_read_time];
         
         return cell;
@@ -246,7 +246,7 @@
             break;
         case 2:
             cell.textLabel.text = @"Unit";
-            cell.detailTextLabel.text = self.selectedSensor ? [NSString stringWithFormat:@"%@", self.selectedSensor.s_unit] : @"";
+            cell.detailTextLabel.text = self.selectedSensor ? [NSString stringWithFormat:@"%@", self.selectedSensor.s_sensor_type.st_unit] : @"";
             break;
         case 3:
             cell.textLabel.text = @"Status";

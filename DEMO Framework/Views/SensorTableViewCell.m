@@ -35,7 +35,7 @@
     self.stvc_sensor = sensor;
     self.stvc_nameLabel.text = sensor.s_name;
     self.stvc_primaryUnitLabel.text = sensorTypeCategory;
-    self.stvc_secondaryUnitLabel.text = [NSString stringWithFormat:@"%.04f %@", currentReading, sensor.s_unit];
+    self.stvc_secondaryUnitLabel.text = [NSString stringWithFormat:@"%.04f %@", currentReading, sensor.s_sensor_type.st_unit];
     self.stvc_timeLabel.text = [sensor.s_last_reading.sr_read_time prettyDate];
     [self.stvc_progressView setProgress:currentReading/maxReading animated:YES];
     

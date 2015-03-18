@@ -20,7 +20,6 @@
 @property (nonatomic, strong) NSString * s_name;
 @property (nonatomic, strong) NSNumber * s_sensor_type_id;
 @property (nonatomic, strong) NSNumber * s_status;
-@property (nonatomic, strong) NSString * s_unit;
 @property (nonatomic, strong) Controller *s_controller;
 @property (nonatomic, strong) SensorReading *s_last_reading;
 @property (nonatomic, strong) SensorType *s_sensor_type;

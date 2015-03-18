@@ -74,7 +74,6 @@
     Sensor *entity = [[Sensor alloc] init];
     entity.s_id = [DataUtils numberFromString:[data objectForKey:@"id"]];
     entity.s_name = [data objectForKey:@"name"];
-    entity.s_unit = [data objectForKey:@"unit"];
     entity.s_status = [DataUtils numberFromString:[data objectForKey:@"status"]];
     entity.s_channel = [DataUtils numberFromString:[data objectForKey:@"channel"]];
     entity.s_last_updated = [DataUtils dateFromSQLDateString:[data objectForKey:@"last_updated"]];
@@ -92,6 +91,7 @@
     SensorType *entity = [[SensorType alloc] init];
     entity.st_id = [DataUtils numberFromString:[data objectForKey:@"id"]];
     entity.st_name = [data objectForKey:@"name"];
+    entity.st_unit = [data objectForKey:@"unit"];
     entity.st_type_description = [data objectForKey:@"description"];
     entity.st_model_num = [data objectForKey:@"model_num"];
     entity.st_reading_min = [DataUtils numberFromString:[data objectForKey:@"reading_min"]];
@@ -167,10 +167,10 @@
 }
 
 #pragma mark - Parse Data
-- (void)parseSensorsData:(NSArray *)responseObjectSensors Details:(BOOL)showDetails LastReading:(BOOL)showLastReading  Completion:(void(^)(NSArray *sensors))completion
+- (void)parseSensorsData:(NSArray *)sensorsData Details:(BOOL)showDetails LastReading:(BOOL)showLastReading  Completion:(void(^)(NSArray *sensors))completion
 {
     NSMutableArray *sensors = [NSMutableArray array];
-    [responseObjectSensors enumerateObjectsUsingBlock:^(NSDictionary *data, NSUInteger index, BOOL *stop){
+    [sensorsData enumerateObjectsUsingBlock:^(NSDictionary *data, NSUInteger index, BOOL *stop){
         Location *location = nil;
         Controller *controller = nil;
         SensorTypeCategory *sensorTypeCategory = nil;
@@ -190,8 +190,11 @@
         }
         sensor = [[ParseManager sharedManager] createNewSensorWithData:data Controller:controller SensorType:sensorType LastReading:lastReading];
         [sensors addObject:sensor];
-        if (completion)
-            completion(sensors);
+        if (index == sensorsData.count-1)
+        {
+            if (completion)
+                completion(sensors);
+        }
     }];
 }
 
@@ -226,8 +229,11 @@
         SensorReading *sensorReading = [self createNewSensorReadingWithTimeInterval:data];
         sensorReading.sr_sensor_id = sensorId;
         [sensorReadings addObject:sensorReading];
-        if (completion) {
-            completion(sensorReadings);
+        if (index == readings.count - 1)
+        {
+            if (completion) {
+                completion(sensorReadings);
+            }
         }
     }];
 }

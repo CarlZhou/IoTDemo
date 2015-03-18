@@ -145,7 +145,7 @@
 {
     gaugeView.maxValue = (range == 0 ? 100 : 10.0 * floor((range/10.0)+0.5));
     [gaugeView setValue:reading animated:YES duration:1];
-    label.text = [NSString stringWithFormat:@"%.04f %@", reading, self.selectedSensor.s_unit];
+    label.text = [NSString stringWithFormat:@"%.04f %@", reading, self.selectedSensor.s_sensor_type.st_unit];
     [label setTextAlignment:NSTextAlignmentCenter];
     [label setTextColor:[UIColor darkGrayColor]];
 }
@@ -258,7 +258,7 @@
     [self.lineOneDataDetail removeAllObjects];
     
     self.xAxisUnitLabel.text = [NSString stringWithFormat:@"Time (hh:mm:ss)"];
-    self.yAxisUnitLabel.text = [NSString stringWithFormat:@"%@", self.selectedSensor.s_unit];
+    self.yAxisUnitLabel.text = [NSString stringWithFormat:@"%@", self.selectedSensor.s_sensor_type.st_unit];
     
     self.recentReadings = [[[self.recentReadings reverseObjectEnumerator] allObjects] mutableCopy];
     [self.recentReadings  enumerateObjectsUsingBlock:^(SensorReading *reading, NSUInteger index, BOOL *stop){

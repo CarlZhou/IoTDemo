@@ -16,6 +16,7 @@
 @property (nonatomic, strong) NSDate * st_last_updated;
 @property (nonatomic, strong) NSString * st_model_num;
 @property (nonatomic, strong) NSString * st_name;
+@property (nonatomic, strong) NSString * st_unit;
 @property (nonatomic, strong) NSNumber * st_reading_max;
 @property (nonatomic, strong) NSNumber * st_reading_min;
 @property (nonatomic, strong) NSString * st_type_description;

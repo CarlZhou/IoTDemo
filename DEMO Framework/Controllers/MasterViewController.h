@@ -15,6 +15,7 @@
 
 @property (strong, nonatomic) RightViewController *rightViewController;
 @property (strong, nonatomic) NSMutableArray *sensors;
+@property (strong, nonatomic) NSMutableArray *groupedSensors;
 
 @end
 
