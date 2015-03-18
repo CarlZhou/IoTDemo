@@ -64,6 +64,7 @@
 - (void)getSensors:(NSArray *)sensorIds
            Details:(BOOL)showDetails
        LastReading:(BOOL)showLastReading
+           OrderBy:(NSArray *)orderBy
              Limit:(NSUInteger)limit
               Skip:(NSUInteger)skip   // offset
            Success:(void(^)(NSArray *sensors))success
@@ -74,6 +75,7 @@
     NSDictionary *params = @{ @"sensor_ids" : (sensorIds ? [sensorIds componentsJoinedByString:@","] : @""),
                               @"details" : [NSString stringWithFormat: showDetails ? @"true" : @"false"],
                               @"last_reading" : [NSString stringWithFormat: showLastReading ? @"true" : @"false"],
+                              @"order_by" : (orderBy ? [orderBy componentsJoinedByString:@","] : @""),
                               @"limit" : [NSNumber numberWithInteger:limit],
                               @"skip" : [NSNumber numberWithInteger:skip] };
     

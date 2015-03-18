@@ -22,10 +22,11 @@
 - (void)getSensors:(NSArray *)sensorIds
            Details:(BOOL)showDetails
        LastReading:(BOOL)showLastReading
+           OrderBy:(NSArray *)orderBy
              Limit:(NSUInteger)limit
               Skip:(NSUInteger)skip   // offset
            Success:(void(^)(NSArray *sensors))success
-           Failure:(void (^)(NSError *operation))failure;
+           Failure:(void (^)(NSError *error))failure;
 
 // Authorization
 @property (strong, nonatomic) NSString *APIAuthorizationMethod;

@@ -180,7 +180,7 @@
 
 - (void)updateSensorsInfomation
 {
-    [[APIManager sharedManager] getSensors:nil Details:true LastReading:true Limit:10 Skip:0 Success:^(NSArray *sensors) {
+    [[APIManager sharedManager] getSensors:nil Details:true LastReading:true OrderBy:@[@"CONTROLLER_ID",@"SENSOR_ID"] Limit:10 Skip:0 Success:^(NSArray *sensors) {
         self.sensors = sensors.mutableCopy;
         if (self.selectedSensorIndexPath)
         {
