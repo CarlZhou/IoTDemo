@@ -11,15 +11,18 @@
 #import "SensorTableViewCell.h"
 #import "Sensor.h"
 #import "Controller.h"
+#import "Location.h"
 #import "APIManager.h"
 #import "DataManager.h"
 #import "WebSocketManager.h"
 #import "constants.h"
 
-@interface MasterViewController ()
+@interface MasterViewController () <UIPopoverControllerDelegate>
 {
     BOOL isInitCompleted;
     NSIndexPath *selectedIndexPath;
+    UINavigationController *filterNavigationController;
+    UIPopoverController *popoverController;
 }
 
 @end
@@ -37,20 +40,37 @@
     
     self.sensors = [NSMutableArray array];
     self.groupedSensors = [NSMutableArray array];
+    [self.filterButtonItem setTarget:self];
     
-    self.rightViewController = (RightViewController *)[[self.splitViewController.viewControllers lastObject] topViewController];
     [self.tableView registerNib:[UINib nibWithNibName:@"SensorTableViewCell" bundle:nil] forCellReuseIdentifier:@"SensorCell"];
     
+    self.rightViewController = (RightViewController *)[[self.splitViewController.viewControllers lastObject] topViewController];
     [self.navigationController.navigationBar
      setTitleTextAttributes:@{ NSForegroundColorAttributeName : RGB(110, 120, 127),
                                NSFontAttributeName: [UIFont fontWithName:@"AvenirNext-DemiBold" size:20.0]}];
     
+    UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
+    filterNavigationController = (UINavigationController*)[mainStoryboard instantiateViewControllerWithIdentifier:@"filterNavigationController"];
+    popoverController = [[UIPopoverController alloc] initWithContentViewController:filterNavigationController];
+    popoverController.delegate = self;
+    
     [[DataManager sharedManager] updateSensorsInfomation];
     [[DataManager sharedManager] startToUpdateSensorsInfoWithTimeInterval:[[DataManager sharedManager].sensorUpdatingFrequency integerValue]];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateTable) name:SENSOR_DATA_UPDATED object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateWithNewData) name:SENSOR_DATA_UPDATED object:nil];
 }
 
-- (void)updateTable
+- (IBAction)filterButtonTapped:(id)sender
+{
+    [popoverController presentPopoverFromBarButtonItem:sender
+                              permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+}
+
+- (void)popoverControllerDidDismissPopover:(UIPopoverController *)popoverController
+{
+    
+}
+
+- (void)updateWithNewData
 {
     self.sensors = [DataManager sharedManager].sensors;
     [self filterSensorsIntoSections:self.sensors];
@@ -142,7 +162,8 @@
     return [[self.groupedSensors objectAtIndex:section] count];
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SensorCell" forIndexPath:indexPath];
     [self configureCell:cell atIndexPath:indexPath];
     return cell;

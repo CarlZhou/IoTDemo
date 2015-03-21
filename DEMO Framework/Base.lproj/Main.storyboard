@@ -5,6 +5,53 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
     </dependencies>
     <scenes>
+        <!--Sensor Filters-->
+        <scene sceneID="qIf-kA-blk">
+            <objects>
+                <tableViewController id="WWC-rc-pxF" customClass="FilterTableViewController" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="2Ld-3d-8i6">
+                        <rect key="frame" x="0.0" y="0.0" width="308" height="200"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="yyA-Ft-hQ2">
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="yyA-Ft-hQ2" id="Ozh-WI-wCg">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="WWC-rc-pxF" id="3FW-oc-CNi"/>
+                            <outlet property="delegate" destination="WWC-rc-pxF" id="Xm7-CH-qYe"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Sensor Filters" id="hBx-MF-R75"/>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="308" height="200"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ufJ-2o-ITf" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1750" y="-1081"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="2az-K9-bYf">
+            <objects>
+                <navigationController storyboardIdentifier="filterNavigationController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="sW3-Wv-5bP" sceneMemberID="viewController">
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="308" height="200"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="W74-rA-29q">
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="WWC-rc-pxF" kind="relationship" relationship="rootViewController" id="m63-MT-cug"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="QiF-E0-mSZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1338" y="-1081"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="pY4-Hu-kfo">
             <objects>
@@ -117,7 +164,16 @@
                             <outlet property="delegate" destination="7bK-jq-Zjz" id="RA6-mI-bju"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="All Sensors" id="Zdf-7t-Un8"/>
+                    <navigationItem key="navigationItem" title="All Sensors" id="Zdf-7t-Un8">
+                        <barButtonItem key="leftBarButtonItem" title="Filter" id="Oh6-DB-wF2">
+                            <connections>
+                                <action selector="filterButtonTapped:" destination="7bK-jq-Zjz" id="XZR-a0-XP8"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="filterButtonItem" destination="Oh6-DB-wF2" id="L6E-d2-Oph"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Rux-fX-hf1" sceneMemberID="firstResponder"/>
             </objects>
