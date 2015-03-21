@@ -231,9 +231,22 @@
         [sensorReadings addObject:sensorReading];
         if (index == readings.count - 1)
         {
-            if (completion) {
+            if (completion)
                 completion(sensorReadings);
-            }
+        }
+    }];
+}
+
+- (void)parseLocationsData:(NSArray *)locationsData Completion:(void(^)(NSArray *locations))completion
+{
+    NSMutableArray *locations = [NSMutableArray array];
+    [locationsData enumerateObjectsUsingBlock:^(NSDictionary *data, NSUInteger index, BOOL *stop){
+        Location *location =[[ParseManager sharedManager] createNewLocationWithData:data];
+        [locations addObject:location];
+        if (index == locationsData.count-1)
+        {
+            if (completion)
+                completion(locations);
         }
     }];
 }

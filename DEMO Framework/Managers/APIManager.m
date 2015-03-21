@@ -14,6 +14,7 @@
 #define API_PATH(path) [BASE_URL stringByAppendingString:path]
 #define GET_SENSOR_PATH API_PATH(@"/sensors.xsjs")
 #define GET_SENSOR_READING_PATH API_PATH(@"/sensor_readings.xsjs")
+#define GET_LOCATION_PATH API_PATH(@"/locations.xsjs")
 
 @implementation APIManager
 
@@ -71,6 +72,25 @@
            Failure:(void (^)(NSError *error))failure
 {
 
+//    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+//    if (sensorIds) {
+//        [params setObject:[sensorIds componentsJoinedByString:@","] forKey:@"location_ids"];
+//    }
+//    if (showDetails) {
+//        [params setObject:[NSString stringWithFormat: showDetails ? @"true" : @"false"] forKey:@"details"];
+//    }
+//    if (showLastReading) {
+//        [params setObject:[NSString stringWithFormat: showLastReading ? @"true" : @"false"] forKey:@"last_reading"];
+//    }
+//    if (orderBy) {
+//        [params setObject:[orderBy componentsJoinedByString:@","]  forKey:@"order_by"];
+//    }
+//    if (limit) {
+//        [params setObject:[NSNumber numberWithInteger:limit] forKey:@"limit"];
+//    }
+//    if (skip) {
+//        [params setObject:[NSNumber numberWithInteger:skip] forKey:@"skip"];
+//    }
     
     NSDictionary *params = @{ @"sensor_ids" : (sensorIds ? [sensorIds componentsJoinedByString:@","] : @""),
                               @"details" : [NSString stringWithFormat: showDetails ? @"true" : @"false"],
@@ -92,6 +112,56 @@
               [[ParseManager sharedManager] parseSensorsData:responseObject[@"sensors"] Details:showDetails LastReading:showLastReading Completion:^(NSArray *sensors) {
                   if (success)
                       success(sensors);
+              }];
+          }
+      } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+          if (failure)
+              failure(error);
+      }];
+}
+
+#pragma mark - Locations
+- (void)getLocations:(NSArray *)ids
+                Names:(NSArray *)names
+           OrderBy:(NSArray *)orderBy
+             Limit:(NSNumber*)limit
+              Skip:(NSNumber*)skip   // offset
+           Success:(void(^)(NSArray *sensors))success
+           Failure:(void (^)(NSError *error))failure
+{
+//    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+//    if (ids) {
+//        [params setObject:[ids componentsJoinedByString:@","] forKey:@"location_ids"];
+//    }
+//    if (names) {
+//        [params setObject:[names componentsJoinedByString:@","] forKey:@"location_names"];
+//    }
+//    if (orderBy) {
+//        [params setObject:[orderBy componentsJoinedByString:@","] forKey:@"order_by"];
+//    }
+//    if (limit) {
+//        [params setObject:limit forKey:@"limit"];
+//    }
+//    if (skip) {
+//        [params setObject:skip forKey:@"skip"];
+//    }
+    NSDictionary *params = @{ @"location_ids" : (ids ? [ids componentsJoinedByString:@","] : @""),
+                              @"location_names" : (names ? [names componentsJoinedByString:@","] : @""),
+                              @"order_by" : (orderBy ? [orderBy componentsJoinedByString:@","] : @""),
+                              @"limit" : limit ? limit : @"",
+                              @"skip" : skip ? skip : @""};
+    
+    //    [self.requestSerializer setValue:@"Basic STg0Nzg4NTpCbGFjazkyMDQxNyE=" forHTTPHeaderField:@"Authorization"];
+    if (self.APIAuthorizationMethod && self.APIAuthorizationAccount && self.APIAuthorizationPassword)
+    {
+        [self.requestSerializer setValue:[NSString stringWithFormat:@"%@ %@", self.APIAuthorizationMethod, [[[NSString stringWithFormat:@"%@:%@", self.APIAuthorizationAccount, self.APIAuthorizationPassword] dataUsingEncoding:NSUTF8StringEncoding] base64EncodedStringWithOptions:0]] forHTTPHeaderField:@"Authorization"];
+    }
+    
+    [self GET:GET_LOCATION_PATH parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+          if (responseObject && responseObject[@"meta"] && [responseObject[@"meta"][@"status_code"]  isEqual: @200]) {
+              [[ParseManager sharedManager] parseLocationsData:responseObject[@"locations"] Completion:^(NSArray *locations) {
+                  if (success)
+                      success(locations);
               }];
           }
       } failure:^(AFHTTPRequestOperation *operation, NSError *error) {

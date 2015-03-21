@@ -32,6 +32,7 @@
 		B202FF0F1AB6948D0003F5B1 /* AlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = B202FF0E1AB6948D0003F5B1 /* AlertView.m */; };
 		B202FF111AB6949D0003F5B1 /* AlertView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B202FF101AB6949D0003F5B1 /* AlertView.xib */; };
 		B202FF141AB6A10E0003F5B1 /* Alert.m in Sources */ = {isa = PBXBuildFile; fileRef = B202FF131AB6A10E0003F5B1 /* Alert.m */; };
+		B202FF171ABBCDF70003F5B1 /* FilterTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B202FF161ABBCDF70003F5B1 /* FilterTableViewController.m */; };
 		C32488201A9E47D90079A753 /* ParseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C324881F1A9E47D90079A753 /* ParseManager.m */; };
 		C32488221A9E4F7D0079A753 /* ErrorScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = C32488211A9E4F7D0079A753 /* ErrorScreen.xib */; };
 		C32488241A9E51630079A753 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = C32488231A9E51630079A753 /* Settings.bundle */; };
@@ -114,6 +115,8 @@
 		B202FF101AB6949D0003F5B1 /* AlertView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AlertView.xib; sourceTree = "<group>"; };
 		B202FF121AB6A10E0003F5B1 /* Alert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Alert.h; sourceTree = "<group>"; };
 		B202FF131AB6A10E0003F5B1 /* Alert.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Alert.m; sourceTree = "<group>"; };
+		B202FF151ABBCDF70003F5B1 /* FilterTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FilterTableViewController.h; sourceTree = "<group>"; };
+		B202FF161ABBCDF70003F5B1 /* FilterTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FilterTableViewController.m; sourceTree = "<group>"; };
 		C324881E1A9E47D90079A753 /* ParseManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParseManager.h; sourceTree = "<group>"; };
 		C324881F1A9E47D90079A753 /* ParseManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ParseManager.m; sourceTree = "<group>"; };
 		C32488211A9E4F7D0079A753 /* ErrorScreen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ErrorScreen.xib; sourceTree = "<group>"; };
@@ -318,6 +321,8 @@
 				3C4FBCB71A94F96C0060440B /* GraphViewController.m */,
 				C38091B51A968C3F00BFB7C1 /* DetailsViewController.h */,
 				C38091B61A968C3F00BFB7C1 /* DetailsViewController.m */,
+				B202FF151ABBCDF70003F5B1 /* FilterTableViewController.h */,
+				B202FF161ABBCDF70003F5B1 /* FilterTableViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -539,6 +544,7 @@
 			files = (
 				C3EA39581A97B2A1007849B4 /* AFURLConnectionOperation.m in Sources */,
 				B0CDE4171A94EB7700C8F60E /* NSDate+PrettyDate.m in Sources */,
+				B202FF171ABBCDF70003F5B1 /* FilterTableViewController.m in Sources */,
 				3C4FBCBD1A94FD450060440B /* CircularBarView.m in Sources */,
 				C3EA39641A97C2C3007849B4 /* Sensor.m in Sources */,
 				C35C09AE1A9BDA1800531562 /* MBProgressHUD.m in Sources */,

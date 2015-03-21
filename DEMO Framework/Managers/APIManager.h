@@ -15,7 +15,7 @@
 
 - (void)getSensorReadingsForSensors:(NSArray *)sensors
                               Limit:(NSUInteger)limit
-                               Skip:(NSUInteger)skip
+                               Skip:(NSUInteger)skip   // offset
                             Success:(void(^)(NSArray *sensors, NSArray *readings))success
                             Failure:(void (^)(NSError *operation))failure;
 
@@ -24,9 +24,17 @@
        LastReading:(BOOL)showLastReading
            OrderBy:(NSArray *)orderBy
              Limit:(NSUInteger)limit
-              Skip:(NSUInteger)skip   // offset
+              Skip:(NSUInteger)skip
            Success:(void(^)(NSArray *sensors))success
            Failure:(void (^)(NSError *error))failure;
+
+- (void)getLocations:(NSArray *)ids
+               Names:(NSArray *)names
+             OrderBy:(NSArray *)orderBy
+               Limit:(NSNumber*)limit
+                Skip:(NSNumber*)skip   // offset
+             Success:(void(^)(NSArray *sensors))success
+             Failure:(void (^)(NSError *error))failure;
 
 // Authorization
 @property (strong, nonatomic) NSString *APIAuthorizationMethod;

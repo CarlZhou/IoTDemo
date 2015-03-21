@@ -48,6 +48,7 @@
 - (void)parseSensorsData:(NSArray *)responseObjectSensors Details:(BOOL)showDetails LastReading:(BOOL)showLastReading  Completion:(void(^)(NSArray *sensors))completion;
 - (void)parseSensorReadingsData:(NSArray *)sensorReadingsData Completion:(void(^)(NSArray *sensors, NSArray *readings))completion;
 - (void)parseSensorReadingsDataFromWebSocket:(NSDictionary *)sensorReadingsData Completion:(void(^)(NSArray *readings))completion;
+- (void)parseLocationsData:(NSArray *)locationsData Completion:(void(^)(NSArray *locations))completion;
 - (void)parseAlertDataFromWebSocket:(NSDictionary *)alertData Completion:(void(^)(Alert *alert))completion;
 
 @end
