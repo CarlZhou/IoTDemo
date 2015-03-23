@@ -18,7 +18,7 @@
 #import "constants.h"
 #import "MBProgressHUD.h"
 
-@interface MasterViewController () <UIPopoverControllerDelegate, FilterTableViewDelegate>
+@interface MasterViewController () <UIPopoverControllerDelegate>
 {
     BOOL isInitCompleted;
     NSIndexPath *selectedIndexPath;
@@ -52,12 +52,14 @@
     
     // Init filter button, filter popover and navigation controller
     [self.filterButtonItem setTarget:self];
+    [self.filterButtonItem setTitleTextAttributes:
+     [NSDictionary dictionaryWithObjectsAndKeys:
+      [UIColor darkGrayColor], NSForegroundColorAttributeName,nil]
+                                         forState:UIControlStateNormal];
     UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
     
     filterTableViewController = [mainStoryboard instantiateViewControllerWithIdentifier:@"sensorFilters"];
-    filterTableViewController.delegate = self;
-    UINavigationController *filterNavigationController = [[UINavigationController alloc] initWithRootViewController:filterTableViewController];
-    popoverController = [[UIPopoverController alloc] initWithContentViewController:filterNavigationController];
+    popoverController = [[UIPopoverController alloc] initWithContentViewController:filterTableViewController];
     popoverController.delegate = self;
     
     [[DataManager sharedManager] updateSensorsInfomation];
@@ -71,11 +73,9 @@
                               permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
 }
 
-#pragma mark - FilterTableViewController delegate method
-
-- (void)filterTableView:(id)filterTableView didUpdate:(NSDictionary *)filterOptions
+- (void)popoverControllerDidDismissPopover:(UIPopoverController *)popoverController
 {
-    self.selectedFilterOptions = filterOptions;
+    self.selectedFilterOptions = filterTableViewController.selectedFilterOptions;
     [self updateWithNewData];
 }
 

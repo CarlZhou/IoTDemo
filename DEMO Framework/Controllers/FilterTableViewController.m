@@ -36,11 +36,6 @@
     [self updateWithNewData];
 }
 
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [self.delegate filterTableView:self.tableView didUpdate:self.selectedFilterOptions];
-}
-
 - (void)updateWithNewData
 {
     self.filterNames = [DataManager sharedManager].filterNames;
