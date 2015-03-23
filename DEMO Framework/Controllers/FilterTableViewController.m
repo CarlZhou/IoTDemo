@@ -11,6 +11,10 @@
 #import "DataManager.h"
 
 @interface FilterTableViewController ()
+{
+    BOOL selectAll;
+    BOOL clearAll;
+}
 
 @end
 
@@ -29,10 +33,22 @@
         [self.filterOptions setObject:[NSMutableArray array] forKey:[self.filterNames objectAtIndex:i]];
         [self.selectedFilterOptions setObject:[NSMutableArray array] forKey:[self.filterNames objectAtIndex:i]];
     }
+    
+    // Init bar button items
+    [self.selectAllButtonItem setTarget:self];
+    [self.selectAllButtonItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor darkGrayColor],
+                                                   NSForegroundColorAttributeName,nil] forState:UIControlStateNormal];
+    [self.clearAllButtonItem setTarget:self];
+    [self.clearAllButtonItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor darkGrayColor],
+                                                      NSForegroundColorAttributeName,nil] forState:UIControlStateNormal];
+    selectAll = false;
+    clearAll = false;
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    selectAll = false;
+    clearAll = false;
     [self updateWithNewData];
 }
 
@@ -105,6 +121,19 @@
     
     NSString *filter = [self.filterNames objectAtIndex:indexPath.section];
     id<FilterOption> option = [[self.filterOptions objectForKey:filter] objectAtIndex:indexPath.row];
+    
+    if (selectAll)
+    {
+        cell.accessoryType = UITableViewCellAccessoryCheckmark;
+        [[self.selectedFilterOptions objectForKey:filter] removeObject:option.filterId];
+        [[self.selectedFilterOptions objectForKey:filter] addObject:option.filterId];
+    }
+    else if (clearAll)
+    {
+        cell.accessoryType = UITableViewCellAccessoryNone;
+        [[self.selectedFilterOptions objectForKey:filter] removeObject:option.filterId];
+    }
+    
     cell.textLabel.text = option.filterName;
 
     return cell;
@@ -130,6 +159,20 @@
     }
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
+
+
+- (IBAction)clearAllButtonTapped:(id)sender
+{
+    clearAll = true;
+    selectAll = false;
+    [self.tableView reloadData];
+}
+
+- (IBAction)selectAllButtonTapped:(id)sender {
+    selectAll = true;
+    clearAll = false;
+    [self.tableView reloadData];
 }
 
 @end

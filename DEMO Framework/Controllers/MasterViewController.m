@@ -52,10 +52,8 @@
     
     // Init filter button, filter popover and navigation controller
     [self.filterButtonItem setTarget:self];
-    [self.filterButtonItem setTitleTextAttributes:
-     [NSDictionary dictionaryWithObjectsAndKeys:
-      [UIColor darkGrayColor], NSForegroundColorAttributeName,nil]
-                                         forState:UIControlStateNormal];
+    [self.filterButtonItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor darkGrayColor],
+                                                   NSForegroundColorAttributeName,nil] forState:UIControlStateNormal];
     UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
     
     filterTableViewController = [mainStoryboard instantiateViewControllerWithIdentifier:@"sensorFilters"];
@@ -83,15 +81,12 @@
 
 - (void)updateWithNewData
 {
-    NSLog(@"Start updating data");
     self.sensors = [DataManager sharedManager].sensors;
     self.filteredSensors = [self.sensors mutableCopy];
     [self filterSensors];
     [self groupSensorsIntoSections:self.filteredSensors];
     [self.tableView reloadData];
     
-    NSLog(@"Finished updating data");
-
     if (!isInitCompleted)
     {
         // Select the first row for the first time open

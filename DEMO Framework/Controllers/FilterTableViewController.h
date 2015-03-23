@@ -23,4 +23,10 @@
 
 - (void)updateWithNewData;
 
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *selectAllButtonItem;
+- (IBAction)selectAllButtonTapped:(id)sender;
+
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *clearAllButtonItem;
+- (IBAction)clearAllButtonTapped:(id)sender;
+
 @end

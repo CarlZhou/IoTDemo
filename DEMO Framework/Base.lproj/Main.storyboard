@@ -17,7 +17,18 @@
                             <rect key="frame" x="0.0" y="0.0" width="308" height="44"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                             <items>
-                                <navigationItem title="Sensor Filter" id="57c-J6-utr"/>
+                                <navigationItem title="Sensor Filter" id="57c-J6-utr">
+                                    <barButtonItem key="leftBarButtonItem" title="Clear All" id="Ecz-aB-uJR">
+                                        <connections>
+                                            <action selector="clearAllButtonTapped:" destination="WWC-rc-pxF" id="SGq-mJ-dP6"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem key="rightBarButtonItem" title="Select All" id="85m-a6-j8P">
+                                        <connections>
+                                            <action selector="selectAllButtonTapped:" destination="WWC-rc-pxF" id="u0J-Jd-9Si"/>
+                                        </connections>
+                                    </barButtonItem>
+                                </navigationItem>
                             </items>
                         </navigationBar>
                         <prototypes>
@@ -37,10 +48,14 @@
                     <nil key="simulatedStatusBarMetrics"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="308" height="200"/>
+                    <connections>
+                        <outlet property="clearAllButtonItem" destination="Ecz-aB-uJR" id="u9X-C8-TMs"/>
+                        <outlet property="selectAllButtonItem" destination="85m-a6-j8P" id="oXF-pY-dSV"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ufJ-2o-ITf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1259" y="-1179"/>
+            <point key="canvasLocation" x="1294" y="-1179"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="pY4-Hu-kfo">
