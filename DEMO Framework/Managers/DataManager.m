@@ -37,6 +37,9 @@
         sharedMyManager = [[self alloc] init];
         sharedMyManager.sensors = [NSMutableArray array];
         sharedMyManager.sensorReadings = [NSMutableArray array];
+        sharedMyManager.recentReadingsOfSelectedSensor = [NSMutableArray array];
+        sharedMyManager.filterNames = [NSMutableArray array];
+        [sharedMyManager.filterNames addObject:@"Location"];
     });
     return sharedMyManager;
 }

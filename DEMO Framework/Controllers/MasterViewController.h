@@ -15,8 +15,9 @@
 
 @property (strong, nonatomic) RightViewController *rightViewController;
 @property (strong, nonatomic) NSMutableArray *sensors;
+@property (strong, nonatomic) NSMutableArray *filteredSensors;
 @property (strong, nonatomic) NSMutableArray *groupedSensors;
-@property (strong, nonatomic) NSMutableArray *locations;
+@property (strong, nonatomic) NSDictionary *selectedFilterOptions;
 @property (strong, nonatomic) UITableView *filterTableView;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *filterButtonItem;
 

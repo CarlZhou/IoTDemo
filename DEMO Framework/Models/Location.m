@@ -10,4 +10,14 @@
 
 @implementation Location
 
+- (NSNumber *)filterId
+{
+    return self.l_id;
+}
+
+- (NSString *)filterName
+{
+    return self.l_name;
+}
+
 @end

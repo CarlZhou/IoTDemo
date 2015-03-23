@@ -8,20 +8,21 @@
 
 #import "MasterViewController.h"
 #import "RightViewController.h"
+#import "FilterTableViewController.h"
 #import "SensorTableViewCell.h"
 #import "Sensor.h"
 #import "Controller.h"
-#import "Location.h"
 #import "APIManager.h"
 #import "DataManager.h"
 #import "WebSocketManager.h"
 #import "constants.h"
+#import "MBProgressHUD.h"
 
-@interface MasterViewController () <UIPopoverControllerDelegate>
+@interface MasterViewController () <UIPopoverControllerDelegate, FilterTableViewDelegate>
 {
     BOOL isInitCompleted;
     NSIndexPath *selectedIndexPath;
-    UINavigationController *filterNavigationController;
+    FilterTableViewController *filterTableViewController;
     UIPopoverController *popoverController;
 }
 
@@ -39,18 +40,23 @@
     [super viewDidLoad];
     
     self.sensors = [NSMutableArray array];
+    self.filteredSensors = [NSMutableArray array];
     self.groupedSensors = [NSMutableArray array];
-    [self.filterButtonItem setTarget:self];
+    self.selectedFilterOptions = [NSMutableDictionary dictionary];
     
     [self.tableView registerNib:[UINib nibWithNibName:@"SensorTableViewCell" bundle:nil] forCellReuseIdentifier:@"SensorCell"];
-    
     self.rightViewController = (RightViewController *)[[self.splitViewController.viewControllers lastObject] topViewController];
     [self.navigationController.navigationBar
      setTitleTextAttributes:@{ NSForegroundColorAttributeName : RGB(110, 120, 127),
                                NSFontAttributeName: [UIFont fontWithName:@"AvenirNext-DemiBold" size:20.0]}];
     
+    // Init filter button, filter popover and navigation controller
+    [self.filterButtonItem setTarget:self];
     UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
-    filterNavigationController = (UINavigationController*)[mainStoryboard instantiateViewControllerWithIdentifier:@"filterNavigationController"];
+    
+    filterTableViewController = [mainStoryboard instantiateViewControllerWithIdentifier:@"sensorFilters"];
+    filterTableViewController.delegate = self;
+    UINavigationController *filterNavigationController = [[UINavigationController alloc] initWithRootViewController:filterTableViewController];
     popoverController = [[UIPopoverController alloc] initWithContentViewController:filterNavigationController];
     popoverController.delegate = self;
     
@@ -65,16 +71,27 @@
                               permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
 }
 
-- (void)popoverControllerDidDismissPopover:(UIPopoverController *)popoverController
+#pragma mark - FilterTableViewController delegate method
+
+- (void)filterTableView:(id)filterTableView didUpdate:(NSDictionary *)filterOptions
 {
-    
+    self.selectedFilterOptions = filterOptions;
+    [self updateWithNewData];
 }
+
+#pragma mark - Update data
 
 - (void)updateWithNewData
 {
+    NSLog(@"Start updating data");
     self.sensors = [DataManager sharedManager].sensors;
-    [self filterSensorsIntoSections:self.sensors];
+    self.filteredSensors = [self.sensors mutableCopy];
+    [self filterSensors];
+    [self groupSensorsIntoSections:self.filteredSensors];
     [self.tableView reloadData];
+    
+    NSLog(@"Finished updating data");
+
     if (!isInitCompleted)
     {
         // Select the first row for the first time open
@@ -90,12 +107,38 @@
     }
 }
 
-- (void)filterSensorsIntoSections:(NSMutableArray*)sensors
+- (void)filterSensors
+{
+    if (self.selectedFilterOptions && [self.selectedFilterOptions count] > 0)
+    {
+        NSMutableArray *subPredicates = [NSMutableArray array];
+        for (NSString *filter in self.selectedFilterOptions)    // for key in dictionary, i.e. for each filter name
+        {
+            NSArray *selectedOptions = [self.selectedFilterOptions objectForKey:filter];
+            if (selectedOptions.count > 0)
+            {
+                NSString *predicateString;
+                if ([filter isEqualToString:@"Location"]) {
+                    predicateString = @"s_controller.c_location.l_id IN %@";
+                }
+                NSPredicate *predicate = [NSPredicate predicateWithFormat:predicateString, selectedOptions];
+                [subPredicates addObject:predicate];
+            }
+        }
+        if (subPredicates.count > 0)
+        {
+            NSPredicate *filterPredicates = [NSCompoundPredicate andPredicateWithSubpredicates:subPredicates];
+            [self.filteredSensors filterUsingPredicate:filterPredicates];
+        }
+    }
+}
+
+- (void)groupSensorsIntoSections:(NSMutableArray*)sensors
 {
     [self.groupedSensors removeAllObjects];
     if (sensors.count == 0) return;
     
-    __block Controller *currentController = [[self.sensors objectAtIndex:0] s_controller];
+    __block Controller *currentController = [[self.filteredSensors objectAtIndex:0] s_controller];
     __block NSMutableArray *currentSectionOfSensors = [NSMutableArray array];
     
     [sensors enumerateObjectsUsingBlock:^(Sensor *sensor, NSUInteger idx, BOOL *stop) {
@@ -166,6 +209,7 @@
 {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SensorCell" forIndexPath:indexPath];
     [self configureCell:cell atIndexPath:indexPath];
+
     return cell;
 }
 

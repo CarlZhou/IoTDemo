@@ -71,33 +71,12 @@
            Success:(void(^)(NSArray *sensors))success
            Failure:(void (^)(NSError *error))failure
 {
-
-//    NSMutableDictionary *params = [NSMutableDictionary dictionary];
-//    if (sensorIds) {
-//        [params setObject:[sensorIds componentsJoinedByString:@","] forKey:@"location_ids"];
-//    }
-//    if (showDetails) {
-//        [params setObject:[NSString stringWithFormat: showDetails ? @"true" : @"false"] forKey:@"details"];
-//    }
-//    if (showLastReading) {
-//        [params setObject:[NSString stringWithFormat: showLastReading ? @"true" : @"false"] forKey:@"last_reading"];
-//    }
-//    if (orderBy) {
-//        [params setObject:[orderBy componentsJoinedByString:@","]  forKey:@"order_by"];
-//    }
-//    if (limit) {
-//        [params setObject:[NSNumber numberWithInteger:limit] forKey:@"limit"];
-//    }
-//    if (skip) {
-//        [params setObject:[NSNumber numberWithInteger:skip] forKey:@"skip"];
-//    }
-    
     NSDictionary *params = @{ @"sensor_ids" : (sensorIds ? [sensorIds componentsJoinedByString:@","] : @""),
                               @"details" : [NSString stringWithFormat: showDetails ? @"true" : @"false"],
                               @"last_reading" : [NSString stringWithFormat: showLastReading ? @"true" : @"false"],
                               @"order_by" : (orderBy ? [orderBy componentsJoinedByString:@","] : @""),
-                              @"limit" : [NSNumber numberWithInteger:limit],
-                              @"skip" : [NSNumber numberWithInteger:skip] };
+                              @"limit" : limit ? [NSNumber numberWithInteger:limit] : @"",
+                              @"skip" : skip ? [NSNumber numberWithInteger:skip] : @""};
     
 //    [self.requestSerializer setValue:@"Basic STg0Nzg4NTpCbGFjazkyMDQxNyE=" forHTTPHeaderField:@"Authorization"];
     if (self.APIAuthorizationMethod && self.APIAuthorizationAccount && self.APIAuthorizationPassword)
@@ -129,22 +108,6 @@
            Success:(void(^)(NSArray *sensors))success
            Failure:(void (^)(NSError *error))failure
 {
-//    NSMutableDictionary *params = [NSMutableDictionary dictionary];
-//    if (ids) {
-//        [params setObject:[ids componentsJoinedByString:@","] forKey:@"location_ids"];
-//    }
-//    if (names) {
-//        [params setObject:[names componentsJoinedByString:@","] forKey:@"location_names"];
-//    }
-//    if (orderBy) {
-//        [params setObject:[orderBy componentsJoinedByString:@","] forKey:@"order_by"];
-//    }
-//    if (limit) {
-//        [params setObject:limit forKey:@"limit"];
-//    }
-//    if (skip) {
-//        [params setObject:skip forKey:@"skip"];
-//    }
     NSDictionary *params = @{ @"location_ids" : (ids ? [ids componentsJoinedByString:@","] : @""),
                               @"location_names" : (names ? [names componentsJoinedByString:@","] : @""),
                               @"order_by" : (orderBy ? [orderBy componentsJoinedByString:@","] : @""),

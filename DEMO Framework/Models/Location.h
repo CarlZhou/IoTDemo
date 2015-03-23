@@ -7,12 +7,16 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "FilterTableViewController.h"
 
-@interface Location : NSObject
+@interface Location : NSObject<FilterOption>
 
 @property (nonatomic, strong) NSNumber * l_id;
 @property (nonatomic, strong) NSString * l_name;
 @property (nonatomic, strong) NSString * l_description;
 @property (nonatomic, strong) NSDate * l_last_updated;
+
+- (NSNumber *)filterId;
+- (NSString *)filterName;
 
 @end

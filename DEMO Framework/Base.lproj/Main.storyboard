@@ -8,7 +8,7 @@
         <!--Sensor Filters-->
         <scene sceneID="qIf-kA-blk">
             <objects>
-                <tableViewController id="WWC-rc-pxF" customClass="FilterTableViewController" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="sensorFilters" id="WWC-rc-pxF" customClass="FilterTableViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="2Ld-3d-8i6">
                         <rect key="frame" x="0.0" y="0.0" width="308" height="200"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -37,6 +37,7 @@
         <!--Navigation Controller-->
         <scene sceneID="2az-K9-bYf">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="QiF-E0-mSZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController storyboardIdentifier="filterNavigationController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="sW3-Wv-5bP" sceneMemberID="viewController">
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="308" height="200"/>
@@ -48,7 +49,6 @@
                         <segue destination="WWC-rc-pxF" kind="relationship" relationship="rootViewController" id="m63-MT-cug"/>
                     </connections>
                 </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="QiF-E0-mSZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1338" y="-1081"/>
         </scene>

@@ -27,6 +27,7 @@
 @property (nonatomic, strong) NSMutableArray *sensors;
 @property (nonatomic, strong) NSMutableArray *sensorReadings;
 @property (nonatomic, strong) NSMutableArray *recentReadingsOfSelectedSensor;
+@property (nonatomic, strong) NSMutableArray *filterNames;
 @property (nonatomic, strong) NSTimer *sensorsInfoUpdateTimer;
 @property (nonatomic, strong) NSTimer *sensorReadingsInfoUpdateTimer;
 
