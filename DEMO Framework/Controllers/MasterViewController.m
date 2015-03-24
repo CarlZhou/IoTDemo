@@ -74,7 +74,12 @@
 - (void)popoverControllerDidDismissPopover:(UIPopoverController *)popoverController
 {
     self.selectedFilterOptions = filterTableViewController.selectedFilterOptions;
-    [self updateWithNewData];
+    self.filteredSensors = [self.sensors mutableCopy];
+    [self filterSensors];
+    [self groupSensorsIntoSections:self.filteredSensors];
+    [self.tableView reloadData];
+    [self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:NO scrollPosition:UITableViewScrollPositionTop];
+    [self tableView:self.tableView didSelectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
 }
 
 #pragma mark - Update data
